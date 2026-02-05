@@ -12,9 +12,8 @@ RUN npm run build
 FROM nginx:1.27-alpine
 COPY --from=build /app/_site /usr/share/nginx/html
 
-# OpenShift runs as random UID; make nginx files readable
-RUN chmod -R g+rX /usr/share/nginx/html && \
-    chgrp -R 0 /usr/share/nginx/html
+# Make readable for random UID OpenShift runs with
+RUN chgrp -R 0 /usr/share/nginx/html && chmod -R g+rX /usr/share/nginx/html
 
 EXPOSE 8080
 

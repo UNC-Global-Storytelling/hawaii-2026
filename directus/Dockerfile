@@ -3,8 +3,9 @@ FROM node:20-bookworm-slim
 
 WORKDIR /app
 
-# Install Directus
-RUN npm install -g directus
+# Install Directus and clean up npm cache to avoid permission issues
+RUN npm install -g directus && \
+    npm cache clean --force
 
 # Create necessary directories with appropriate permissions
 RUN mkdir -p /app/uploads /app/extensions && \
@@ -14,6 +15,9 @@ RUN mkdir -p /app/uploads /app/extensions && \
 # Set working directory and environment
 ENV NODE_ENV=production
 ENV DIRECTUS_PORT=8055
+
+# Configure npm to skip cache for non-root user
+ENV npm_config_cache=/tmp/.npm
 
 EXPOSE 8055
 

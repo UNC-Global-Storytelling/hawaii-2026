@@ -143,16 +143,18 @@ spec:
                   key: ADMIN_PASSWORD
           livenessProbe:
             httpGet:
-              path: /health
+              path: /
               port: 8055
             initialDelaySeconds: 30
             periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
           readinessProbe:
-            httpGet:
-              path: /health
+            tcpSocket:
               port: 8055
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               memory: "256Mi"

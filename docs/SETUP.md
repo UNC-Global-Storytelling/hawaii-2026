@@ -337,11 +337,9 @@ Log in with:
 ### Verify Everything Worked
 
 Once logged in:
-1. Go to Settings → System
-2. You should see your database version (PostgreSQL) and other diagnostic info
-3. Go to Collections - should be empty initially
-4. Try creating a test collection (e.g., "articles") with a field
-5. Save it
+1. Go to Content - should be empty initially
+2. Try creating a test collection (e.g., "articles") with a field
+3. Save it
 
 If this all works without errors, your entire stack is functioning correctly! 🎉
 
@@ -359,8 +357,8 @@ Right after your first login:
 
 Don't skip this - it verifies the database connection is working:
 
-1. In Directus, click Collections
-2. Create a new collection called "articles"
+1. In Directus, click Content
+2. Create a new content called "articles"
 3. Add fields like "title", "content", "author"
 4. Create one sample item
 5. Save it

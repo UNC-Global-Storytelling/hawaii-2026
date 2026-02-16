@@ -18,11 +18,23 @@ fi
 
 echo "Using kubernetes client: $KCMD"
 
-ENV_FILE="openshift/.env"
+# Use the root .env file (shared with Directus)
+ENV_FILE=".env"
 if [ ! -f "$ENV_FILE" ]; then
-  echo "Missing $ENV_FILE. Copy openshift/.env.example to openshift/.env and fill values." >&2
+  echo "Missing $ENV_FILE. Copy .env.example to .env and fill values." >&2
   exit 1
 fi
+
+# Validate required Postgres variables
+echo "✓ Checking required Postgres variables..."
+required_vars=("POSTGRES_DB" "POSTGRES_USER" "POSTGRES_PASSWORD")
+for var in "${required_vars[@]}"; do
+    if ! grep -q "^$var=" "$ENV_FILE"; then
+        echo "❌ Missing variable: $var in .env"
+        exit 1
+    fi
+done
+echo "✓ All Postgres variables found"
 
 # load env file safely (export all keys)
 set -o allexport

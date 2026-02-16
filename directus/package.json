@@ -1,0 +1,18 @@
+{
+  "name": "directus-cms",
+  "version": "1.0.0",
+  "description": "Directus CMS for Hawaii 2026 Site",
+  "main": "index.js",
+  "scripts": {
+    "start": "directus start",
+    "dev": "directus start --dev",
+    "install-dependencies": "npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "directus": "^10.10.0"
+  },
+  "type": "module"
+}

@@ -1,0 +1,189 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: directus-config
+data:
+  NODE_ENV: "production"
+  DIRECTUS_PORT: "8055"
+  DB_CLIENT: "postgres"
+  DB_HOST: "postgres.default.svc.cluster.local"
+  DB_PORT: "5432"
+  EXTENSIONS_PATH: "./extensions"
+  CACHE_ENABLED: "true"
+  CACHE_AUTO_PURGE: "true"
+  LOG_LEVEL: "info"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: directus-secret
+type: Opaque
+stringData:
+  # Substitute these from .env before applying
+  # Example: envsubst < directus.yaml | oc apply -f -
+  DIRECTUS_KEY: ${DIRECTUS_KEY}
+  DIRECTUS_SECRET: ${DIRECTUS_SECRET}
+  DB_DATABASE: ${DB_DATABASE}
+  DB_USER: ${DB_USER}
+  DB_PASSWORD: ${DB_PASSWORD}
+  ADMIN_EMAIL: ${ADMIN_EMAIL}
+  ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: directus
+  template:
+    metadata:
+      labels:
+        app: directus
+    spec:
+      containers:
+        - name: directus
+          image: node:20-bookworm-slim
+          workingDir: /app
+          command:
+            - sh
+            - -c
+            - |
+              # Install Directus on startup
+              npm install -g directus && \
+              directus start
+          ports:
+            - containerPort: 8055
+              name: http
+          env:
+            # From ConfigMap
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: NODE_ENV
+            - name: DIRECTUS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: DIRECTUS_PORT
+            - name: DB_CLIENT
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: DB_CLIENT
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: DB_PORT
+            - name: EXTENSIONS_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: EXTENSIONS_PATH
+            - name: CACHE_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: CACHE_ENABLED
+            - name: CACHE_AUTO_PURGE
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: CACHE_AUTO_PURGE
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: directus-config
+                  key: LOG_LEVEL
+            # From Secret (sensitive data)
+            - name: DIRECTUS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: DIRECTUS_KEY
+            - name: DIRECTUS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: DIRECTUS_SECRET
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: DB_DATABASE
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: DB_PASSWORD
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: ADMIN_EMAIL
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: directus-secret
+                  key: ADMIN_PASSWORD
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8055
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8055
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: directus
+spec:
+  selector:
+    app: directus
+  ports:
+    - name: http
+      port: 8055
+      targetPort: 8055
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: directus
+spec:
+  to:
+    kind: Service
+    name: directus
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

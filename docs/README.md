@@ -1,16 +1,44 @@
-﻿# Hawaii 2026 - Full-Stack Web Application
+# Hawaii 2026 - Full-Stack Web Application
 
 A complete web platform combining a static site (11ty), a headless CMS (Directus), and a database (PostgreSQL), all deployed to Red Hat OpenShift.
 
-## 📚 Start Here: [docs/README.md](docs/README.md)
+## What You're Building
 
-All documentation has been organized in the `docs/` folder for easy navigation:
+This project has three parts that work together:
 
-- **[Quick Start](docs/QUICKSTART.md)** - Get everything running (5 minutes)
-- **[Detailed Setup](docs/SETUP.md)** - Step-by-step walkthrough with explanations
-- **[Architecture](docs/ARCHITECTURE.md)** - How the system works
-- **[API Integration](docs/API_INTEGRATION.md)** - Connect your frontend to Directus
-- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Problem-solving guide
+- **Frontend** (11ty): A fast, static website
+- **CMS** (Directus): A place to manage your content
+- **Database** (PostgreSQL): Where your content is stored
+
+Your frontend fetches content from the CMS, which reads from the database. Changes in Directus automatically appear on your site.
+
+```
+Your Website ← Directus CMS ← PostgreSQL Database
+```
+
+## Quick Start (5 Minutes)
+
+```bash
+# 1. Set up your configuration
+bash openshift/setup_directus.sh
+
+# 2. Edit your environment variables
+vim .env
+
+# 3. Deploy everything
+bash openshift/deploy_postgres.sh
+bash openshift/deploy_directus.sh
+
+# 4. You're done! Access Directus at the URL shown in the terminal
+```
+
+## Documentation
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Get everything running (just follow along)
+- **[SETUP.md](SETUP.md)** - Detailed setup with validation steps
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - How it all works under the hood
+- **[API_INTEGRATION.md](API_INTEGRATION.md)** - Connect your 11ty frontend to Directus
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Something broke? Check here first
 
 ## What You Need
 
@@ -74,33 +102,32 @@ oc delete all -l app=postgres
 
 ```
 hawaii-2026/
-├── docs/                  ← All documentation
-│   ├── README.md          ← Overview and key concepts
-│   ├── QUICKSTART.md      ← Start with this (5 min)
-│   ├── SETUP.md           ← Detailed walkthrough
-│   ├── ARCHITECTURE.md    ← How it works
-│   ├── API_INTEGRATION.md ← Connect your frontend
-│   └── TROUBLESHOOTING.md ← Problem-solving
+├── docs/                  ← Start here
+│   ├── README.md
+│   ├── QUICKSTART.md
+│   ├── SETUP.md
+│   ├── ARCHITECTURE.md
+│   ├── API_INTEGRATION.md
+│   └── TROUBLESHOOTING.md
 ├── .env.example           ← Copy to .env and fill in
 ├── .env                   ← Your secrets (never commit!)
-│
 ├── src/                   ← Your 11ty frontend
-├── directus/              ← Directus config
+├── directus/              ← Directus configuration
 └── openshift/             ← Kubernetes manifests & scripts
     ├── README.md
-    ├── postgres.yaml      ← Database definition
-    ├── directus.yaml      ← CMS definition
-    ├── deploy_postgres.sh ← Run to deploy database
-    ├── deploy_directus.sh ← Run to deploy CMS
-    └── setup_directus.sh  ← Run first for setup
+    ├── postgres.yaml
+    ├── directus.yaml
+    ├── deploy_postgres.sh
+    ├── deploy_directus.sh
+    └── setup_directus.sh
 ```
 
 ## Getting Help
 
-1. **Something broke?** → [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
-2. **Don't understand the setup?** → [docs/QUICKSTART.md](docs/QUICKSTART.md)
-3. **Need to connect your frontend?** → [docs/API_INTEGRATION.md](docs/API_INTEGRATION.md)
-4. **Want to understand the architecture?** → [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+1. **Something broke?** → [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+2. **Don't understand the setup?** → [QUICKSTART.md](docs/QUICKSTART.md)
+3. **Need to connect your frontend?** → [API_INTEGRATION.md](docs/API_INTEGRATION.md)
+4. **Want to understand the architecture?** → [ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ## Security Notes
 

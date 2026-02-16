@@ -367,10 +367,9 @@ If this works without errors, your entire stack is functioning correctly!
 
 ### Set Up API Tokens for Frontend Access
 
-1. Go to Settings → Access Control → Tokens
-2. Create a token called "frontend-public"
-3. Assign it read-only permissions
-4. Copy the token
+1. Go to Admin User → Admin Options → Token
+2. Generate a token.
+4. Copy the token.
 5. Add to `.env`:
    ```bash
    DIRECTUS_API_TOKEN=<token-here>

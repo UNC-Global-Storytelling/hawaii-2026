@@ -11,5 +11,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@directus/sdk": "^21.1.0",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1"
+  }
 }

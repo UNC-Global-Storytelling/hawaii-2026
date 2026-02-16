@@ -1,6 +1,6 @@
 # ---- Build stage ----
 FROM registry.access.redhat.com/ubi8/nodejs-20:latest AS build
-WORKDIR /opt/app-root/src/app
+WORKDIR /opt/app-root/src
 
 COPY package*.json ./
 RUN npm ci
@@ -11,7 +11,7 @@ RUN npm run build
 # Use Red Hat UBI with nginx (no rate limits, no auth required)
 FROM registry.access.redhat.com/ubi9/nginx-124
 
-COPY --from=build /opt/app-root/src/app/_site /usr/share/nginx/html
+COPY --from=build /opt/app-root/src/_site /usr/share/nginx/html
 
 # Permissions so random UID (in group 0) can read files
 RUN chgrp -R 0 /usr/share/nginx/html && chmod -R g+rX /usr/share/nginx/html

@@ -22,31 +22,25 @@ Before you start, make sure:
 
 If any of these are missing, go back to [SETUP.md](SETUP.md) and complete them.
 
-## Step 1: Create an API Token
+## Step 1: Enable Public Read Access
 
-Your 11ty frontend needs permission to read content from Directus. This is done through an API token.
+Our Directus instance now exposes read-only collections through the **Public** role, so the 11ty build can pull content without shipping a private API token.
 
 **In Directus Admin Panel:**
 
 1. Go to https://<your-directus-route>/admin
 2. Click your profile icon (top right)
-3. Go to **Settings** → **Access Control** → **Tokens**
-4. Click "Create Token"
-5. Fill in:
-   - **Name**: `11ty-frontend` (you choose this name)
-   - **Role**: Select "Public" (or a read-only role)
-   - **Expiration**: Leave empty (no expiration) or set as needed
-6. Click Save
-7. Copy the token (long string)
+3. Go to **Settings** → **Access Control** → **Roles**
+4. Select **Public** (or whichever role backs anonymous access)
+5. For each collection that should feed the static site, set permission to **Read** only
 
-Add this to your `.env` file:
+That’s it—no per-client tokens required. The only environment variable you need locally is the API URL:
 
 ```bash
 DIRECTUS_API_URL=https://directus-xxxxx.apps.yourcluster.com
-DIRECTUS_API_TOKEN=<paste-the-token-here>
 ```
 
-Replace the URL with your actual Directus route (get it from `oc get route directus`).
+> Need to hide content? Create a separate locked-down role and token, then follow the optional token steps noted later in this guide.
 
 ## Step 2: Create a Directus Data Source
 
@@ -62,22 +56,25 @@ export default async function() {
 
   // If not configured, return empty object
   // (useful for local development)
-  if (!apiUrl || !apiToken) {
-    console.warn('⚠️  Directus API not configured');
-    console.warn('   Add DIRECTUS_API_URL and DIRECTUS_API_TOKEN to your .env file');
+  if (!apiUrl) {
+    console.warn('⚠️  Directus API URL not configured');
+    console.warn('   Add DIRECTUS_API_URL to your .env file');
     return {};
   }
 
   // Helper function to fetch any collection
   async function fetchCollection(collection, options = {}) {
-    const queryParams = new URLSearchParams({
-      access_token: apiToken,
-      ...options
-    });
+    const queryParams = new URLSearchParams(options);
+
+    const headers = apiToken
+      ? { Authorization: `Bearer ${apiToken}` }
+      : undefined;
 
     try {
+      const queryString = queryParams.toString();
       const response = await fetch(
-        `${apiUrl}/items/${collection}?${queryParams}`
+        `${apiUrl}/items/${collection}${queryString ? `?${queryString}` : ''}`,
+        { headers }
       );
       
       if (!response.ok) {
@@ -211,14 +208,15 @@ export default async function(eleventyConfig) {
     const apiUrl = process.env.DIRECTUS_API_URL;
     const apiToken = process.env.DIRECTUS_API_TOKEN;
     
-    if (!apiUrl || !apiToken) {
-      console.warn('Skipping Directus collection - not configured');
+    if (!apiUrl) {
+      console.warn('Skipping Directus collection - DIRECTUS_API_URL missing');
       return [];
     }
 
     try {
       const response = await fetch(
-        `${apiUrl}/items/articles?access_token=${apiToken}`
+        `${apiUrl}/items/articles`,
+        apiToken ? { headers: { Authorization: `Bearer ${apiToken}` } } : undefined
       );
       const data = await response.json();
       
@@ -267,7 +265,6 @@ Before deploying, test that the connection works:
 ```bash
 # Make sure your .env has the values
 echo "API URL: $DIRECTUS_API_URL"
-echo "API Token: $DIRECTUS_API_TOKEN"
 
 # Build your 11ty site
 npm run build
@@ -279,17 +276,17 @@ grep "your-article-title" _site/index.html
 ### Common Issues
 
 **"Directus API not configured"**
-- Check that `.env` has `DIRECTUS_API_URL` and `DIRECTUS_API_TOKEN`
+- Check that `.env` has `DIRECTUS_API_URL`
 - Verify the URL is correct (include the full domain)
 
 **"Failed to fetch articles"**
 - Check that Directus is running: `oc get pod -l app=directus`
 - Check that your collection name is correct
-- Check that your API token has permission to read that collection
+- If you added a custom token, confirm its role still has read access
 
 **"No data appears in HTML"**
 - Check 11ty's build output for errors
-- Manually test the API: `curl "https://directus.com/api/items/articles?access_token=TOKEN"`
+- Manually test the API: `curl "https://directus.com/api/items/articles"`
 - Make sure you have actually created items in the collection
 
 ## Advanced: Caching Data
@@ -305,7 +302,7 @@ export default async function() {
   const apiUrl = process.env.DIRECTUS_API_URL;
   const apiToken = process.env.DIRECTUS_API_TOKEN;
 
-  if (!apiUrl || !apiToken) return {};
+  if (!apiUrl) return {};
 
   async function fetchCollection(collection, options = {}) {
     const cacheKey = `${collection}-${JSON.stringify(options)}`;
@@ -318,14 +315,13 @@ export default async function() {
     }
 
     // Fetch fresh data...
-    const queryParams = new URLSearchParams({
-      access_token: apiToken,
-      ...options
-    });
+    const queryParams = new URLSearchParams(options);
 
     try {
+      const queryString = queryParams.toString();
       const response = await fetch(
-        `${apiUrl}/items/${collection}?${queryParams}`
+        `${apiUrl}/items/${collection}${queryString ? `?${queryString}` : ''}`,
+        apiToken ? { headers: { Authorization: `Bearer ${apiToken}` } } : undefined
       );
       const data = await response.json();
       
@@ -377,7 +373,7 @@ export default async function() {
   const apiUrl = process.env.DIRECTUS_API_URL;
   const apiToken = process.env.DIRECTUS_API_TOKEN;
 
-  if (!apiUrl || !apiToken) {
+  if (!apiUrl) {
     console.warn('Blog data source not configured');
     return { posts: [] };
   }
@@ -385,10 +381,10 @@ export default async function() {
   try {
     const response = await fetch(
       `${apiUrl}/items/blog_posts?` +
-      `access_token=${apiToken}&` +
-      `filter=${JSON.stringify({ status: { _eq: 'published' } })}&` +
+      `filter=${encodeURIComponent(JSON.stringify({ status: { _eq: 'published' } }))}&` +
       `sort=-date_published&` +
-      `fields=id,title,slug,excerpt,date_published,author`
+      `fields=id,title,slug,excerpt,date_published,author`,
+      apiToken ? { headers: { Authorization: `Bearer ${apiToken}` } } : undefined
     );
     
     const data = await response.json();

@@ -2,6 +2,14 @@
 
 A complete web platform combining a static site (11ty), a headless CMS (Directus), and a database (PostgreSQL), all deployed to Red Hat OpenShift.
 
+## ✅ Deployment Status
+
+**PostgreSQL:** ✅ Running and tested  
+**Directus CMS:** ✅ Running and accessible  
+**Admin Panel:** ✅ Available at `https://directus-brookenf.apps.cloudapps.unc.edu/admin`
+
+Both services are fully operational and ready for production use.
+
 ## 📚 Start Here: [docs/README.md](docs/README.md)
 
 All documentation has been organized in the `docs/` folder for easy navigation:

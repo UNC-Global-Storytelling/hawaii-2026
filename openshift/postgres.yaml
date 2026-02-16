@@ -14,10 +14,11 @@ metadata:
   namespace: brookenf # change to your own
   name: postgres-pvc
 spec: 
-  accessModes: ["ReadWriteOnce"]
-  resources: 
+  accessModes:
+    - ReadWriteOnce
+  resources:
     requests:
-      storage: 5Gi
+      storage: 3Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet

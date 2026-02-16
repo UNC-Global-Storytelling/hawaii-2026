@@ -43,13 +43,22 @@ spec:
       labels:
         app: directus
     spec:
+      volumes:
+        - name: pm2-dir
+          emptyDir: {}
       containers:
         - name: directus
           image: directus/directus:latest
           ports:
             - containerPort: 8055
               name: http
+          volumeMounts:
+            - name: pm2-dir
+              mountPath: /.pm2
           env:
+            # Use /tmp for PM2 to avoid permission issues with non-root user
+            - name: PM2_HOME
+              value: "/tmp/.pm2"
             # From ConfigMap
             - name: NODE_ENV
               valueFrom:

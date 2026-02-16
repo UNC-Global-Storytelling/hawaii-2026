@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT_DIR"
 
 # Default timeout values
@@ -53,8 +53,8 @@ NAMESPACE=${NAMESPACE:-default}
 
 echo "Target namespace/project: $NAMESPACE"
 
-echo "Applying openshift/postgres.yaml with env substitution..."
-envsubst < openshift/postgres.yaml | $KCMD apply -f -
+echo "Applying openshift/manifests/postgres.yaml with env substitution..."
+envsubst < "openshift/manifests/postgres.yaml" | $KCMD apply -f -
 
 echo "Waiting for StatefulSet 'postgres' rollout... (timeout: $ROLLOUT_TIMEOUT)"
 $KCMD rollout status statefulset/postgres -n "$NAMESPACE" --timeout="$ROLLOUT_TIMEOUT"

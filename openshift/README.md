@@ -1,23 +1,28 @@
 # OpenShift Deployment Files
 
-This folder contains the Kubernetes manifests and deployment scripts for your Directus CMS and PostgreSQL database.
+This folder contains everything required to run the Directus + PostgreSQL stack on OpenShift, including Dockerfiles, Kubernetes manifests, and helper scripts.
 
 ## What's Here
 
-- `postgres.yaml` - Defines the PostgreSQL database
-- `directus.yaml` - Defines the Directus CMS container
-- `deploy_postgres.sh` - Script to deploy the database
-- `deploy_directus.sh` - Script to deploy Directus
-- `setup_directus.sh` - Initial setup helper script
+- `docker/`
+	- `eleventy/` → Dockerfile + NGINX config for the 11ty build image
+	- `directus/` → Dockerfile + package.json for custom Directus image work
+- `manifests/`
+	- `postgres.yaml` → PostgreSQL StatefulSet, Service, and Secret
+	- `directus.yaml` → Directus Deployment, Service, Route, ConfigMap, Secret
+- `scripts/`
+	- `setup_directus.sh` → Pre-flight checks and .env scaffolding
+	- `deploy_postgres.sh` → Applies Postgres manifest with envsubst
+	- `deploy_directus.sh` → Applies Directus manifest with envsubst
 
 ## Quick Deploy
 
 From the project root:
 
 ```bash
-bash openshift/setup_directus.sh       # Initial setup
-bash openshift/deploy_postgres.sh      # Deploy database
-bash openshift/deploy_directus.sh      # Deploy CMS
+bash openshift/scripts/setup_directus.sh       # Initial setup
+bash openshift/scripts/deploy_postgres.sh      # Deploy database
+bash openshift/scripts/deploy_directus.sh      # Deploy CMS
 ```
 
 ## More Info
@@ -57,7 +62,7 @@ The default memory requests (`256Mi` request / `512Mi` limit) are conservative. 
 
 ## Understanding the YAML Files
 
-### postgres.yaml
+### manifests/postgres.yaml
 
 Creates:
 - StatefulSet (database container)
@@ -65,7 +70,7 @@ Creates:
 - Secret (encrypted credentials)
 - PersistentVolumeClaim (data storage)
 
-### directus.yaml
+### manifests/directus.yaml
 
 Creates:
 - Deployment (application container)
@@ -82,7 +87,7 @@ Key features:
 - **30s initialDelaySeconds**: Gives Directus time to initialize database and run migrations
 - **Edge TLS termination**: HTTPS encryption is handled by OpenShift router (pod runs on HTTP internally)
 
-Both files use `envsubst` to inject variables from your `.env` file.
+Both manifests use `envsubst` to inject variables from your `.env` file.
 
 ## Common Commands
 
@@ -96,8 +101,8 @@ oc logs -l app=directus -f
 oc logs postgres-0 -f
 
 # Redeploy everything
-bash deploy_postgres.sh
-bash deploy_directus.sh
+bash openshift/scripts/deploy_postgres.sh
+bash openshift/scripts/deploy_directus.sh
 
 # Delete everything
 oc delete all -l app=directus

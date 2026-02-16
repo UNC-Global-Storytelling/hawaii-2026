@@ -82,8 +82,8 @@ oc get pods
 oc get route directus
 
 # Update deployment after changing .env
-bash openshift/deploy_directus.sh
-bash openshift/deploy_postgres.sh
+bash openshift/scripts/deploy_directus.sh
+bash openshift/scripts/deploy_postgres.sh
 
 # Delete everything and start over
 oc delete all -l app=directus
@@ -105,14 +105,18 @@ hawaii-2026/
 ├── .env                   ← Your secrets (never commit!)
 │
 ├── src/                   ← Your 11ty frontend
-├── directus/              ← Directus config
-└── openshift/             ← Kubernetes manifests & scripts
+└── openshift/             ← Dockerfiles, manifests, and automation for OpenShift
     ├── README.md
-    ├── postgres.yaml      ← Database definition
-    ├── directus.yaml      ← CMS definition
-    ├── deploy_postgres.sh ← Run to deploy database
-    ├── deploy_directus.sh ← Run to deploy CMS
-    └── setup_directus.sh  ← Run first for setup
+    ├── docker/
+    │   ├── eleventy/      ← 11ty build image (Dockerfile + nginx.conf)
+    │   └── directus/      ← Optional Directus image customization
+    ├── manifests/
+    │   ├── postgres.yaml  ← Database definition
+    │   └── directus.yaml  ← CMS definition
+    └── scripts/
+        ├── deploy_postgres.sh ← Run to deploy database
+        ├── deploy_directus.sh ← Run to deploy CMS
+        └── setup_directus.sh  ← Run first for setup
 ```
 
 ## Getting Help

@@ -8,7 +8,8 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:1.27-alpine
+# Use Red Hat UBI with nginx (no rate limits, no auth required)
+FROM registry.access.redhat.com/ubi9/nginx-124
 
 COPY --from=build /app/_site /usr/share/nginx/html
 

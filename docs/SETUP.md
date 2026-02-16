@@ -266,11 +266,13 @@ If successful, you'll see output like:
 ## Part 5: Deploying Directus
 
 The Directus deployment creates:
-- A Directus container
-- A Service (internal Kubernetes networking)
-- A Route (public HTTPS access)
+- A Directus container running Node.js
+- An emptyDir volume at `/.pm2` (writable directory for PM2 process manager)
+- A Service (internal Kubernetes networking on port 8055)
+- A Route (public HTTPS access with edge TLS termination)
 - ConfigMap (non-sensitive configuration)
 - Secrets (your passwords and keys)
+- Readiness probes (TCP socket health check with 30s startup grace period)
 
 ### Deploy
 
@@ -299,23 +301,30 @@ oc logs -l app=directus -f
 oc wait --for=condition=ready pod -l app=directus --timeout=300s
 ```
 
-You'll see logs like:
+The first startup takes 30-60 seconds (database initialization, migrations, PM2 startup). You'll see logs like:
 ```
-Server started at http://0.0.0.0:8055
+[MM:MM:SS.SSS] INFO: Extensions loaded
+[MM:MM:SS.SSS] INFO: Initializing bootstrap...
+[MM:MM:SS.SSS] INFO: Running migrations...
+[MM:MM:SS.SSS] INFO: Done
+YYYY-MM-DDTHH:MM:SS: PM2 log: App [directus:0] online
+[MM:MM:SS.SSS] INFO: Server started at http://0.0.0.0:8055
 ```
 
-This means Directus is ready. Sometimes it takes 1-2 minutes.
+Pod status should show `1/1 Ready` when Directus is fully initialized.
 
 ### Get Your Admin URL
 
 ```bash
-oc get route directus
+oc get route directus -o jsonpath='{.spec.host}{"\n"}'
 ```
 
-Look for the HOST/PORT column. Your URL is:
+Your URL is:
 ```
-https://<HOST>/admin
+https://<output-from-above>/admin
 ```
+
+Example: `https://directus-brookenf.apps.cloudapps.unc.edu/admin`
 
 ## Part 6: First Login and Initial Setup
 
@@ -329,10 +338,12 @@ Log in with:
 
 Once logged in:
 1. Go to Settings → System
-2. You should see your database version and other info
-3. Go to Collections - it should be empty (no collections created yet)
+2. You should see your database version (PostgreSQL) and other diagnostic info
+3. Go to Collections - should be empty initially
+4. Try creating a test collection (e.g., "articles") with a field
+5. Save it
 
-Congratulations! Your CMS is running. 🎉
+If this all works without errors, your entire stack is functioning correctly! 🎉
 
 ## Part 7: Post-Deployment Best Practices
 

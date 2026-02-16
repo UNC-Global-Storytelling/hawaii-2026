@@ -69,10 +69,18 @@ Creates:
 
 Creates:
 - Deployment (application container)
-- Service (internal networking)
-- Route (public HTTPS access)
-- ConfigMap (non-sensitive config)
+- emptyDir volume (writable `/. pm2` directory for PM2 process manager)
+- Service (internal networking on port 8055)
+- Route (public HTTPS access with edge termination)
+- ConfigMap (non-sensitive configuration)
 - Secret (encrypted credentials)
+- Readiness probe (TCP socket check with 30s startup grace period)
+
+Key features:
+- **emptyDir volume at `/.pm2`**: Allows non-root user to write PM2 config files without permission issues
+- **TCP readiness probe**: More reliable than HTTP health checks for startup detection
+- **30s initialDelaySeconds**: Gives Directus time to initialize database and run migrations
+- **Edge TLS termination**: HTTPS encryption is handled by OpenShift router (pod runs on HTTP internally)
 
 Both files use `envsubst` to inject variables from your `.env` file.
 

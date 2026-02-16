@@ -133,47 +133,102 @@ Replace `xyz` with your actual `POSTGRES_PASSWORD`.
 
 ### Can't Access Directus in Browser
 
-**Symptom:** "Connection refused" or "Cannot reach server"
+**Symptom:** "Application is not available" or "Connection refused" 
 
-**Check 1: Is Directus running?**
+**Check 1: Is Directus pod ready?**
 ```bash
 oc get pod -l app=directus
 ```
 
-Should show `Running`. If not, check the logs:
+Should show `1/1 Ready` and `Running`. If it shows `0/1 Ready`, it's still initializing.
+
+**Check 2: Wait longer for first startup**
+
+First startup takes 30-60 seconds (database initialization, migrations, PM2 startup). The readiness probe waits 30 seconds before checking, then checks every 5 seconds. Just wait and refresh the browser after 60 seconds.
+
+**Check 3: Check the logs**
 ```bash
 oc logs -l app=directus -f
 ```
 
-**Check 2: Wait for it to start**
+Look for:
+- `Server started at http://0.0.0.0:8055` → Server is running
+- `App [directus:0] online` → PM2 started successfully
+- `ERROR` or `EACCES` → Configuration issue (see PM2 Permission section below)
 
-Directus takes 30-60 seconds to start the first time (it's initializing the database). Just wait and refresh.
-
-**Check 3: Get the correct URL**
+**Check 4: Get the correct URL**
 ```bash
-oc get route directus
+oc get route directus -o jsonpath='{.spec.host}{"\n"}'
 ```
 
-Look for the `HOST/PORT` column. Your URL is:
+Your URL is:
 ```
-https://<HOST>/admin
+https://<output-from-above>/admin
 ```
 
-Make sure you're using `https://` (not `http://`).
+Make sure you're using `https://` (not `http://`). Example: `https://directus-brookenf.apps.cloudapps.unc.edu/admin`
 
-**Check 4: Check the Route is created**
+**Check 5: Verify the Route exists**
 ```bash
 oc get routes
 ```
 
-Should show a route called `directus`. If it's missing, redeploy:
+Should show a route called `directus`. If it's missing:
 ```bash
 bash openshift/deploy_directus.sh
 ```
 
 ---
 
-### Login Page But Can't Log In
+### Pod Stuck at 0/1 Ready
+
+**Symptom:** Pod shows `0/1 Running` but never becomes `1/1 Ready`
+
+**Root cause:** Readiness probe is failing because:
+1. The pod needs more time to initialize (first startup is 30-60 seconds)
+2. The TCP port 8055 isn't accepting connections yet
+
+**Solution:** This is normal. The readiness probe waits 30 seconds before first check, then checks every 5 seconds with up to 3 failures allowed before restarting. Just wait - do not manually restart the pod. Once you see "Server started" in the logs, the pod will become "Ready" within 30 seconds.
+
+**If it's been 2+ minutes and still 0/1:** Check logs for errors:
+```bash
+oc logs -l app=directus --tail=50 | grep -i "error\|eacces"
+```
+
+---
+
+### PM2 Permission Errors in Logs
+
+**Symptom:** Pod logs show `EACCES: permission denied` errors like:
+```
+Error: EACCES: permission denied, mkdir '/.pm2/logs'
+Error: EACCES: permission denied, mkdir '/.pm2/modules'
+```
+
+**Root cause:** Non-root container trying to write to root-owned directories.
+
+**Solution:** This was fixed in the production deployment using an `emptyDir` volume mounted at `/.pm2`. If you're seeing this error, you have an outdated deployment. 
+
+**To fix:** Redeploy with the latest configuration:
+```bash
+bash openshift/deploy_directus.sh
+```
+
+The current `openshift/directus.yaml` includes:
+```yaml
+volumes:
+  - name: pm2-dir
+    emptyDir: {}
+volumeMounts:
+  - name: pm2-dir
+    mountPath: /.pm2
+```
+
+This allows the non-root user to write PM2 configuration files without permission issues.
+
+**Key learning:** `emptyDir` volumes are writable by any user, unlike root-owned directories. When you need writable storage for non-root containers, use `emptyDir` instead of `chmod 777 on root directories`.
+
+---
 
 **Symptom:** You see the Directus login page, but logging in fails
 

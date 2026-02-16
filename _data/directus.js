@@ -1,5 +1,7 @@
-import { createDirectus, rest } from '@directus/sdk';
+import { createDirectus, rest, staticToken } from '@directus/sdk';
 
-const directus = createDirectus('https://directus-brookenf.apps.cloudapps.unc.edu/').with(rest());
+const directus = createDirectus(process.env.DIRECTUS_API_URL)
+  .with(staticToken(process.env.DIRECTUS_API_TOKEN))
+  .with(rest());
 
 export default directus;

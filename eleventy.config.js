@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 export default function(eleventyConfig) {
   // Let 11ty configure Nunjucks by default, just customize the options
   eleventyConfig.setNunjucksEnvironmentOptions({

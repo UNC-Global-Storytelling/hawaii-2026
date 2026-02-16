@@ -7,7 +7,7 @@ Just follow these steps in order. Don't skip anything!
 Open your terminal and run:
 
 ```bash
-bash openshift/setup_directus.sh
+bash openshift/scripts/setup_directus.sh
 ```
 
 This will:
@@ -56,7 +56,7 @@ ADMIN_PASSWORD=<paste output from openssl command>
 ## Step 3: Deploy Database (2 minutes)
 
 ```bash
-bash openshift/deploy_postgres.sh
+bash openshift/scripts/deploy_postgres.sh
 ```
 
 This will:
@@ -70,7 +70,7 @@ When you see `Postgres apply complete`, the database is ready.
 ## Step 4: Deploy Directus CMS (2 minutes)
 
 ```bash
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
 This will:
@@ -166,7 +166,7 @@ vim .env
 **"Directus says 'cannot connect to database'"**
 - Make sure postgres pod is running: `oc get pod postgres-0`
 - Check that DB_PASSWORD matches POSTGRES_PASSWORD in your .env
-- Run `bash openshift/deploy_postgres.sh` again to redeploy the database
+- Run `bash openshift/scripts/deploy_postgres.sh` again to redeploy the database
 
 That's it! You now have a working backend. 🎉
 

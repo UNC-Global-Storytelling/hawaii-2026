@@ -142,7 +142,7 @@ DB_USER=directus          # Must match POSTGRES_USER
 DB_PASSWORD=xxx          # Must match POSTGRES_PASSWORD
 ```
 
-The deploy script (`deploy_directus.sh`) uses `envsubst` to inject these into the YAML files:
+The deploy script (`openshift/scripts/deploy_directus.sh`) uses `envsubst` to inject these into the YAML files:
 
 ```bash
 export POSTGRES_PASSWORD="xxx"

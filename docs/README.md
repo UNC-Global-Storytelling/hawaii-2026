@@ -28,14 +28,14 @@ Your Website ← Directus CMS ← PostgreSQL Database
 
 ```bash
 # 1. Set up your configuration
-bash openshift/setup_directus.sh
+bash openshift/scripts/setup_directus.sh
 
 # 2. Edit your environment variables
 vim .env
 
 # 3. Deploy everything
-bash openshift/deploy_postgres.sh
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_postgres.sh
+bash openshift/scripts/deploy_directus.sh
 
 # 4. You're done! Access Directus at the URL shown in the terminal
 ```
@@ -98,8 +98,8 @@ oc get pods
 oc get route directus
 
 # Update deployment after changing .env
-bash openshift/deploy_directus.sh
-bash openshift/deploy_postgres.sh
+bash openshift/scripts/deploy_directus.sh
+bash openshift/scripts/deploy_postgres.sh
 
 # Delete everything and start over
 oc delete all -l app=directus
@@ -120,14 +120,18 @@ hawaii-2026/
 ├── .env.example           ← Copy to .env and fill in
 ├── .env                   ← Your secrets (never commit!)
 ├── src/                   ← Your 11ty frontend
-├── directus/              ← Directus configuration
-└── openshift/             ← Kubernetes manifests & scripts
+└── openshift/             ← Dockerfiles, manifests, and scripts for OpenShift
     ├── README.md
-    ├── postgres.yaml
-    ├── directus.yaml
-    ├── deploy_postgres.sh
-    ├── deploy_directus.sh
-    └── setup_directus.sh
+    ├── docker/
+    │   ├── eleventy/      ← 11ty build image assets
+    │   └── directus/      ← Optional Directus image customization
+    ├── manifests/
+    │   ├── postgres.yaml
+    │   └── directus.yaml
+    └── scripts/
+        ├── deploy_postgres.sh
+        ├── deploy_directus.sh
+        └── setup_directus.sh
 ```
 
 ## Getting Help

@@ -5,6 +5,11 @@
 
 set -e
 
+ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT_DIR"
+
+MANIFEST_PATH="openshift/manifests/directus.yaml"
+
 echo "🚀 Deploying Directus CMS to OpenShift..."
 
 # Check if .env file exists
@@ -86,7 +91,7 @@ export ADMIN_PASSWORD
 
 # Apply the YAML with variable substitution
 echo "📋 Applying Directus configuration..."
-envsubst < openshift/directus.yaml | oc apply -f -
+envsubst < "$MANIFEST_PATH" | oc apply -f -
 
 echo ""
 echo "✅ Directus deployment submitted!"

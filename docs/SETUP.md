@@ -197,7 +197,7 @@ The database deployment creates:
 ### Deploy
 
 ```bash
-bash openshift/deploy_postgres.sh
+bash openshift/scripts/deploy_postgres.sh
 ```
 
 **Note:** The deploy script will automatically detect your namespace and configure PostgreSQL accordingly.
@@ -277,7 +277,7 @@ The Directus deployment creates:
 ### Deploy
 
 ```bash
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
 This script:

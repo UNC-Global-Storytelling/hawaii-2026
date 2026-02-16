@@ -66,7 +66,7 @@ oc get pod postgres-0
 
 Should show `Running` and `Ready 1/1`. If not, deploy it:
 ```bash
-bash openshift/deploy_postgres.sh
+bash openshift/scripts/deploy_postgres.sh
 ```
 
 **Check 2: Does the Service exist?**
@@ -98,8 +98,8 @@ They **must match exactly**. If they don't:
    ```bash
    oc delete statefulset postgres
    oc delete secret postgres-secret
-   bash openshift/deploy_postgres.sh
-   bash openshift/deploy_directus.sh
+  bash openshift/scripts/deploy_postgres.sh
+  bash openshift/scripts/deploy_directus.sh
    ```
 
 **Check 4: Is the hostname correct for your namespace?**
@@ -175,7 +175,7 @@ oc get routes
 
 Should show a route called `directus`. If it's missing:
 ```bash
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
 ---
@@ -211,10 +211,10 @@ Error: EACCES: permission denied, mkdir '/.pm2/modules'
 
 **To fix:** Redeploy with the latest configuration:
 ```bash
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
-The current `openshift/directus.yaml` includes:
+The current `openshift/manifests/directus.yaml` includes:
 ```yaml
 volumes:
   - name: pm2-dir
@@ -260,7 +260,7 @@ If you don't see this, the database isn't ready. Wait a few more seconds.
 Delete the secret and redeploy:
 ```bash
 oc delete secret directus-secret
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
 ---
@@ -407,7 +407,7 @@ npm run build 2>&1 | grep "Fetching"
 
 **Solution:** Reduce memory requests in deployment YAML files:
 
-In `openshift/directus.yaml`, change:
+In `openshift/manifests/directus.yaml`, change:
 ```yaml
 resources:
   requests:
@@ -425,7 +425,7 @@ resources:
     memory: "512Mi"
 ```
 
-In `openshift/postgres.yaml`, add to the postgres container:
+In `openshift/manifests/postgres.yaml`, add to the postgres container:
 ```yaml
 resources:
   requests:
@@ -438,8 +438,8 @@ Then redeploy:
 ```bash
 oc delete deployment directus
 oc delete statefulset postgres
-bash openshift/deploy_postgres.sh
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_postgres.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
 ---
@@ -523,8 +523,8 @@ oc delete pvc data-postgres-0
 sleep 30
 
 # Start fresh
-bash openshift/deploy_postgres.sh
-bash openshift/deploy_directus.sh
+bash openshift/scripts/deploy_postgres.sh
+bash openshift/scripts/deploy_directus.sh
 ```
 
 This completely removes your deployment and starts over. You will lose any unsaved data in Directus.

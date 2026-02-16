@@ -8,18 +8,6 @@ stringData:
   POSTGRES_USER: REDACTED_DIRECTUS
   POSTGRES_PASSWORD: REDACTED_DIRECTUS
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: brookenf # change to your own
-  name: postgres-pvc
-spec: 
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -30,13 +18,21 @@ spec:
   selector:
     matchLabels:
       app: postgres
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 3Gi
   template:
     metadata:
       labels:
         app: postgres
     spec:
-      securityContext:
-        fsGroup: 1001
+      # removed fsGroup to avoid SCC rejection in this cluster
       containers:
         - name: postgres
           image: bitnami/postgresql:latest
@@ -61,10 +57,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: postgres-pvc
 ---
 apiVersion: v1
 kind: Service

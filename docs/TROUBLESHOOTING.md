@@ -69,7 +69,17 @@ Should show `Running` and `Ready 1/1`. If not, deploy it:
 bash openshift/deploy_postgres.sh
 ```
 
-**Check 2: Are the credentials right?**
+**Check 2: Does the Service exist?**
+```bash
+oc get svc postgres
+```
+
+You should see a service with a CLUSTER-IP. If not, the postgres.yaml didn't create it properly. Check the logs:
+```bash
+oc logs postgres-0
+```
+
+**Check 3: Are the credentials right?**
 ```bash
 # Check what you set in .env
 grep DB_PASSWORD .env
@@ -86,22 +96,35 @@ They **must match exactly**. If they don't:
 1. Edit `.env` to make them match
 2. Redeploy both services:
    ```bash
+   oc delete statefulset postgres
+   oc delete secret postgres-secret
    bash openshift/deploy_postgres.sh
    bash openshift/deploy_directus.sh
    ```
 
-**Check 3: Is the hostname correct?**
+**Check 4: Is the hostname correct for your namespace?**
 
-In the YAML files, Directus tries to connect to:
-```
-postgres.default.svc.cluster.local:5432
-```
-
-This is the Kubernetes internal DNS name. It should work as-is, but if not:
+PostgreSQL hostname depends on your namespace:
 ```bash
-# From within the cluster, test connectivity
+# Get your current namespace
+NAMESPACE=$(oc project -q)
+echo "Using namespace: $NAMESPACE"
+
+# The correct hostname is:
+echo "postgres.$NAMESPACE.svc.cluster.local"
+```
+
+If your namespace is `brookenf`, use:
+```
+postgres.brookenf.svc.cluster.local
+```
+
+NOT `postgres.default.svc.cluster.local`
+
+Test connectivity:
+```bash
 oc run -i --rm test --image=bitnami/postgresql --restart=Never -- \
-  bash -c "PGPASSWORD=xyz psql -h postgres.default.svc.cluster.local -U directus -d directus -c 'SELECT 1'"
+  bash -c "PGPASSWORD=xyz psql -h postgres.$(oc project -q).svc.cluster.local -U directus -d directus -c 'SELECT 1'"
 ```
 
 Replace `xyz` with your actual `POSTGRES_PASSWORD`.
@@ -315,6 +338,53 @@ async function fetchCollection(collection) {
 Run build and check console output:
 ```bash
 npm run build 2>&1 | grep "Fetching"
+```
+
+---
+
+---
+
+### Resource Quota Issues
+
+**Symptom:** Error like `exceeded quota: compute-resources, requested: limits.memory=300Mi`
+
+**This means:** Your namespace has a memory limit and you're using too much.
+
+**Solution:** Reduce memory requests in deployment YAML files:
+
+In `openshift/directus.yaml`, change:
+```yaml
+resources:
+  requests:
+    memory: "512Mi"
+  limits:
+    memory: "1Gi"
+```
+
+To:
+```yaml
+resources:
+  requests:
+    memory: "256Mi"
+  limits:
+    memory: "512Mi"
+```
+
+In `openshift/postgres.yaml`, add to the postgres container:
+```yaml
+resources:
+  requests:
+    memory: "256Mi"
+  limits:
+    memory: "512Mi"
+```
+
+Then redeploy:
+```bash
+oc delete deployment directus
+oc delete statefulset postgres
+bash openshift/deploy_postgres.sh
+bash openshift/deploy_directus.sh
 ```
 
 ---

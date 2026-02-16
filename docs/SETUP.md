@@ -60,6 +60,15 @@ Should show your project name. If it's wrong:
 oc project <your-project-name>
 ```
 
+**IMPORTANT:** Your namespace affects DNS names inside the cluster. If your namespace is `brookenf`, PostgreSQL is accessible at:
+```
+postgres.brookenf.svc.cluster.local
+```
+
+NOT `postgres.default.svc.cluster.local`
+
+The deploy scripts will use your current namespace automatically.
+
 ## Part 2: Understanding Your Configuration File (.env)
 
 Your `.env` file stores three types of information:
@@ -182,7 +191,7 @@ grep "DB_PASSWORD=" .env
 The database deployment creates:
 - A PostgreSQL container
 - A persistent volume (storage that survives pod restarts)
-- A Kubernetes Service (internal connection point)
+- A Kubernetes Service (internal connection point for Directus to connect)
 - Secrets (encrypted password storage)
 
 ### Deploy
@@ -190,6 +199,8 @@ The database deployment creates:
 ```bash
 bash openshift/deploy_postgres.sh
 ```
+
+**Note:** The deploy script will automatically detect your namespace and configure PostgreSQL accordingly.
 
 This runs through these steps:
 1. Loads your `.env` file ← Must exist and have values
@@ -203,8 +214,8 @@ This runs through these steps:
 While it's running, in another terminal:
 
 ```bash
-# Watch the pod status
-watch oc get pods -l app=postgres
+# Watch the pod status (use --watch instead of watch on macOS)
+oc get pods -l app=postgres --watch
 
 # Or just check once
 oc get pods -l app=postgres
@@ -216,13 +227,26 @@ NAME         READY   STATUS    RESTARTS   AGE
 postgres-0   1/1     Running   0          2m
 ```
 
+**Also verify the Service was created:**
+```bash
+oc get svc postgres
+```
+
+You should see a service with a CLUSTER-IP like `10.x.x.x`
+
 ### Test the Connection
 
-Once running, test that it's accessible from within the cluster:
+Once running, test that it's accessible from within the cluster. First, get your namespace:
+
+```bash
+NAMESPACE=$(oc project -q)
+```
+
+Now test the connection using your namespace:
 
 ```bash
 oc run -i --rm pg-test --image=bitnami/postgresql --restart=Never -- \
-  bash -c "PGPASSWORD=YOUR_PASSWORD psql -h postgres.default.svc.cluster.local -U directus -d directus -c 'SELECT 1'"
+  bash -c "PGPASSWORD=YOUR_PASSWORD psql -h postgres.$NAMESPACE.svc.cluster.local -U directus -d directus -c 'SELECT 1'"
 ```
 
 Replace `YOUR_PASSWORD` with your actual `POSTGRES_PASSWORD`.
@@ -233,6 +257,11 @@ If successful, you'll see output like:
 ----------
         1
 ```
+
+**If you get "Name or service not known" error:**
+- Check that the Service was created: `oc get svc postgres`
+- Check that the pod is running: `oc get pods postgres-0`
+- Make sure you're using the correct namespace in the hostname
 
 ## Part 5: Deploying Directus
 

@@ -26,6 +26,18 @@ All documentation has been organized in the `docs/` folder for easy navigation:
 - Never commit to GitHub (it's in `.gitignore`)
 - One file for everything: `/.env`
 
+**OpenShift Namespaces**
+- Your cluster admin creates a namespace (project) for you
+- PostgreSQL DNS names depend on your namespace
+- Example: if your namespace is `brookenf`, use `postgres.brookenf.svc.cluster.local`
+- Our deploy scripts automatically detect your namespace
+
+**Resource Quotas**
+- Your namespace has limits on CPU and memory
+- Default deployments use conservative resources: 256Mi request / 512Mi limit
+- If you hit quota limits, you may need to reduce requests
+- See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md#resource-quota-issues) for help
+
 **Kubernetes / OpenShift**
 - A system for running applications in the cloud
 - We give it YAML files describing what we want to run

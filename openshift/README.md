@@ -22,12 +22,36 @@ bash openshift/deploy_directus.sh      # Deploy CMS
 
 ## More Info
 
-All documentation is in the root directory:
+All documentation is in the docs folder:
 
-- **[README.md](../README.md)** - Project overview
-- **[QUICKSTART.md](../QUICKSTART.md)** - Get running in 5 minutes
-- **[SETUP.md](../SETUP.md)** - Detailed setup walkthrough
-- **[ARCHITECTURE.md](../ARCHITECTURE.md)** - How the system works
+- **[../docs/README.md](../docs/README.md)** - Project overview
+- **[../docs/QUICKSTART.md](../docs/QUICKSTART.md)** - Get running in 5 minutes
+- **[../docs/SETUP.md](../docs/SETUP.md)** - Detailed setup walkthrough
+- **[../docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)** - How the system works
+- **[../docs/TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md)** - Problem-solving
+
+## Important Notes
+
+### Namespace-Specific DNS
+
+Your PostgreSQL hostname depends on your OpenShift namespace. Run:
+
+```bash
+oc project
+```
+
+If your namespace is `brookenf`, PostgreSQL is at:
+```
+postgres.brookenf.svc.cluster.local
+```
+
+NOT `postgres.default.svc.cluster.local`
+
+The deploy scripts automatically detect and use your current namespace.
+
+### Memory Resources
+
+The default memory requests (`256Mi` request / `512Mi` limit) are conservative. If you have more quota available in your namespace, you can increase them in the YAML files for better performance. Check [TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md) for more details.
 - **[API_INTEGRATION.md](../API_INTEGRATION.md)** - Connect your frontend
 - **[TROUBLESHOOTING.md](../TROUBLESHOOTING.md)** - Fix problems
 

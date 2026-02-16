@@ -2,8 +2,8 @@
 FROM registry.access.redhat.com/ubi8/nodejs-20:latest AS build
 WORKDIR /opt/app-root/src
 
-# Ensure npm global prefix exists for non-root user
-RUN mkdir -p "$HOME/.npm-global"
+# Ensure npm global prefix structure exists for non-root user
+RUN install -d "$HOME/.npm-global/lib" "$HOME/.npm-global/bin"
 
 COPY package*.json ./
 RUN npm ci

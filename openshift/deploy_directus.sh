@@ -69,14 +69,20 @@ fi
 
 echo "✓ Postgres and Directus database credentials are synchronized ✓"
 
-# Load environment variables
-export DIRECTUS_KEY=$(grep DIRECTUS_KEY .env | cut -d'=' -f2)
-export DIRECTUS_SECRET=$(grep DIRECTUS_SECRET .env | cut -d'=' -f2)
-export DB_DATABASE=$(grep DB_DATABASE .env | cut -d'=' -f2)
-export DB_USER=$(grep DB_USER .env | cut -d'=' -f2)
-export DB_PASSWORD=$(grep DB_PASSWORD .env | cut -d'=' -f2)
-export ADMIN_EMAIL=$(grep ADMIN_EMAIL .env | cut -d'=' -f2)
-export ADMIN_PASSWORD=$(grep ADMIN_PASSWORD .env | cut -d'=' -f2)
+# Load all environment variables from .env file
+set -o allexport
+. .env
+set +o allexport
+
+# Export specific variables for envsubst
+export DIRECTUS_KEY
+export DIRECTUS_SECRET
+export DB_HOST
+export DB_DATABASE
+export DB_USER
+export DB_PASSWORD
+export ADMIN_EMAIL
+export ADMIN_PASSWORD
 
 # Apply the YAML with variable substitution
 echo "📋 Applying Directus configuration..."

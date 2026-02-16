@@ -326,7 +326,49 @@ https://<output-from-above>/admin
 
 Example: `https://directus-brookenf.apps.cloudapps.unc.edu/admin`
 
-## Part 6: First Login and Initial Setup
+## Part 6: Setting Up the 11ty Build on OpenShift
+
+Your static site is baked into a container image by an OpenShift BuildConfig (the default name in our cluster is `hawaii-2026`). Because the Dockerfile now lives in `openshift/docker/eleventy/Dockerfile`, make sure the build points to that location and then trigger a build.
+
+### Step 1: Point the BuildConfig at the Dockerfile
+
+```bash
+BUILD_NAME=hawaii-2026   # change this if your BuildConfig uses another name
+oc patch bc/$BUILD_NAME -p '{"spec":{"strategy":{"dockerStrategy":{"dockerfilePath":"openshift/docker/eleventy/Dockerfile"}}}}'
+```
+
+If you are unsure about the BuildConfig name, list them:
+
+```bash
+oc get bc
+```
+
+### Step 2: Confirm the path
+
+```bash
+oc get bc $BUILD_NAME -o jsonpath='{.spec.strategy.dockerStrategy.dockerfilePath}{"\n"}'
+# Should output: openshift/docker/eleventy/Dockerfile
+```
+
+### Step 3: Kick off a build
+
+```bash
+oc start-build $BUILD_NAME --follow --wait
+```
+
+The build uses the multi-stage Dockerfile to run `npm run build`, copy the generated `_site` directory into an NGINX image, and produce the final container. When it finishes successfully, OpenShift will automatically update the corresponding Deployment/Route.
+
+### Step 4: (Optional) Reconnect your webhook
+
+If you previously configured a GitHub webhook, double-check that it still targets this BuildConfig. Grab the webhook URL and secret:
+
+```bash
+oc describe bc $BUILD_NAME | grep -A3 "Webhook" -n
+```
+
+Update the webhook in GitHub if needed. Future pushes to `main` will now rebuild using the relocated Dockerfile.
+
+## Part 7: First Login and Initial Setup
 
 Open the URL from above in your browser. You should see the Directus login page.
 
@@ -343,7 +385,7 @@ Once logged in:
 
 If this all works without errors, your entire stack is functioning correctly! 🎉
 
-## Part 7: Post-Deployment Best Practices
+## Part 8: Post-Deployment Best Practices
 
 ### Change Your Admin Password
 
@@ -378,7 +420,7 @@ If this works without errors, your entire stack is functioning correctly!
 
 Read [API_INTEGRATION.md](API_INTEGRATION.md) to use this in your 11ty frontend.
 
-## Part 8: Validation Checklist
+## Part 9: Validation Checklist
 
 Before considering yourself "done", verify:
 

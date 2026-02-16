@@ -344,6 +344,32 @@ Should return JSON data. If not:
 
 ---
 
+### OpenShift Build Cannot Find the 11ty Dockerfile or nginx.conf
+
+**Symptom:** The OpenShift build fails with messages such as
+
+```
+error: open /tmp/build/inputs/Dockerfile: no such file or directory
+```
+
+or
+
+```
+stat: "/nginx.conf": no such file or directory
+```
+
+**Fix:** Point the BuildConfig at the relocated Dockerfile and then rerun the build.
+
+```bash
+BUILD_NAME=hawaii-2026   # change this if your BuildConfig uses another name
+oc patch bc/$BUILD_NAME -p '{"spec":{"strategy":{"dockerStrategy":{"dockerfilePath":"openshift/docker/eleventy/Dockerfile"}}}}'
+oc start-build $BUILD_NAME --follow --wait
+```
+
+If you use a GitHub webhook, run `oc describe bc $BUILD_NAME | grep -A3 Webhook` and update the URL/secret in GitHub so pushes continue to trigger builds with the new Dockerfile path.
+
+---
+
 ### Git Says ".env is Ignored"
 
 **Symptom:** You're trying to commit `.env` but git ignores it

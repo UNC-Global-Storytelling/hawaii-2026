@@ -122,7 +122,7 @@ When you run the deploy scripts, OpenShift creates:
 
 ### For 11ty (You Deploy Separately)
 
-Usually just a Docker container with static files, or a simple web server serving the pre-built HTML.
+In this project the static site is packaged by an OpenShift BuildConfig (`hawaii-2026`) that executes the multi-stage Dockerfile at `openshift/docker/eleventy/Dockerfile`. The build runs `npm run build`, copies the generated `_site` output into an NGINX stage, and updates the Deployment that serves the finished HTML. If you move the Dockerfile again, update `spec.strategy.dockerStrategy.dockerfilePath` so the BuildConfig can find it.
 
 ## Environment Variables and Secrets
 

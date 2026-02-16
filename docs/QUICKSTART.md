@@ -95,6 +95,16 @@ At the end of the script output, you'll see something like:
 
 Open that URL in your browser and log in!
 
+## Step 6: Build and Deploy the 11ty Frontend (2 minutes)
+
+```bash
+BUILD_NAME=hawaii-2026   # replace if your BuildConfig name differs
+oc patch bc/$BUILD_NAME -p '{"spec":{"strategy":{"dockerStrategy":{"dockerfilePath":"openshift/docker/eleventy/Dockerfile"}}}}'
+oc start-build $BUILD_NAME --follow --wait
+```
+
+The patch only needs to be run once after cloning this repo. The build command fetches your latest code, runs the Eleventy pipeline inside the Dockerfile, and updates the OpenShift Deployment that serves the static site. If you rely on a GitHub webhook, copy the URL from `oc describe bc $BUILD_NAME` and verify it is still configured in your repository.
+
 ## Verify Everything Works
 
 ```bash

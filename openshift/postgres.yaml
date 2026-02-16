@@ -4,9 +4,11 @@ metadata:
   name: postgres-secret
 type: Opaque
 stringData:
-  POSTGRES_DB: REDACTED_DIRECTUS
-  POSTGRES_USER: REDACTED_DIRECTUS
-  POSTGRES_PASSWORD: REDACTED_DIRECTUS
+  # These values are substituted from a .env file before applying.
+  # Example: use `envsubst` to replace ${VAR} placeholders.
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 ---
 apiVersion: apps/v1
 kind: StatefulSet

@@ -123,7 +123,7 @@ hawaii-2026/
 └── openshift/             ← Dockerfiles, manifests, and scripts for OpenShift
     ├── README.md
     ├── docker/
-    │   ├── eleventy/      ← 11ty build image assets
+    │   ├── eleventy/      ← 11ty build image (Dockerfile with embedded nginx config)
     │   └── directus/      ← Optional Directus image customization
     ├── manifests/
     │   ├── postgres.yaml

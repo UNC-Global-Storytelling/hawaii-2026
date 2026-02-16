@@ -24,7 +24,39 @@ COPY --from=build /opt/app-root/src/_site /usr/share/nginx/html
 RUN chgrp -R 0 /usr/share/nginx/html && chmod -R g+rX /usr/share/nginx/html
 
 # Replace the whole nginx config with our OpenShift-safe config
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN cat <<'EOF' > /etc/nginx/nginx.conf
+worker_processes auto;
+pid /tmp/nginx.pid;
+
+events { worker_connections 1024; }
+
+http {
+  include       /etc/nginx/mime.types;
+  default_type  application/octet-stream;
+
+  sendfile on;
+  keepalive_timeout 65;
+
+  # temp dirs -> writable on OpenShift
+  client_body_temp_path /tmp/client_temp;
+  proxy_temp_path       /tmp/proxy_temp;
+  fastcgi_temp_path     /tmp/fastcgi_temp;
+  uwsgi_temp_path       /tmp/uwsgi_temp;
+  scgi_temp_path        /tmp/scgi_temp;
+
+  server {
+    listen 8080;
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+      try_files $uri $uri/ /index.html;
+    }
+  }
+}
+EOF
 
 EXPOSE 8080
 

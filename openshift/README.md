@@ -5,7 +5,7 @@ This folder contains everything required to run the Directus + PostgreSQL stack 
 ## What's Here
 
 - `docker/`
-	- `eleventy/` → Dockerfile + NGINX config for the 11ty build image
+	- `eleventy/` → Dockerfile (with embedded NGINX config) for the 11ty build image
 	- `directus/` → Dockerfile + package.json for custom Directus image work
 - `manifests/`
 	- `postgres.yaml` → PostgreSQL StatefulSet, Service, and Secret

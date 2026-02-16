@@ -14,6 +14,10 @@ RUN npm run build
 # Use Red Hat UBI with nginx (no rate limits, no auth required)
 FROM registry.access.redhat.com/ubi9/nginx-124
 
+USER 0
+
+RUN rm -rf /usr/share/nginx/html/*
+
 COPY --from=build /opt/app-root/src/_site /usr/share/nginx/html
 
 # Permissions so random UID (in group 0) can read files
@@ -28,5 +32,7 @@ EXPOSE 8080
 # Override with a simple conf:
 RUN printf "server { listen 8080; server_name _; root /usr/share/nginx/html; include /etc/nginx/mime.types; location / { try_files \\$uri \\$uri/ /index.html; } }\n" \
   > /etc/nginx/conf.d/default.conf
+
+USER 1001
 
 CMD ["nginx", "-g", "daemon off;"]

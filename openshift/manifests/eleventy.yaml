@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eleventy-config
+data:
+  DIRECTUS_API_URL: "${DIRECTUS_API_URL}"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: eleventy-secret
+type: Opaque
+stringData:
+  # Optional: Only needed if Directus requires authentication
+  # Substitute from .env before applying
+  # Example: envsubst < eleventy.yaml | oc apply -f -
+  DIRECTUS_API_TOKEN: "${DIRECTUS_API_TOKEN}"
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: eleventy
+spec:
+  lookupPolicy:
+    local: false
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: eleventy
+spec:
+  source:
+    type: Binary
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: openshift/docker/eleventy/Dockerfile
+      env:
+        # Build-time environment variables for Eleventy
+        - name: DIRECTUS_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: eleventy-config
+              key: DIRECTUS_API_URL
+        - name: DIRECTUS_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: eleventy-secret
+              key: DIRECTUS_API_TOKEN
+              optional: true
+  output:
+    to:
+      kind: ImageStreamTag
+      name: eleventy:latest
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eleventy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eleventy
+  template:
+    metadata:
+      labels:
+        app: eleventy
+    spec:
+      containers:
+        - name: eleventy
+          image: eleventy:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "60m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eleventy
+spec:
+  selector:
+    app: eleventy
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: eleventy
+spec:
+  to:
+    kind: Service
+    name: eleventy
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

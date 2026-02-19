@@ -10,10 +10,12 @@ This folder contains everything required to run the Directus + PostgreSQL stack 
 - `manifests/`
 	- `postgres.yaml` → PostgreSQL StatefulSet, Service, and Secret
 	- `directus.yaml` → Directus Deployment, Service, Route, ConfigMap, Secret
+	- `eleventy.yaml` → Eleventy BuildConfig, Deployment, Service, Route, ConfigMap, Secret
 - `scripts/`
 	- `setup_directus.sh` → Pre-flight checks and .env scaffolding
 	- `deploy_postgres.sh` → Applies Postgres manifest with envsubst
 	- `deploy_directus.sh` → Applies Directus manifest with envsubst
+	- `deploy_eleventy.sh` → Applies Eleventy manifest and triggers build
 
 ## Quick Deploy
 
@@ -23,6 +25,7 @@ From the project root:
 bash openshift/scripts/setup_directus.sh       # Initial setup
 bash openshift/scripts/deploy_postgres.sh      # Deploy database
 bash openshift/scripts/deploy_directus.sh      # Deploy CMS
+bash openshift/scripts/deploy_eleventy.sh      # Deploy static site
 ```
 
 ## More Info
@@ -89,6 +92,26 @@ Key features:
 
 Both manifests use `envsubst` to inject variables from your `.env` file.
 
+### manifests/eleventy.yaml
+
+Creates:
+- BuildConfig (Docker build from local source using `openshift/docker/eleventy/Dockerfile`)
+- ImageStream (stores the built container image)
+- Deployment (nginx container serving the static site)
+- Service (internal networking on port 8080)
+- Route (public HTTPS access with edge termination)
+- ConfigMap (non-sensitive configuration like `DIRECTUS_API_URL`)
+- Secret (optional `DIRECTUS_API_TOKEN` for authenticated API access)
+
+Key features:
+- **Binary build source**: Builds from local directory, triggered by `oc start-build`
+- **Multi-stage Docker build**: Builds Eleventy site with Node.js, serves with nginx
+- **Build-time environment variables**: `DIRECTUS_API_URL` and `DIRECTUS_API_TOKEN` are available during the Eleventy build process
+- **Low resource requirements**: Static site serving requires minimal resources (64Mi request / 128Mi limit)
+- **Edge TLS termination**: HTTPS encryption is handled by OpenShift router
+
+The manifest uses `envsubst` to inject variables from your `.env` file.
+
 ## Common Commands
 
 ```bash
@@ -99,14 +122,20 @@ oc get routes
 # View logs  
 oc logs -l app=directus -f
 oc logs postgres-0 -f
+oc logs -l app=eleventy -f
 
 # Redeploy everything
 bash openshift/scripts/deploy_postgres.sh
 bash openshift/scripts/deploy_directus.sh
+bash openshift/scripts/deploy_eleventy.sh
+
+# Rebuild Eleventy after code changes
+oc start-build eleventy --from-dir=. --follow
 
 # Delete everything
 oc delete all -l app=directus
 oc delete all -l app=postgres
+oc delete all,configmap,secret,buildconfig,imagestream -l app=eleventy
 ```
 
 For detailed help, see [TROUBLESHOOTING.md](../TROUBLESHOOTING.md)

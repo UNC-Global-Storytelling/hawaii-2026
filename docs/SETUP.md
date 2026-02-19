@@ -333,7 +333,7 @@ Your static site is baked into a container image by an OpenShift BuildConfig (th
 ### Step 1: Point the BuildConfig at the Dockerfile
 
 ```bash
-BUILD_NAME=hawaii-2026   # change this if your BuildConfig uses another name
+BUILD_NAME=hawaii-2026
 oc patch bc/$BUILD_NAME -p '{"spec":{"strategy":{"dockerStrategy":{"dockerfilePath":"openshift/docker/eleventy/Dockerfile"}}}}'
 ```
 

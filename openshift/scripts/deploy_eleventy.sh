@@ -46,12 +46,6 @@ set +o allexport
 export DIRECTUS_API_URL
 export DIRECTUS_API_TOKEN="${DIRECTUS_API_TOKEN:-}"
 
-# Scale down deployment if it exists (to prevent image pull errors during build)
-if oc get deployment eleventy &>/dev/null; then
-    echo "⏸️  Scaling down deployment to prevent image pull errors..."
-    oc scale deployment eleventy --replicas=0 --timeout=30s 2>/dev/null || true
-fi
-
 # Apply the YAML with variable substitution
 echo "📋 Applying Eleventy configuration..."
 envsubst < "$MANIFEST_PATH" | oc apply -f -
@@ -71,25 +65,6 @@ if oc get buildconfig eleventy &>/dev/null; then
     
     echo ""
     echo "✅ Build completed!"
-    
-    # Wait for ImageStreamTag to be available
-    echo "⏳ Waiting for image to be available in ImageStream..."
-    for i in {1..30}; do
-        if oc get imagestreamtag eleventy:latest &>/dev/null; then
-            echo "✓ Image is available!"
-            break
-        fi
-        if [ $i -eq 30 ]; then
-            echo "⚠️  Warning: ImageStreamTag not found after 30 seconds. The build may have failed."
-            echo "   Check build status: oc get builds -l buildconfig=eleventy"
-            exit 1
-        fi
-        sleep 1
-    done
-    
-    # Scale deployment back up
-    echo "▶️  Scaling deployment back up..."
-    oc scale deployment eleventy --replicas=1 --timeout=30s 2>/dev/null || true
 else
     echo "⚠️  BuildConfig not found. Make sure the manifest was applied correctly."
 fi

@@ -30,7 +30,12 @@ metadata:
   name: eleventy
 spec:
   source:
-    type: Binary
+    type: Git
+    git:
+      # Set these via envsubst before apply
+      uri: "${GIT_REPO_URL}"
+      ref: "${GIT_REF}"
+    contextDir: "."
   strategy:
     type: Docker
     dockerStrategy:
@@ -53,6 +58,10 @@ spec:
       kind: ImageStreamTag
       name: eleventy:latest
   triggers:
+    - type: GitHub
+      github:
+        # Set this via envsubst before apply
+        secret: "${GITHUB_WEBHOOK_SECRET}"
     - type: ConfigChange
     - type: ImageChange
 ---

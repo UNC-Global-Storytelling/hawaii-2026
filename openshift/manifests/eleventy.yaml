@@ -22,7 +22,7 @@ metadata:
   name: eleventy
 spec:
   lookupPolicy:
-    local: false
+    local: true
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
@@ -60,6 +60,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eleventy
+  annotations:
+    image.openshift.io/triggers: |
+      [{"from":{"kind":"ImageStreamTag","name":"eleventy:latest"},"fieldPath":"spec.template.spec.containers[0].image"}]
 spec:
   replicas: 1
   selector:
@@ -73,7 +76,7 @@ spec:
       containers:
         - name: eleventy
           image: eleventy:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               name: http

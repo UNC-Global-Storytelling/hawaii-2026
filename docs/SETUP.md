@@ -414,8 +414,8 @@ If this works without errors, your entire stack is functioning correctly!
 4. Copy the token.
 5. Add to `.env`:
    ```bash
-   DIRECTUS_API_TOKEN=<token-here>
-   DIRECTUS_API_URL=https://<your-directus-route>
+   DIRECTUS_API_TOKEN=<token>
+   DIRECTUS_API_URL=link
    ```
 
 Read [API_INTEGRATION.md](API_INTEGRATION.md) to use this in your 11ty frontend.

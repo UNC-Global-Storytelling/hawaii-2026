@@ -234,6 +234,8 @@ body.page-home {
 /* —— Intro —— */
 .below-fold {
   margin-top: -300px;
+  position: relative;
+  z-index: 10;
 }
 
 @media (max-width: 768px) {
@@ -257,6 +259,7 @@ body.page-home {
   height: 40vh;
   min-height: 300px;
   pointer-events: none;
+  z-index: 0;
 }
 
 .intro__wave img {
@@ -272,6 +275,7 @@ body.page-home {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 2rem;
+  z-index: 1;
 }
 
 .intro__text {

@@ -11,6 +11,11 @@ export default function(eleventyConfig) {
     trimBlocks: true,
   });
 
+  eleventyConfig.addPassthroughCopy({
+    "src/assets": "assets",
+    "src/css": "css",
+  });
+
   return {
     dir: {
       input: "src",

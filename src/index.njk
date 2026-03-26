@@ -1,9 +1,30 @@
----js
-{
-  layout: "layouts/base.njk"
-}
+---
+layout: layouts/base.njk
+title: Mālama Maui — The Land We Hold
+bodyClass: page-home
+styles:
+  - /css/home.css
+foot: |
+  <script>
+    (function () {
+      var btn = document.querySelector('.hero__scroll');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var sel = btn.getAttribute('data-scroll-target');
+        var el = sel && document.querySelector(sel);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    })();
+  </script>
 ---
 
-<h1>{{ global.title or "Untitled" }}</h1>
-<p>{{ global.description or "" }}</p>
-<p>Huzzah! This is the homepage.</p>
+{% include "partials/home-nav.njk" %}
+{% include "partials/home-hero.njk" %}
+<div class="below-fold">
+  {% include "partials/home-intro.njk" %}
+  {% include "partials/home-video.njk" %}
+  {% for story in home.stories %}
+  {% include "partials/home-story.njk" %}
+  {% endfor %}
+  {% include "partials/home-footer.njk" %}
+</div>

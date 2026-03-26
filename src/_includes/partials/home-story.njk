@@ -1,0 +1,36 @@
+{% set isRight = story.imagePosition == 'right' %}
+<section class="story" id="{{ story.id }}">
+  <div class="story__inner">
+    <div class="story__grid{% if isRight %} story__grid--img-right{% endif %}">
+      <div class="story__visual">
+        <div class="story__frame">
+          {% if story.image %}
+            <img src="{{ story.image }}" alt="{{ story.title }}">
+          {% endif %}
+          <div class="story__frame-x">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <svg width="351" height="1" viewBox="0 0 880.695 1" preserveAspectRatio="none" style="transform:rotate(31.38deg);">
+                <line x2="880.695" y1="0.5" y2="0.5" stroke="#545F71"/>
+              </svg>
+            </div>
+          </div>
+          <div class="story__frame-x">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <svg width="351" height="1" viewBox="0 0 880.695 1" preserveAspectRatio="none" style="transform:rotate(-31.38deg);">
+                <line x2="880.695" y1="0.5" y2="0.5" stroke="#545F71"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="story__copy{% if not isRight %} story__copy--end{% endif %}">
+        <p class="story__cat">{{ story.category }}</p>
+        <h2>{{ story.title }}</h2>
+        <p class="story__desc">{{ story.description }}</p>
+        <button type="button" class="story__btn" style="background-color:{{ story.buttonColor }}">
+          <span>Explore Story</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

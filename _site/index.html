@@ -77,11 +77,14 @@
 <section class="video-block" aria-label="Featured video">
   <div class="video-block__inner">
     <div class="video-block__stage">
-      <button type="button" class="video-block__play" aria-label="Play video">
-        <svg viewBox="0 0 105 105" fill="none" aria-hidden="true">
-          <path d="M21.875 13.125L83.125 52.5L21.875 91.875V13.125Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        </svg>
-      </button>
+      <div id="featured-vimeo-wrapper">
+        <iframe
+          id="featured-vimeo"
+          src="https://player.vimeo.com/video/76979871?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -293,6 +296,116 @@
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     });
   })();
+</script>
+
+<script>
+(function () {
+  var section = document.querySelector('.video-block');
+  if (!section) return;
+
+  var iframe = section.querySelector('#featured-vimeo');
+  var ticking = false;
+  var isStopped = false;
+  var inTheater = false;
+
+  function postToVimeo(method, value) {
+    if (!iframe || !iframe.contentWindow) return;
+    var payload = { method: method };
+    if (value !== undefined) payload.value = value;
+    iframe.contentWindow.postMessage(JSON.stringify(payload), '*');
+  }
+
+  function getProgress() {
+    var rect = section.getBoundingClientRect();
+    var total = Math.max(1, section.offsetHeight - window.innerHeight);
+    return Math.min(1, Math.max(0, -rect.top / total));
+  }
+
+  function applyScrollState() {
+    var rect = section.getBoundingClientRect();
+    var progress = getProgress();
+    var ease = 1 - Math.pow(1 - progress, 2); // easeOutQuad
+    var isInSection = rect.top < window.innerHeight && rect.bottom > 0;
+    var theaterWindow = isInSection && progress >= 0.2 && progress <= 0.92;
+
+    // Slow down while in section so it feels like it is easing into center.
+    var rate = Math.max(0.15, 1 - ease * 0.85);
+    if (isInSection) {
+      postToVimeo('setPlaybackRate', rate);
+    } else {
+      postToVimeo('setPlaybackRate', 1);
+    }
+
+    // Keep native Vimeo controls fully visible by not scaling the iframe itself.
+
+    // Theater mode (black background) only while inside the active center window.
+    if (theaterWindow && !inTheater) {
+      section.classList.add('is-stopped');
+      inTheater = true;
+    } else if (!theaterWindow && inTheater) {
+      section.classList.remove('is-stopped');
+      inTheater = false;
+    }
+
+    // Stop near center; resume automatically when user scrolls out.
+    var shouldStop = theaterWindow && progress >= 0.5 && progress <= 0.86;
+    if (shouldStop && !isStopped) {
+      postToVimeo('setPlaybackRate', 0.15);
+      postToVimeo('pause');
+      isStopped = true;
+    } else if (!shouldStop && isStopped) {
+      postToVimeo('play');
+      isStopped = false;
+    }
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      applyScrollState();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  setTimeout(onScroll, 80);
+})();
+</script>
+
+<script>
+(function () {
+  var nav = document.querySelector('.site-nav');
+  if (!nav) return;
+
+  var lastY = window.scrollY || 0;
+  var minDelta = 6;
+  var showAtTop = 60;
+
+  function onScroll() {
+    var currentY = window.scrollY || 0;
+    var delta = currentY - lastY;
+
+    if (currentY <= showAtTop) {
+      nav.classList.remove('site-nav--hidden');
+      lastY = currentY;
+      return;
+    }
+
+    if (Math.abs(delta) < minDelta) return;
+
+    if (delta > 0) {
+      nav.classList.add('site-nav--hidden');
+    } else {
+      nav.classList.remove('site-nav--hidden');
+    }
+
+    lastY = currentY;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
 </script>
 
 </body>

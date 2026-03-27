@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx @11ty/eleventy",
-    "start": "npx @11ty/eleventy --serve --port=8080 --host=0.0.0.0"
+    "start": "npx @11ty/eleventy --serve --port=8080"
   },
   "keywords": [],
   "author": "",

@@ -39,6 +39,13 @@ body.page-home {
   background: var(--nav);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+  transform: translateY(0);
+  transition: transform 280ms cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+
+.site-nav.site-nav--hidden {
+  transform: translateY(-100%);
 }
 
 .site-nav__inner {
@@ -338,12 +345,11 @@ body.page-home {
 /* —— Video —— */
 .video-block {
   width: 100%;
-  background: #000;
-  height: 100vh;
+  background: var(--cream);
+  height: 240vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0; /* Remove padding so centering is exact */
+  align-items: stretch;
+  transition: background-color 800ms cubic-bezier(.4,0,.2,1);
 }
 
 .video-block__inner {
@@ -351,36 +357,55 @@ body.page-home {
   margin: 0 auto;
   padding: 0 2rem;
   width: 100%;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
 }
 
 .video-block__stage {
   position: relative;
-  width: 100%;
+  width: min(80vw, 1400px);
   aspect-ratio: 16 / 9;
-  max-width: 1056px;
-  margin: 0 auto;
-  background: #d9d9d9;
+  max-height: 82vh;
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
 }
 
-.video-block__play {
+.video-block #featured-vimeo-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.video-block iframe {
+  width: 100%;
+  height: 100%;
   border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.2s;
-}
-
-.video-block__play:hover {
-  transform: scale(1.08);
-}
-
-.video-block__play svg {
-  width: 105px;
-  height: 105px;
   display: block;
+  transform: none;
+  transition: none;
+}
+
+.video-block.is-stopped {
+  background: #000;
+}
+
+.video-block.is-stopped .video-block__stage {
+  width: min(84vw, 1480px);
+  transform: scale(1.015);
+}
+
+.video-block.is-stopped iframe {
+  transform: none;
 }
 
 /* —— Story cards —— */
@@ -548,6 +573,9 @@ body.page-home {
   inset: 0;
   display: flex;
   align-items: flex-end;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-bottom: 3rem;
 }
 
 .site-footer__inner {

@@ -19,13 +19,13 @@
       <img src="/assets/images/logos/mark-nav.svg" width="49" height="62" alt="">
     </a>
     <div class="site-nav__links">
-      <a href="#eco">ECO</a>
-      <a href="#ocean">OCEAN</a>
-      <a href="#climate">CLIMATE</a>
-      <a href="#food">FOOD</a>
-      <a href="#culture">CULTURE</a>
+      <a href="#eco"><span class="site-nav__label">ECO</span><span class="site-nav__sub">A Story About Eco</span></a>
+      <a href="#ocean"><span class="site-nav__label">OCEAN</span><span class="site-nav__sub">Beneath the Surface</span></a>
+      <a href="#climate"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">A Story About Resilience</span></a>
+      <a href="#food"><span class="site-nav__label">FOOD</span><span class="site-nav__sub">A Story About Food</span></a>
+      <a href="#culture"><span class="site-nav__label">CULTURE</span><span class="site-nav__sub">A Story About Culture</span></a>
       <span class="site-nav__sep" aria-hidden="true">|</span>
-      <a href="#about">ABOUT</a>
+      <a href="#about"><span class="site-nav__label">ABOUT</span></a>
     </div>
   </div>
 </nav>
@@ -85,6 +85,11 @@
           allowfullscreen
         ></iframe>
       </div>
+    </div>
+    <div class="video-block__down-cue" aria-hidden="true">
+      <svg class="video-block__down-cue-icon" viewBox="0 0 42.2609 42.2609" fill="none">
+        <path d="M10.5652 15.8478L21.1304 26.413L31.6957 15.8478" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.52174"/>
+      </svg>
     </div>
   </div>
 </section>
@@ -175,8 +180,8 @@
         </div>
       </div>
       <div class="story__copy story__copy--end">
-        <p class="story__cat">CLIMATE</p>
-        <h2>A Story About Climate</h2>
+        <p class="story__cat">RESILIENCE</p>
+        <h2>A Story About Resilience</h2>
         <p class="story__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum</p>
         <button type="button" class="story__btn" style="background-color:#1691b3">
           <span>Explore Story</span>
@@ -256,11 +261,13 @@
   <div class="site-footer__content">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
-        <img src="/assets/images/logos/mark-footer.svg" width="68" height="79" alt="">
-        <div>
-          <h3>Mālama Maui</h3>
-          <p>The Land We Hold</p>
-        </div>
+        <a href="/" class="site-footer__logo" aria-label="Mālama Maui home" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:1rem;">
+          <img src="/assets/images/logos/mark-footer.svg" width="68" height="79" alt="">
+          <span style="display:flex;flex-direction:column;align-items:flex-start;">
+            <h3 style="margin:0;">Mālama Maui</h3>
+            <p style="margin:0.25rem 0 0 0;">The Land We Hold</p>
+          </span>
+        </a>
       </div>
       <div class="site-footer__social">
         <button type="button" class="site-footer__icon" aria-label="Social link 1">
@@ -405,6 +412,52 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+<script>
+(function () {
+  var stories = Array.prototype.slice.call(document.querySelectorAll('.story'));
+  if (!stories.length) return;
+
+  var ticking = false;
+
+  function setActiveStory() {
+    var viewportCenter = window.innerHeight / 2;
+    var bestIndex = 0;
+    var bestDistance = Infinity;
+
+    for (var i = 0; i < stories.length; i++) {
+      var rect = stories[i].getBoundingClientRect();
+      var storyCenter = rect.top + rect.height / 2;
+      var distance = Math.abs(storyCenter - viewportCenter);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = i;
+      }
+    }
+
+    for (var j = 0; j < stories.length; j++) {
+      if (j === bestIndex) {
+        stories[j].classList.add('story--active');
+      } else {
+        stories[j].classList.remove('story--active');
+      }
+    }
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      setActiveStory();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  setTimeout(setActiveStory, 80);
 })();
 </script>
 

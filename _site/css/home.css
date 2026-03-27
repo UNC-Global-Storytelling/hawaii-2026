@@ -66,8 +66,8 @@ body.page-home {
 }
 
 .site-nav__logo img {
-  width: 48px;
-  height: 61px;
+  width: 58px;
+  height: 71px;
   display: block;
 }
 
@@ -87,6 +87,30 @@ body.page-home {
   color: var(--cream);
   text-decoration: none;
   transition: transform 0.2s, color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1;
+  max-width: 120px;
+}
+
+.site-nav__label {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+
+.site-nav__sub {
+  display: block;
+  font-family: 'Proza Libre', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: -0.02em;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .site-nav__links a:hover {
@@ -140,6 +164,7 @@ body.page-home {
     rgba(0, 0, 0, 0.5) 82.127%
   );
   pointer-events: none;
+  opacity: 0.2;
 }
 
 .hero__deco {
@@ -366,6 +391,34 @@ body.page-home {
   will-change: transform;
 }
 
+.video-block__down-cue {
+  position: absolute;
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--cream);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms cubic-bezier(.4,0,.2,1);
+}
+
+.video-block__down-cue span {
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+
+.video-block__down-cue-icon {
+  width: 44px;
+  height: 44px;
+  animation: video-down-cue-bounce 1.8s ease-in-out infinite;
+}
+
 .video-block__stage {
   position: relative;
   width: min(80vw, 1400px);
@@ -400,12 +453,21 @@ body.page-home {
 }
 
 .video-block.is-stopped .video-block__stage {
-  width: min(84vw, 1480px);
-  transform: scale(1.015);
+  width: min(88vw, 1600px);
+  transform: scale(1.03);
 }
 
 .video-block.is-stopped iframe {
   transform: none;
+}
+
+.video-block.is-stopped .video-block__down-cue {
+  opacity: 1;
+}
+
+@keyframes video-down-cue-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }
 
 /* —— Story cards —— */
@@ -413,6 +475,15 @@ body.page-home {
   scroll-margin-top: 8rem;
   background: var(--cream);
   padding: 4rem 0;
+}
+
+.story .story__inner {
+  opacity: 0.48;
+  transition: opacity 520ms cubic-bezier(.4,0,.2,1);
+}
+
+.story.story--active .story__inner {
+  opacity: 1;
 }
 
 .story__inner {
@@ -523,7 +594,7 @@ body.page-home {
   align-self: flex-start;
   border: none;
   border-radius: 6px;
-  padding: 1.25rem 2rem;
+  padding: 0.8rem 1.35rem;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -540,7 +611,7 @@ body.page-home {
 .story__btn span {
   font-family: 'Proza Libre', sans-serif;
   font-weight: 600;
-  font-size: clamp(22px, 2.2vw, 32px);
+  font-size: clamp(17px, 1.6vw, 24px);
   color: var(--cream);
   letter-spacing: -0.64px;
 }
@@ -633,10 +704,12 @@ body.page-home {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
 }
 
 .site-footer__icon {
+  order: 2;
   width: clamp(40px, 5.2vw, 58px);
   height: clamp(40px, 5.2vw, 58px);
   border-radius: 999px;
@@ -663,14 +736,17 @@ body.page-home {
 }
 
 .site-footer__about {
+  order: 1;
+  flex-basis: 100%;
   font-family: Gelasio, Georgia, serif;
   font-size: clamp(18px, 2.2vw, 36px);
   color: var(--cream);
   letter-spacing: -0.72px;
   text-decoration: none;
-  margin-left: clamp(0.25rem, 1.4vw, 1rem);
+  margin-left: 0;
   transition: color 0.2s, transform 0.2s;
   white-space: nowrap;
+  text-align: right;
 }
 
 .site-footer__about:hover {

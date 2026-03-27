@@ -1,5 +1,12 @@
 ﻿# Hawaii 2026 - Full-Stack Web Application
 
+HOSTING SERVER ON LOCAL COMPUTER
+npx http-server "_site" -p 8081 -c-1
+http://127.0.0.1:8081
+
+
+
+
 A complete web platform combining a static site (11ty), a headless CMS (Directus), and a database (PostgreSQL), all deployed to Red Hat OpenShift.
 
 ## ✅ Deployment Status

@@ -18,6 +18,7 @@
     font-family: Gelasio, Georgia, serif;
     background: var(--cream);
     color: #000;
+    overflow-x: hidden;
   }
   
   /* Utility Classes */
@@ -179,9 +180,9 @@
   }
   
   .hero__title {
-    font-family: Gelasio, Georgia, serif;
-    font-size: clamp(52px, 6.8vw, 112px);
-    font-weight: 700;
+    font-family: Proza Libre;
+    font-size: clamp(52px, 6.8vw, 96px);
+    font-weight: semibold;
     letter-spacing: -0.02em;
     color: var(--cream);
     margin: 0;
@@ -191,8 +192,8 @@
   
   .hero__subtitle {
     font-family: 'Proza Libre', sans-serif;
-    font-size: clamp(20px, 2.5vw, 32px);
-    font-weight: 400;
+    font-size: clamp(20px, 2.5vw, 24px);
+    font-weight: medium;
     letter-spacing: -0.64px;
     color: var(--cream);
     margin: 0;
@@ -472,7 +473,8 @@
     font-size: clamp(1.25rem, 2.5vw, 1.65rem);
     line-height: 1.35;
     color: var(--eco-green);
-
+    text-transform: uppercase;
+    font-style: normal;
   }
   
   /* Large curly quotes around the paragraph — optional pure-CSS */
@@ -491,7 +493,7 @@
     border: none;
     border-radius: 4px;
     font-family: 'Proza Libre', sans-serif;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 1;
     cursor: pointer;
@@ -869,8 +871,8 @@
 
 .color-bar--compact .color-bar__track {
   display: flex;
-  width: min(100%, 280px);
-  height: 10px;
+  width: min(100%, 412px);
+  height: 26px;
   overflow: hidden;
   border-radius: 2px;
 }
@@ -916,7 +918,7 @@
 
 .related-stories__title--continue {
   font-family: Gelasio, Georgia, serif;
-  font-size: clamp(22px, 2.4vw, 28px);
+  font-size: clamp(22px, 2.4vw, 48px);
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #000;
@@ -995,9 +997,9 @@
 }
 
 .story-card--continue .story-card__badge {
-  font-family: 'Proza Libre', sans-serif;
+  font-family: Gelasio;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: normal;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #000;
@@ -1006,8 +1008,8 @@
 
 .story-card--continue .story-card__title {
   font-family: Gelasio, Georgia, serif;
-  font-size: clamp(18px, 1.55vw, 22px);
-  font-weight: 700;
+  font-size: clamp(18px, 1.55vw, 32px);
+  font-weight: regular;
   letter-spacing: -0.03em;
   line-height: 1.25;
   margin: 0 0 0.35rem;
@@ -1023,7 +1025,7 @@
   border: none;
   border-radius: 6px;
   font-family: 'Proza Libre', sans-serif;
-  font-size: clamp(14px, 1.2vw, 16px);
+  font-size: clamp(14px, 1.2vw, 24px);
   font-weight: 700;
   text-align: center;
   text-decoration: none;

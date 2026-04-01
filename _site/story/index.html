@@ -227,34 +227,60 @@
       </div>
     </section>
 
-    <!-- Color Bar -->
-    <div class="color-bar">
-      <div class="color-bar__stripe color-bar__stripe--1"></div>
-      <div class="color-bar__stripe color-bar__stripe--2"></div>
-      <div class="color-bar__stripe color-bar__stripe--3"></div>
-      <div class="color-bar__stripe color-bar__stripe--4"></div>
-      <div class="color-bar__stripe color-bar__stripe--5"></div>
+    <!-- Continue reading: color bar + story cards -->
+    <div class="color-bar color-bar--compact" aria-hidden="true">
+      <div class="color-bar__track">
+        <div class="color-bar__stripe color-bar__stripe--1"></div>
+        <div class="color-bar__stripe color-bar__stripe--2"></div>
+        <div class="color-bar__stripe color-bar__stripe--3"></div>
+        <div class="color-bar__stripe color-bar__stripe--4"></div>
+        <div class="color-bar__stripe color-bar__stripe--5"></div>
+      </div>
     </div>
 
-    <!-- Related Stories -->
-    <section class="related-stories">
+    <section class="related-stories related-stories--continue" aria-labelledby="continue-reading-heading">
       <div class="related-stories__inner">
-        <h2 class="related-stories__title">Related Stories</h2>
-        <div class="related-stories__grid">
-          <article class="story-card">
-            <div class="story-card__badge">ECO</div>
-            <h3 class="story-card__title">Island Conservation</h3>
-            <p class="story-card__excerpt">Exploring the diverse ecosystems of our island paradise</p>
+        <h2 id="continue-reading-heading" class="related-stories__title related-stories__title--continue">Continue reading:</h2>
+        <div class="related-stories__grid related-stories__grid--four">
+          <article class="story-card story-card--continue">
+            <a href="/ocean" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">OCEAN</span>
+              <h3 class="story-card__title">A Story About Ocean</h3>
+              <a href="/ocean" class="story-card__cta story-card__cta--navy">Explore Story</a>
+            </div>
           </article>
-          <article class="story-card">
-            <div class="story-card__badge">ECO</div>
-            <h3 class="story-card__title">Sustainable Living</h3>
-            <p class="story-card__excerpt">How local communities embrace eco-friendly practices</p>
+          <article class="story-card story-card--continue">
+            <a href="/climate" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">CLIMATE</span>
+              <h3 class="story-card__title">A Story About Climate</h3>
+              <a href="/climate" class="story-card__cta story-card__cta--teal">Explore Story</a>
+            </div>
           </article>
-          <article class="story-card">
-            <div class="story-card__badge">ECO</div>
-            <h3 class="story-card__title">Wildlife Protection</h3>
-            <p class="story-card__excerpt">Preserving endangered species for future generations</p>
+          <article class="story-card story-card--continue">
+            <a href="/food" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">FOOD</span>
+              <h3 class="story-card__title">A Story About Food</h3>
+              <a href="/food" class="story-card__cta story-card__cta--brown">Explore Story</a>
+            </div>
+          </article>
+          <article class="story-card story-card--continue">
+            <a href="/culture" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">CULTURE</span>
+              <h3 class="story-card__title">A Story About Culture</h3>
+              <a href="/culture" class="story-card__cta story-card__cta--coral">Explore Story</a>
+            </div>
           </article>
         </div>
       </div>

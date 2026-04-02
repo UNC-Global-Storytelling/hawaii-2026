@@ -12,18 +12,46 @@ body.page-about {
   position: fixed;
 }
 
-.about-hero {
-  margin-top: 143px;
-  height: clamp(210px, 31vw, 420px);
+/* Class portrait: full-bleed width; flush to top of viewport (nav overlays) */
+.page-about .hero {
+  margin-top: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
   overflow: hidden;
+  position: relative;
 }
 
-.about-hero img {
+.page-about .hero__media {
+  position: relative;
+  width: 100%;
+  height: 110vh;
+  min-height: 0;
+  background: #252220;
+}
+
+.page-about .hero__media img {
+  position: static;
+  inset: auto;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  object-fit: unset;
+  object-position: unset;
+  mix-blend-mode: normal;
+  display: block;
+  transform: translateY(-140px);
+}
+
+.page-about .hero__gradient {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  opacity: 0.12;
 }
 
 .about-copy {

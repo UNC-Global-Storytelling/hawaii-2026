@@ -326,21 +326,21 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 .profile-card--mini h3,
 .profile-card--mini .profile-card__meta,
 .profile-card--mini .profile-card__portfolio {
-  color: var(--cream);
+  color: var(--black);
 }
 
 .profile-card--mini .profile-card__social {
-  border-color: var(--cream);
+  border-color: var(--black);
 }
 
 .everyone.is-teams .profile-card h3,
 .everyone.is-teams .profile-card__meta,
 .everyone.is-teams .profile-card__portfolio {
-  color: var(--cream);
+  color: var(--black);
 }
 
 .everyone.is-teams .profile-card__social {
-  border-color: var(--cream);
+  border-color: var(--black);
 }
 
 @media (min-width: 980px) {
@@ -406,4 +406,8 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 
 .color-bar--compact .color-bar__stripe--5 {
   background: #d66767;
+}
+
+.color-bar--compact .color-bar__stripe--6 {
+  background: #9576a0;
 }

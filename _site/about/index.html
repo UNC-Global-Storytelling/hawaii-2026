@@ -1089,8 +1089,117 @@
   </footer>
 </div>
 
-
   </main>
+
+  <script>
+    (function () {
+      var nav = document.querySelector('.site-nav');
+      if (!nav) return;
+    
+      var lastY = window.scrollY || 0;
+      var minDelta = 6;
+      var showAtTop = 60;
+    
+      function onScroll() {
+        var currentY = window.scrollY || 0;
+        var delta = currentY - lastY;
+    
+        if (currentY <= showAtTop) {
+          nav.classList.remove('site-nav--hidden');
+          lastY = currentY;
+          return;
+        }
+    
+        if (Math.abs(delta) < minDelta) return;
+    
+        if (delta > 0) {
+          nav.classList.add('site-nav--hidden');
+        } else {
+          nav.classList.remove('site-nav--hidden');
+        }
+    
+        lastY = currentY;
+      }
+    
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+    </script>
+
+<script>
+  (function () {
+    var nav = document.querySelector('.site-nav');
+    var bar = document.querySelector('[data-profile-filters]');
+    if (!nav || !bar) return;
+  
+    function setNavHeightVar() {
+      var h = nav.offsetHeight;
+      document.documentElement.style.setProperty('--about-nav-h', h + 'px');
+    }
+  
+    function syncDocked() {
+      var navVisible = !nav.classList.contains('site-nav--hidden');
+      document.body.classList.toggle('page-about--nav-docked', navVisible);
+    }
+  
+    function init() {
+      setNavHeightVar();
+      syncDocked();
+    }
+  
+    init();
+    window.addEventListener('resize', function () {
+      setNavHeightVar();
+    });
+  
+    if (typeof MutationObserver !== 'undefined') {
+      new MutationObserver(syncDocked).observe(nav, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
+  
+    /* -------- Optional: only if About has NO other script toggling site-nav--hidden -------- */
+    (function attachScrollHideNav() {
+      var lastY = window.scrollY || 0;
+      var minDelta = 10;
+      var showAtTop = 60;
+      var ticking = false;
+  
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          ticking = false;
+          var currentY = window.scrollY || 0;
+          var delta = currentY - lastY;
+  
+          if (currentY <= showAtTop) {
+            nav.classList.remove('site-nav--hidden');
+            lastY = currentY;
+            return;
+          }
+  
+          if (Math.abs(delta) < minDelta) {
+            lastY = currentY;
+            return;
+          }
+  
+          if (delta > 0) {
+            nav.classList.add('site-nav--hidden');
+          } else {
+            nav.classList.remove('site-nav--hidden');
+          }
+  
+          lastY = currentY;
+        });
+      }
+  
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+    /* -------- end optional -------- */
+  })();
+  </script>
+
   <script>
   (function () {
     var filterBar = document.querySelector('[data-profile-filters]');

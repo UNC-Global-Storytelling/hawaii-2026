@@ -1010,7 +1010,7 @@
     transform: rotate(-31.38deg);
   }
   
-  /* Color bar — continue reading (matches design system palette) */
+/* Color bar — continue reading (matches design system palette) */
 .color-bar--compact {
   display: flex;
   justify-content: center;

@@ -366,4 +366,44 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
     width: min(46%, 250px);
     min-width: 150px;
   }
+}/* Color bar — continue reading (matches design system palette) */
+.color-bar--compact {
+  display: flex;
+  justify-content: center;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+  max-width: 1440px;
+}
+
+.color-bar--compact .color-bar__track {
+  display: flex;
+  width: min(100%, 412px);
+  height: 26px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.color-bar__stripe {
+  flex: 1;
+  min-width: 0;
+}
+
+.color-bar--compact .color-bar__stripe--1 {
+  background: #84a91f;
+}
+
+.color-bar--compact .color-bar__stripe--2 {
+  background: #112e51;
+}
+
+.color-bar--compact .color-bar__stripe--3 {
+  background: #1e90b1;
+}
+
+.color-bar--compact .color-bar__stripe--4 {
+  background: #7a5241;
+}
+
+.color-bar--compact .color-bar__stripe--5 {
+  background: #d66767;
 }

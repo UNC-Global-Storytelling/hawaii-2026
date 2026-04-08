@@ -4,8 +4,14 @@
   --cream: #fef7ec;
   --nav: rgba(0, 0, 0, 0.42);
   --frame: #545f71;
-  --eco-green: #75a40a;
+  --story-accent: #75a40a;
 }
+
+body.story-theme--eco { --story-accent: #75a40a; }
+body.story-theme--ocean { --story-accent: #0f3057; }
+body.story-theme--resilience { --story-accent: #1691b3; }
+body.story-theme--food { --story-accent: #7a4e3a; }
+body.story-theme--culture { --story-accent: #d85f5f; }
 
 * {
   box-sizing: border-box;
@@ -165,7 +171,7 @@ body {
 .drop-cap {
   font-size: 5rem;
   font-weight: 700;
-  color: var(--eco-green);
+  color: var(--story-accent);
   line-height: 1;
   float: left;
   margin-right: 0.5rem;
@@ -192,7 +198,7 @@ body {
 .story-credits__label {
   font-family: 'Proza Libre', sans-serif;
   font-weight: 700;
-  color: var(--eco-green);
+  color: var(--story-accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.5rem;
@@ -219,7 +225,7 @@ body {
   align-items: center;
   gap: 0.6rem;
   padding: 0.7rem 1.25rem;
-  background: var(--eco-green);
+  background: var(--story-accent);
   color: white;
   border: none;
   border-radius: 4px;

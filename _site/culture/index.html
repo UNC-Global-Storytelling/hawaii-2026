@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Story About Culture</title>
+  <link rel="stylesheet" href="../../css/story.css">
+  <link rel="stylesheet" href="../../culture/culture.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;700&family=Proza+Libre:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="story-theme--culture">
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Primary">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="/" aria-label="Mālama Maui home">
+        <img src="/assets/images/logos/mark-nav.svg" width="49" height="62" alt="">
+      </a>
+      <div class="site-nav__links">
+        <a href="/eco"><span class="site-nav__label">ECO</span><span class="site-nav__sub">A Story About Eco</span></a>
+        <a href="/ocean"><span class="site-nav__label">OCEAN</span><span class="site-nav__sub">Beneath the Surface</span></a>
+        <a href="/resilience"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">A Story About Resilience</span></a>
+        <a href="/food"><span class="site-nav__label">FOOD</span><span class="site-nav__sub">A Story About Food</span></a>
+        <a href="/culture"><span class="site-nav__label">CULTURE</span><span class="site-nav__sub">A Story About Culture</span></a>
+        <span class="site-nav__sep" aria-hidden="true">|</span>
+        <a href="/about"><span class="site-nav__label">ABOUT</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__badge">CULTURE</div>
+        <h1 class="hero__title">A Story About Culture</h1>
+        <button class="listen-button hero__listen-button">
+          <svg class="listen-button__icon" viewBox="0 0 24 24" fill="none">
+            <path d="M14.7441 1.98937C14.5548 1.89687 14.3435 1.85934 14.134 1.88105C13.9245 1.90276 13.7253 1.98284 13.5591 2.11219L7.11375 7.125H3C2.50272 7.125 2.02581 7.32254 1.67417 7.67417C1.32254 8.02581 1.125 8.50272 1.125 9V15C1.125 15.4973 1.32254 15.9742 1.67417 16.3258C2.02581 16.6775 2.50272 16.875 3 16.875H7.11375L13.5591 21.8878C13.7253 22.0172 13.9245 22.0973 14.134 22.119C14.3435 22.1407 14.5549 22.1032 14.7441 22.0107C14.9333 21.9182 15.0928 21.7744 15.2043 21.5957C15.3159 21.417 15.375 21.2106 15.375 21V3C15.375 2.78937 15.3158 2.58298 15.2043 2.40431C15.0928 2.22564 14.9333 2.08188 14.7441 1.98937ZM3.375 9.375H6.375V14.625H3.375V9.375ZM13.125 18.6994L8.625 15.1997V8.80031L13.125 5.30063V18.6994ZM19.875 12C19.8752 13.0049 19.5085 13.9754 18.8438 14.7291C18.746 14.8399 18.6274 14.9303 18.4947 14.9953C18.3619 15.0603 18.2177 15.0984 18.0703 15.1077C17.9228 15.1169 17.775 15.097 17.6352 15.0491C17.4954 15.0012 17.3664 14.9262 17.2556 14.8284C17.1448 14.7307 17.0544 14.6121 16.9894 14.4794C16.9244 14.3466 16.8863 14.2024 16.877 14.055C16.8678 13.9075 16.8877 13.7596 16.9356 13.6199C16.9835 13.4801 17.0585 13.3511 17.1562 13.2403C17.4576 12.898 17.6239 12.4575 17.6239 12.0014C17.6239 11.5453 17.4576 11.1048 17.1562 10.7625C16.9689 10.5374 16.8768 10.2481 16.8994 9.9561C16.922 9.66411 17.0576 9.39245 17.2773 9.19884C17.497 9.00523 17.7836 8.90494 18.0761 8.91928C18.3686 8.93361 18.644 9.06145 18.8438 9.27563C19.5078 10.0278 19.8745 10.9966 19.875 12ZM23.625 12C23.6261 13.9373 22.9121 15.8068 21.6197 17.25C21.4208 17.4724 21.1417 17.6067 20.8437 17.6233C20.5458 17.6399 20.2535 17.5375 20.0311 17.3386C19.8087 17.1397 19.6744 16.8606 19.6578 16.5626C19.6412 16.2647 19.7436 15.9724 19.9425 15.75C20.8649 14.7187 21.3749 13.3836 21.3749 12C21.3749 10.6164 20.8649 9.28129 19.9425 8.25C19.84 8.14061 19.7604 8.01184 19.7083 7.87125C19.6563 7.73065 19.6328 7.58107 19.6394 7.4313C19.646 7.28153 19.6825 7.13458 19.7466 6.99909C19.8108 6.86361 19.9014 6.74231 20.0131 6.64234C20.1249 6.54237 20.2554 6.46574 20.3972 6.41694C20.5389 6.36815 20.689 6.34818 20.8386 6.35821C20.9882 6.36824 21.1343 6.40807 21.2682 6.47535C21.4022 6.54263 21.5214 6.63601 21.6188 6.75C22.9115 8.19306 23.6259 10.0626 23.625 12Z" fill="currentColor"/>
+          </svg>
+          <span class="listen-button__text">Listen Here</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="below-fold">
+    <!-- Intro Section -->
+    <section class="intro" aria-labelledby="intro-heading">
+      <div class="intro__wave" aria-hidden="true">
+        <img src="/assets/images/layouts/mountain-ribbon-home.svg" alt="">
+      </div>
+      <div class="intro__inner">
+        <!-- Credits Sidebar -->
+        <aside class="story-credits">
+          <div class="story-credits__item">
+            <div class="story-credits__label">REPORTER</div>
+            <div class="story-credits__name">Bella Pires</div>
+          </div>
+          <div class="story-credits__item">
+            <div class="story-credits__label">PHOTO</div>
+            <div class="story-credits__name">Sophia Katz</div>
+          </div>
+          <div class="story-credits__item">
+            <div class="story-credits__label">VIDEO</div>
+            <div class="story-credits__name">Kyla Joyner</div>
+            <div class="story-credits__name">Nikhil Mehta</div>
+          </div>
+          <div class="story-credits__item">
+            <div class="story-credits__label">INTERACTIVE</div>
+            <div class="story-credits__name">Khristine Bautista</div>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="intro__text">
+          <div class="intro__body">
+            <p class="mb-0">
+              <span class="drop-cap">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum velit, vitae tristique lorem finibus vel. Fusce non malesuada enim, eu bibendum tortor. In non orci a dui feugiat lobortis.
+            </p>
+            <p>
+              Pellentesque quis libero leo. Maecenas ac eros ultricies, egestas mi eget, malesuada justo. Aenean ante diam, venenatis nec pellentesque commodo, tempus vitae erat. Phasellus varius, erat mattis feugiat pretium, purus lacus scelerisque lacus, tempus dignissim justo tellus at purus. Ut dignissim tellus mi, at vestibulum nulla interdum vel. Sed augue nisl, elementum sed elit condimentum, vestibulum dapibus lectus.
+            </p>
+            <p>
+              Fusce nec convallis quam. Nam eu dapibus odio, a tempor libero. Aenean magna ligula, feugiat pretium tempor a, faucibus in erat. Cras eleifend nisi sodales est semper pretium. Cras vitae tortor neque. Donec vel lacinia lorem. Pellentesque vehicula nibh ligula, vitae posuere justo egestas a. Fusce lorem neque, condimentum id justo accumsan, dignissim condimentum nisl. Ut in elementum lectus.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Block 1 -->
+    <section class="video-block" aria-label="Featured video">
+      <div class="video-block__inner">
+        <div class="video-block__stage">
+          <div id="featured-vimeo-wrapper">
+            <iframe
+              id="featured-vimeo"
+              src="https://player.vimeo.com/video/76979871?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-block__down-cue" aria-hidden="true">
+          <svg class="video-block__down-cue-icon" viewBox="0 0 42.2609 42.2609" fill="none">
+            <path d="M10.5652 15.8478L21.1304 26.413L31.6957 15.8478" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.52174"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Frame -->
+    <div class="image-frame image-frame--large">
+      <div class="image-frame__placeholder"></div>
+      <div class="image-frame__x">
+        <div class="image-frame__x-line"></div>
+        <div class="image-frame__x-line"></div>
+      </div>
+    </div>
+
+    <!-- Content Section 1 -->
+    <section class="content-section_story">
+      <div class="content-section__text">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum velit, vitae tristique lorem finibus vel. Fusce non malesuada enim, eu bibendum tortor. In non orci a dui feugiat lobortis.
+        </p>
+        <p>
+          Pellentesque quis libero leo. Maecenas ac eros ultricies, egestas mi eget, malesuada justo. Aenean ante diam, venenatis nec pellentesque commodo, tempus vitae erat. Phasellus varius, erat mattis feugiat pretium, purus lacus scelerisque lacus, tempus dignissim justo tellus at purus. Ut dignissim tellus mi, at vestibulum nulla interdum vel. Sed augue nisl, elementum sed elit condimentum, vestibulum dapibus lectus.
+        </p>
+        <p>
+          Fusce nec convallis quam. Nam eu dapibus odio, a tempor libero. Aenean magna ligula, feugiat pretium tempor a, faucibus in erat. Cras eleifend nisi sodales est semper pretium. Cras vitae tortor neque. Donec vel lacinia lorem. Pellentesque vehicula nibh ligula, vitae posuere justo egestas a. Fusce lorem neque, condimentum id justo accumsan, dignissim condimentum nisl. Ut in elementum lectus.
+        </p>
+      </div>
+    </section>
+
+    <!-- Photo story (same scroll theater as video; first image matches video stage size) -->
+    <section class="photo-story" aria-label="Photo story">
+      <div class="photo-story__inner">
+        <div class="photo-story__stage">
+          <div class="photo-story__preview photo-story__preview--left" aria-hidden="true">
+            <img class="photo-story__peek-layer photo-story__peek-layer--0 photo-story__preview-img" src="" alt="">
+            <img class="photo-story__peek-layer photo-story__peek-layer--1 photo-story__preview-img" src="" alt="" aria-hidden="true">
+          </div>
+
+          <div class="photo-story__media">
+            <img class="photo-story__layer photo-story__layer--0" src="/assets/images/landscape/hero-placeholder.svg" alt="Photo story image" decoding="async">
+            <img class="photo-story__layer photo-story__layer--1" src="/assets/images/landscape/hero-placeholder.svg" alt="" aria-hidden="true" decoding="async">
+          </div>
+
+          <div class="photo-story__preview photo-story__preview--right" aria-hidden="true">
+            <img class="photo-story__peek-layer photo-story__peek-layer--0 photo-story__preview-img" src="" alt="">
+            <img class="photo-story__peek-layer photo-story__peek-layer--1 photo-story__preview-img" src="" alt="" aria-hidden="true">
+          </div>
+
+          <button class="photo-story__arrow photo-story__arrow--left" type="button" aria-label="Previous image">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <button class="photo-story__arrow photo-story__arrow--right" type="button" aria-label="Next image">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+        </div>
+        <div class="photo-story__down-cue" aria-hidden="true">
+          <svg class="photo-story__down-cue-icon" viewBox="0 0 42.2609 42.2609" fill="none">
+            <path d="M10.5652 15.8478L21.1304 26.413L31.6957 15.8478" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.52174"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section 2 -->
+    <section class="content-section">
+      <div class="content-section__text">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum velit, vitae tristique lorem finibus vel. Fusce non malesuada enim, eu bibendum tortor. In non orci a dui feugiat lobortis.
+        </p>
+        <p>
+          Pellentesque quis libero leo. Maecenas ac eros ultricies, egestas mi eget, malesuada justo. Aenean ante diam, venenatis nec pellentesque commodo, tempus vitae erat. Phasellus varius, erat mattis feugiat pretium, purus lacus scelerisque lacus, tempus dignissim justo tellus at purus. Ut dignissim tellus mi, at vestibulum nulla interdum vel. Sed augue nisl, elementum sed elit condimentum, vestibulum dapibus lectus.
+        </p>
+        <p>
+          Fusce nec convallis quam. Nam eu dapibus odio, a tempor libero. Aenean magna ligula, feugiat pretium tempor a, faucibus in erat. Cras eleifend nisi sodales est semper pretium. Cras vitae tortor neque. Donec vel lacinia lorem. Pellentesque vehicula nibh ligula, vitae posuere justo egestas a. Fusce lorem neque, condimentum id justo accumsan, dignissim condimentum nisl. Ut in elementum lectus.
+        </p>
+      </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section" aria-label="Pull quote">
+      <div class="quote-section__top-rule">
+        <span class="quote-section__rule-line" aria-hidden="true"></span>
+        <span class="quote-section__top-mark" aria-hidden="true">“</span>
+        <span class="quote-section__rule-line" aria-hidden="true"></span>
+      </div>
+    
+      <blockquote class="quote-section__blockquote">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante,
+          tristique sit amet lorem non, tempor cursus ante.
+        </p>
+      </blockquote>
+    
+      <div class="quote-section__bottom-rule">
+        <span class="quote-section__rule-line" aria-hidden="true"></span>
+        <cite class="quote-section__attribution">INSERT NAME HERE</cite>
+        <span class="quote-section__rule-line" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- Content Section 3 -->
+    <section class="content-section">
+      <div class="content-section__text">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum velit, vitae tristique lorem finibus vel. Fusce non malesuada enim, eu bibendum tortor. In non orci a dui feugiat lobortis.
+        </p>
+        <p>
+          Pellentesque quis libero leo. Maecenas ac eros ultricies, egestas mi eget, malesuada justo. Aenean ante diam, venenatis nec pellentesque commodo, tempus vitae erat. Phasellus varius, erat mattis feugiat pretium, purus lacus scelerisque lacus, tempus dignissim justo tellus at purus. Ut dignissim tellus mi, at vestibulum nulla interdum vel. Sed augue nisl, elementum sed elit condimentum, vestibulum dapibus lectus.
+        </p>
+        <p>
+          Fusce nec convallis quam. Nam eu dapibus odio, a tempor libero. Aenean magna ligula, feugiat pretium tempor a, faucibus in erat. Cras eleifend nisi sodales est semper pretium.
+        </p>
+      </div>
+    </section>
+
+    <!-- Continue reading: color bar + story cards -->
+    <div class="color-bar color-bar--compact" aria-hidden="true">
+      <div class="color-bar__track">
+        <div class="color-bar__stripe color-bar__stripe--1"></div>
+        <div class="color-bar__stripe color-bar__stripe--2"></div>
+        <div class="color-bar__stripe color-bar__stripe--3"></div>
+        <div class="color-bar__stripe color-bar__stripe--4"></div>
+        <div class="color-bar__stripe color-bar__stripe--5"></div>
+      </div>
+    </div>
+
+    <section class="related-stories related-stories--continue" aria-labelledby="continue-reading-heading">
+      <div class="related-stories__inner">
+        <h2 id="continue-reading-heading" class="related-stories__title related-stories__title--continue">Continue reading:</h2>
+        <div class="related-stories__grid related-stories__grid--four">
+          <article class="story-card story-card--continue">
+            <a href="/ocean" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">OCEAN</span>
+              <h3 class="story-card__title">A Story About Ocean</h3>
+              <a href="/ocean" class="story-card__cta story-card__cta--navy">Explore Story</a>
+            </div>
+          </article>
+          <article class="story-card story-card--continue">
+            <a href="/climate" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">CLIMATE</span>
+              <h3 class="story-card__title">A Story About Climate</h3>
+              <a href="/climate" class="story-card__cta story-card__cta--teal">Explore Story</a>
+            </div>
+          </article>
+          <article class="story-card story-card--continue">
+            <a href="/food" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">FOOD</span>
+              <h3 class="story-card__title">A Story About Food</h3>
+              <a href="/food" class="story-card__cta story-card__cta--brown">Explore Story</a>
+            </div>
+          </article>
+          <article class="story-card story-card--continue">
+            <a href="/culture" class="story-card__thumb story-card__thumb--link" aria-hidden="true" tabindex="-1">
+              <span class="story-card__thumb-placeholder"></span>
+            </a>
+            <div class="story-card__body">
+              <span class="story-card__badge">CULTURE</span>
+              <h3 class="story-card__title">A Story About Culture</h3>
+              <a href="/culture" class="story-card__cta story-card__cta--coral">Explore Story</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="about">
+      <div class="site-footer__bg" aria-hidden="true">
+        <img src="/assets/images/layouts/footer-mountain.svg" alt="">
+      </div>
+      <div class="site-footer__content">
+        <div class="site-footer__inner">
+          <div class="site-footer__brand">
+            <a href="/" class="site-footer__logo" aria-label="Mālama Maui home" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:1rem;">
+              <img src="/assets/images/logos/mark-footer.svg" width="68" height="79" alt="">
+              <span style="display:flex;flex-direction:column;align-items:flex-start;">
+                <h3 style="margin:0;">Mālama Maui</h3>
+                <p style="margin:0.25rem 0 0 0;">The Land We Hold</p>
+              </span>
+            </a>
+          </div>
+          <div class="site-footer__social">
+            <button type="button" class="site-footer__icon" aria-label="Social link 1">
+              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" aria-hidden="true">
+                <path d="M58 29C58 45.0163 45.0163 58 29 58C12.9837 58 0 45.0163 0 29C0 12.9837 12.9837 0 29 0C45.0163 0 58 12.9837 58 29Z" fill="#9576A0"/>
+              </svg>
+            </button>
+            <button type="button" class="site-footer__icon" aria-label="Social link 2">
+              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" aria-hidden="true">
+                <circle cx="29" cy="29" r="29" fill="#9576A0"/>
+              </svg>
+            </button>
+            <button type="button" class="site-footer__icon" aria-label="Social link 3">
+              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" aria-hidden="true">
+                <circle cx="29" cy="29" r="29" fill="#9576A0"/>
+              </svg>
+            </button>
+            <a class="site-footer__about" href="#about">About</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var videoSections = Array.prototype.slice.call(document.querySelectorAll('.video-block')).filter(function (el) {
+      return el.querySelector('iframe');
+    });
+    var photoSections = Array.prototype.slice.call(document.querySelectorAll('.photo-story'));
+    if (!videoSections.length && !photoSections.length) return;
+
+    var ticking = false;
+
+    function getProgress(section) {
+      var rect = section.getBoundingClientRect();
+      var total = Math.max(1, section.offsetHeight - window.innerHeight);
+      return Math.min(1, Math.max(0, -rect.top / total));
+    }
+
+    function setupVideoSection(section) {
+      var iframe = section.querySelector('iframe');
+      if (!iframe) return null;
+      var isStopped = false;
+      var inTheater = false;
+
+      function postToVimeo(method, value) {
+        if (!iframe.contentWindow) return;
+        var payload = { method: method };
+        if (value !== undefined) payload.value = value;
+        iframe.contentWindow.postMessage(JSON.stringify(payload), '*');
+      }
+
+      function applyScrollState() {
+        var rect = section.getBoundingClientRect();
+        var progress = getProgress(section);
+        var ease = 1 - Math.pow(1 - progress, 2);
+        var isInSection = rect.top < window.innerHeight && rect.bottom > 0;
+        var theaterWindow = isInSection && progress >= 0.2 && progress <= 0.92;
+
+        var rate = Math.max(0.15, 1 - ease * 0.85);
+        if (isInSection) {
+          postToVimeo('setPlaybackRate', rate);
+        } else {
+          postToVimeo('setPlaybackRate', 1);
+        }
+
+        if (theaterWindow && !inTheater) {
+          section.classList.add('is-stopped');
+          inTheater = true;
+        } else if (!theaterWindow && inTheater) {
+          section.classList.remove('is-stopped');
+          inTheater = false;
+        }
+
+        var shouldStop = theaterWindow && progress >= 0.5 && progress <= 0.86;
+        if (shouldStop && !isStopped) {
+          postToVimeo('setPlaybackRate', 0.15);
+          postToVimeo('pause');
+          isStopped = true;
+        } else if (!shouldStop && isStopped) {
+          postToVimeo('play');
+          isStopped = false;
+        }
+      }
+
+      return applyScrollState;
+    }
+
+    function setupPhotoStorySection(section) {
+      var inTheater = false;
+      var isAnimating = false;
+      var stage = section.querySelector('.photo-story__stage');
+      var mediaEl = section.querySelector('.photo-story__media');
+      var layerEls = [
+        section.querySelector('.photo-story__layer--0'),
+        section.querySelector('.photo-story__layer--1')
+      ];
+      var activeLayerIndex = 0;
+      var leftPeekEls = [
+        section.querySelector('.photo-story__preview--left .photo-story__peek-layer--0'),
+        section.querySelector('.photo-story__preview--left .photo-story__peek-layer--1')
+      ];
+      var rightPeekEls = [
+        section.querySelector('.photo-story__preview--right .photo-story__peek-layer--0'),
+        section.querySelector('.photo-story__preview--right .photo-story__peek-layer--1')
+      ];
+      var activeLeftPeek = 0;
+      var activeRightPeek = 0;
+      var prevButton = section.querySelector('.photo-story__arrow--left');
+      var nextButton = section.querySelector('.photo-story__arrow--right');
+      var leftPreviewWrap = section.querySelector('.photo-story__preview--left');
+      var rightPreviewWrap = section.querySelector('.photo-story__preview--right');
+      var SLIDE_MS = 750;
+
+      var baseImages = [
+        '/assets/images/landscape/hero-placeholder.svg',
+        '/assets/images/layouts/story-ocean.svg',
+        '/assets/images/layouts/mountain-ribbon-home.svg',
+        '/assets/images/layouts/wave-intro.svg',
+        '/assets/images/layouts/mountain-wave.svg'
+      ];
+      var images = [];
+      for (var i = 0; i < 15; i++) {
+        images.push(baseImages[i % baseImages.length]);
+      }
+      var currentIndex = 0;
+      var animTimer = null;
+
+      function clearPhotoAnim() {
+        if (animTimer) {
+          window.clearTimeout(animTimer);
+          animTimer = null;
+        }
+        if (stage) {
+          stage.classList.remove('is-anim-next', 'is-anim-prev', 'is-settling');
+        }
+        isAnimating = false;
+      }
+
+      function updateArrowsOnly() {
+        if (prevButton) prevButton.classList.toggle('is-hidden', currentIndex === 0);
+        if (nextButton) nextButton.classList.toggle('is-hidden', currentIndex === images.length - 1);
+      }
+
+      function decodeWhenReady(img) {
+        if (!img) return Promise.resolve();
+        if (img.decode) {
+          return img.decode().catch(function () {});
+        }
+        if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+        return new Promise(function (resolve) {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      }
+
+      function finishTheaterSlide(direction) {
+        if (!stage || !mediaEl) {
+          isAnimating = false;
+          animTimer = null;
+          return;
+        }
+        stage.classList.add('is-settling');
+        window.requestAnimationFrame(function () {
+          if (direction === 'next') {
+            currentIndex++;
+          } else {
+            currentIndex--;
+          }
+          var nextMain = activeLayerIndex === 0 ? 1 : 0;
+          var mainIncoming = layerEls[nextMain];
+          var mainUrl = images[currentIndex];
+          var prevSrc = currentIndex > 0 ? images[currentIndex - 1] : '';
+          var nextSrc = currentIndex < images.length - 1 ? images[currentIndex + 1] : '';
+          var nextLeft = 1 - activeLeftPeek;
+          var nextRight = 1 - activeRightPeek;
+
+          var tasks = [];
+
+          if (mainIncoming) {
+            mainIncoming.src = mainUrl;
+            tasks.push(decodeWhenReady(mainIncoming));
+          }
+          if (prevSrc && leftPeekEls[nextLeft]) {
+            leftPeekEls[nextLeft].src = prevSrc;
+            tasks.push(decodeWhenReady(leftPeekEls[nextLeft]));
+          }
+          if (nextSrc && rightPeekEls[nextRight]) {
+            rightPeekEls[nextRight].src = nextSrc;
+            tasks.push(decodeWhenReady(rightPeekEls[nextRight]));
+          }
+
+          Promise.all(tasks).then(function () {
+            window.requestAnimationFrame(function () {
+              stage.classList.remove('is-anim-next', 'is-anim-prev');
+              void stage.offsetWidth;
+              activeLayerIndex = nextMain;
+              mediaEl.classList.toggle('photo-story__media--show-b', nextMain === 1);
+              if (prevSrc) {
+                activeLeftPeek = nextLeft;
+                if (leftPreviewWrap) {
+                  leftPreviewWrap.classList.toggle('photo-story__peek--show-b', activeLeftPeek === 1);
+                }
+              } else {
+                activeLeftPeek = 0;
+                if (leftPreviewWrap) leftPreviewWrap.classList.remove('photo-story__peek--show-b');
+              }
+              if (nextSrc) {
+                activeRightPeek = nextRight;
+                if (rightPreviewWrap) {
+                  rightPreviewWrap.classList.toggle('photo-story__peek--show-b', activeRightPeek === 1);
+                }
+              } else {
+                activeRightPeek = 0;
+                if (rightPreviewWrap) rightPreviewWrap.classList.remove('photo-story__peek--show-b');
+              }
+              if (leftPreviewWrap) leftPreviewWrap.classList.toggle('is-hidden', !prevSrc);
+              if (rightPreviewWrap) rightPreviewWrap.classList.toggle('is-hidden', !nextSrc);
+              updateArrowsOnly();
+              stage.classList.remove('is-settling');
+              isAnimating = false;
+              animTimer = null;
+            });
+          });
+        });
+      }
+
+      function preloadImages() {
+        for (var i = 0; i < images.length; i++) {
+          var img = new Image();
+          img.src = images[i];
+        }
+      }
+
+      function updateSliderUI(opt) {
+        opt = opt || {};
+        var currentSrc = images[currentIndex];
+        var prevSrc = currentIndex > 0 ? images[currentIndex - 1] : '';
+        var nextSrc = currentIndex < images.length - 1 ? images[currentIndex + 1] : '';
+
+        if (opt.mainOnly) {
+          var main = layerEls[activeLayerIndex];
+          if (main) main.src = currentSrc;
+          updateArrowsOnly();
+          return;
+        }
+
+        var mainFull = layerEls[activeLayerIndex];
+        if (mainFull) mainFull.src = currentSrc;
+        if (leftPeekEls[activeLeftPeek]) leftPeekEls[activeLeftPeek].src = prevSrc || '';
+        if (rightPeekEls[activeRightPeek]) rightPeekEls[activeRightPeek].src = nextSrc || '';
+        if (leftPreviewWrap) leftPreviewWrap.classList.toggle('is-hidden', !prevSrc);
+        if (rightPreviewWrap) rightPreviewWrap.classList.toggle('is-hidden', !nextSrc);
+        updateArrowsOnly();
+      }
+
+      function goPrev() {
+        if (currentIndex <= 0 || isAnimating) return;
+        if (!section.classList.contains('is-stopped')) {
+          currentIndex--;
+          updateSliderUI();
+          return;
+        }
+        isAnimating = true;
+        if (stage) stage.classList.add('is-anim-prev');
+        if (animTimer) window.clearTimeout(animTimer);
+        animTimer = window.setTimeout(function () {
+          animTimer = null;
+          finishTheaterSlide('prev');
+        }, SLIDE_MS);
+      }
+
+      function goNext() {
+        if (currentIndex >= images.length - 1 || isAnimating) return;
+        if (!section.classList.contains('is-stopped')) {
+          currentIndex++;
+          updateSliderUI();
+          return;
+        }
+        isAnimating = true;
+        if (stage) stage.classList.add('is-anim-next');
+        if (animTimer) window.clearTimeout(animTimer);
+        animTimer = window.setTimeout(function () {
+          animTimer = null;
+          finishTheaterSlide('next');
+        }, SLIDE_MS);
+      }
+
+      function bindSliderControls() {
+        if (prevButton) {
+          prevButton.addEventListener('click', goPrev);
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', goNext);
+        }
+        if (leftPreviewWrap) {
+          leftPreviewWrap.addEventListener('click', function () {
+            if (leftPreviewWrap.classList.contains('is-hidden')) return;
+            goPrev();
+          });
+        }
+        if (rightPreviewWrap) {
+          rightPreviewWrap.addEventListener('click', function () {
+            if (rightPreviewWrap.classList.contains('is-hidden')) return;
+            goNext();
+          });
+        }
+      }
+
+      preloadImages();
+      bindSliderControls();
+      updateSliderUI();
+
+      function applyScrollState() {
+        var rect = section.getBoundingClientRect();
+        var progress = getProgress(section);
+        var isInSection = rect.top < window.innerHeight && rect.bottom > 0;
+        var theaterWindow = isInSection && progress >= 0.2 && progress <= 0.92;
+
+        if (theaterWindow && !inTheater) {
+          section.classList.add('is-stopped');
+          inTheater = true;
+        } else if (!theaterWindow && inTheater) {
+          section.classList.remove('is-stopped');
+          inTheater = false;
+          clearPhotoAnim();
+        }
+      }
+
+      return applyScrollState;
+    }
+
+    var applyFns = videoSections.map(setupVideoSection).concat(photoSections.map(setupPhotoStorySection)).filter(Boolean);
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        for (var i = 0; i < applyFns.length; i++) applyFns[i]();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    setTimeout(onScroll, 80);
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var nav = document.querySelector('.site-nav');
+    if (!nav) return;
+
+    var lastY = window.scrollY || 0;
+    var minDelta = 6;
+    var showAtTop = 60;
+
+    function onScroll() {
+      var currentY = window.scrollY || 0;
+      var delta = currentY - lastY;
+
+      if (currentY <= showAtTop) {
+        nav.classList.remove('site-nav--hidden');
+        lastY = currentY;
+        return;
+      }
+
+      if (Math.abs(delta) < minDelta) return;
+
+      if (delta > 0) {
+        nav.classList.add('site-nav--hidden');
+      } else {
+        nav.classList.remove('site-nav--hidden');
+      }
+
+      lastY = currentY;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+</body>
+</html>

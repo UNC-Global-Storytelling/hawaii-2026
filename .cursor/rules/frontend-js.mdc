@@ -1,0 +1,13 @@
+---
+description: JavaScript behavior conventions for static pages
+globs: src/js/**/*.js
+alwaysApply: false
+---
+
+# Frontend JS Conventions
+
+- Keep scripts lightweight and page-focused (no framework assumptions).
+- Guard selectors before use (`if (!el) return;`) to avoid runtime errors on other pages.
+- Match existing style (plain JS, small utilities, minimal abstraction).
+- Avoid adding global state unless absolutely necessary.
+- Preserve accessibility behavior when toggling UI (aria attributes, hidden states, focus order).

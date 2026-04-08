@@ -1,0 +1,15 @@
+---
+description: CSS layering and hero/layout safety rules
+globs: src/css/**/*.css
+alwaysApply: false
+---
+
+# CSS Rules
+
+- Check `src/css/components.css` first for shared classes before adding page-specific overrides.
+- Keep page-specific overrides scoped by body/page class (e.g. `.page-about ...`).
+- Avoid global selector changes that can impact other pages unintentionally.
+- For hero/image fixes: confirm interactions between position/height/object-fit/object-position.
+- Prefer minimal, targeted overrides over large rewrites.
+- Keep typography, spacing, and color tokens consistent with existing variables/usages.
+- If changing nav or hero behavior, verify impact on homepage, about, and story pages.

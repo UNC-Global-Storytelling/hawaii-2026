@@ -1,0 +1,55 @@
+---
+description: Unified standards for styling, naming, navigation, accessibility, structure, collaboration, and project context
+alwaysApply: true
+---
+
+# Hawaii 2026 Unified Project Standards
+
+## Project Overview
+- This is an Eleventy static site: source in `hawaii-2026/src/`, generated output in `hawaii-2026/_site/`.
+- Primary pages are home (`index.njk`), about (`about.njk`), and story (`story/index.njk`).
+- Reusable UI lives in `src/_includes/partials/`; base shell in `src/_includes/layouts/base.njk`.
+- Deployment/docs are in `openshift/` and `docs/`; do not mix app code into those folders.
+
+## File Ownership and Structure
+- Treat `src/` as source of truth; treat `_site/` as build output.
+- Do not implement long-term fixes directly in `_site/` unless explicitly requested.
+- Keep assets organized by type in `src/assets/images/{logos,layouts,profile,landscape}`.
+- Keep page scripts in `src/js/` and styles in `src/css/` (shared in `components.css`, page-specific in `home.css`, `about.css`, `story.css`).
+
+## Styling Consistency (All Assets and Pages)
+- Reuse existing color/font/spacing patterns and CSS variables before introducing new values.
+- Prefer shared component classes and patterns from `src/css/components.css`.
+- Scope page overrides with page classes (e.g., `.page-about ...`) to avoid cross-page regressions.
+- Keep image behavior consistent: explicit `width`/`height` in markup when known, sensible `object-fit`/`object-position`.
+- Preserve visual consistency for buttons, cards, hero blocks, dividers, and footer/nav treatments.
+
+## Naming Conventions
+- Use kebab-case for file names and CSS classes (`hero__media`, `profile-card__avatar`).
+- Keep BEM-like class naming already used in this project (`block__element`, `block--modifier`).
+- Use clear, semantic identifiers for JS hooks (`data-*` attributes) and avoid ambiguous names.
+
+## Navigation Standards
+- Keep primary nav structure/labels/ordering consistent across pages.
+- Reuse `home-nav.njk` and existing nav JS behavior rather than duplicating nav markup.
+- Preserve route style consistency (existing root-relative links and trailing-slash behavior already in repo).
+
+## Accessibility Standards
+- Use semantic headings in order (`h1` -> `h2` -> `h3`) without skipping levels.
+- Provide meaningful `alt` text for content images; empty `alt` for decorative images only.
+- Ensure interactive controls are keyboard accessible and have clear labels.
+- Keep ARIA minimal and correct; prefer native HTML semantics first.
+- Preserve color contrast and readable text sizes across breakpoints.
+
+## Git Collaboration Standards
+- Make small, focused changes tied to a single intent.
+- Do not rewrite or revert unrelated user changes.
+- Keep commit messages concise and purpose-first when committing.
+- Call out assumptions, risks, and follow-up tasks in PR summaries.
+- Never commit secrets, generated junk, or environment files.
+
+## Agent Working Rules
+- Before editing, check for an existing partial/style/script pattern to extend.
+- Prefer minimal diffs over broad refactors unless explicitly requested.
+- After substantive changes, verify impacted pages and responsive behavior.
+- When a quick patch is applied in `_site/`, mirror the durable fix in `src/`.

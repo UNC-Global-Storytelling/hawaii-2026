@@ -1,0 +1,14 @@
+---
+description: 11ty + Nunjucks editing conventions
+globs: src/**/*.njk
+alwaysApply: false
+---
+
+# Nunjucks Conventions
+
+- Use `src/_includes/layouts/base.njk` and existing partial includes when possible.
+- Keep page templates (`src/index.njk`, `src/about.njk`, `src/story/index.njk`) focused on structure/content.
+- Prefer data-driven content from `src/_data/` when repeated values are needed.
+- Keep URLs/root-relative paths consistent with current project style (e.g. `/assets/...`).
+- Do not introduce template abstractions unless repeated in at least 2 places.
+- Preserve frontmatter keys already used by the project (`layout`, `title`, `styles`, `bodyClass`, `foot`).

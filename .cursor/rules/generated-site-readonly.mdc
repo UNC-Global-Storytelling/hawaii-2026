@@ -1,0 +1,12 @@
+---
+description: Generated output handling for _site
+globs: _site/**/*
+alwaysApply: false
+---
+
+# _site Output Rules
+
+- `_site/` is generated output; avoid long-term source edits here.
+- If user asks for a quick `_site` hotfix, note equivalent source file under `src/`.
+- Never refactor generated markup/styles in `_site` as primary implementation.
+- Keep any emergency `_site` patch minimal and traceable.

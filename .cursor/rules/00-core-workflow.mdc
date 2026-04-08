@@ -1,0 +1,16 @@
+---
+description: Core workflow rules for Hawaii 2026
+alwaysApply: true
+---
+
+# Hawaii 2026 Agent Guardrails
+
+- Treat `src/` as source of truth; treat `_site/` as generated output.
+- Prefer editing files under `src/` unless user explicitly requests a direct `_site/` patch.
+- If `_site/` is edited for a quick fix, mirror the same change in `src/` when possible.
+- Preserve existing project style and naming conventions in Nunjucks, CSS, and JS.
+- Reuse existing partials/layouts in `src/_includes/` before adding new structure.
+- Do not add new dependencies unless clearly required.
+- Keep accessibility intact: meaningful `alt` text, ARIA only when needed, semantic headings.
+- For visual fixes, check shared styles in `src/css/components.css` before page-specific overrides.
+- Avoid destructive actions (delete/reset/force) unless explicitly requested.

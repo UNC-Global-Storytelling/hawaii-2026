@@ -4,14 +4,28 @@
   --cream: #fef7ec;
   --nav: rgba(0, 0, 0, 0.42);
   --frame: #545f71;
-  --story-accent: #75a40a;
 }
 
-body.story-theme--eco { --story-accent: #75a40a; }
-body.story-theme--ocean { --story-accent: #0f3057; }
-body.story-theme--resilience { --story-accent: #1691b3; }
-body.story-theme--food { --story-accent: #7a4e3a; }
-body.story-theme--culture { --story-accent: #d85f5f; }
+body.story-theme--eco {
+  --story-accent: #75a40a;
+  --story-accent-hover: #5a8208;
+}
+body.story-theme--ocean {
+  --story-accent: #0f3057;
+  --story-accent-hover: #0a2542;
+}
+body.story-theme--resilience {
+  --story-accent: #1691b3;
+  --story-accent-hover: #117a96;
+}
+body.story-theme--food {
+  --story-accent: #7a4e3a;
+  --story-accent-hover: #5f3c2c;
+}
+body.story-theme--culture {
+  --story-accent: #d85f5f;
+  --story-accent-hover: #c04e4e;
+}
 
 * {
   box-sizing: border-box;
@@ -239,7 +253,7 @@ body {
 
 .listen-button:hover {
   transform: translateY(-2px);
-  background: #5a8208;
+  background: var(--story-accent-hover);
 }
 
 .listen-button__icon { width: 32px; height: 32px; }

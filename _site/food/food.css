@@ -14,3 +14,10 @@
     padding: 120px 2rem 7.5rem;
     overflow: hidden;
   }
+
+/* Listen button */
+
+.listen-button:hover {
+  transform: translateY(-2px);
+  background: #5f3c2c;
+}

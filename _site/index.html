@@ -14,22 +14,38 @@
 <body class="page-home">
   <main>
     
-<nav class="site-nav" aria-label="Primary">
-  <div class="site-nav__inner">
-    <a class="site-nav__logo" href="#" aria-label="Mālama Maui home">
-      <img src="/assets/images/logos/mark-nav.svg" width="49" height="62" alt="">
-    </a>
-    <div class="site-nav__links">
-      <a href="/story"><span class="site-nav__label">ECO</span><span class="site-nav__sub">A Story About Eco</span></a>
-      <a href="/ocean"><span class="site-nav__label">OCEAN</span><span class="site-nav__sub">Beneath the Surface</span></a>
-      <a href="/climate"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">A Story About Resilience</span></a>
-      <a href="/food"><span class="site-nav__label">FOOD</span><span class="site-nav__sub">A Story About Food</span></a>
-      <a href="/culture"><span class="site-nav__label">CULTURE</span><span class="site-nav__sub">A Story About Culture</span></a>
-      <span class="site-nav__sep" aria-hidden="true">|</span>
-      <a href="/about"><span class="site-nav__label">ABOUT</span></a>
-    </div>
-  </div>
-</nav>
+    <nav class="site-nav" aria-label="Primary">
+      <div class="site-nav__inner">
+        <a class="site-nav__logo" href="/index.html" aria-label="Mālama Maui home">
+          <img src="/assets/images/logos/mark-nav.svg" width="40" height="50" alt="">
+        </a>
+        <button class="site-nav__menu-toggle" aria-controls="site-nav__links" aria-expanded="false" aria-label="Open navigation">
+          <span class="site-nav__menu-icon menu-icon--default">
+            <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+              <rect y="7" width="32" height="3" rx="1.5" fill="#fff"/>
+              <rect y="15" width="32" height="3" rx="1.5" fill="#fff"/>
+              <rect y="23" width="32" height="3" rx="1.5" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="site-nav__menu-icon menu-icon--close">
+            <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+              <line x1="7" y1="7" x2="25" y2="25" stroke="#fff" stroke-width="3"/>
+              <line x1="25" y1="7" x2="7" y2="25" stroke="#fff" stroke-width="3"/>
+            </svg>
+          </span>
+        </button>
+        <div class="site-nav__links" id="site-nav__links">
+          <a href="/eco"><span class="site-nav__label">ECO</span><span class="site-nav__sub">A Story About Eco</span></a>
+          <a href="/ocean"><span class="site-nav__label">OCEAN</span><span class="site-nav__sub">Beneath the Surface</span></a>
+          <a href="/resilience"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">A Story About Resilience</span></a>
+          <a href="/food"><span class="site-nav__label">FOOD</span><span class="site-nav__sub">A Story About Food</span></a>
+          <a href="/culture"><span class="site-nav__label">CULTURE</span><span class="site-nav__sub">A Story About Culture</span></a>
+          <span class="site-nav__sep" aria-hidden="true">|</span>
+          <a href="/about"><span class="site-nav__label">ABOUT</span></a>
+        </div>
+      </div>
+    </nav>
+    
 <section class="hero" aria-label="Hero">
   <div class="hero__media">
     <img src="/assets/images/landscape/DJI_0209.jpg" alt="Maui landscape">
@@ -294,6 +310,43 @@
 </div>
 
   </main>
+
+  <script>
+    const menuToggle = document.querySelector('.site-nav__menu-toggle');
+    const navLinks = document.getElementById('site-nav__links');
+    const iconDefault = menuToggle ? menuToggle.querySelector('.menu-icon--default') : null;
+    const iconClose = menuToggle ? menuToggle.querySelector('.menu-icon--close') : null;
+
+    if (menuToggle && navLinks && iconDefault && iconClose) {
+      menuToggle.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        navLinks.classList.toggle('open', !expanded);
+
+        if (!expanded) {
+          iconDefault.style.display = 'none';
+          iconClose.style.display = 'inline-block';
+          this.setAttribute('aria-label', 'Close navigation');
+        } else {
+          iconDefault.style.display = '';
+          iconClose.style.display = '';
+          this.setAttribute('aria-label', 'Open navigation');
+        }
+      });
+
+      // Close menu when a nav link is clicked
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          navLinks.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-label', 'Open navigation');
+          iconDefault.style.display = '';
+          iconClose.style.display = '';
+        });
+      });
+    }
+  </script>
+
   <script>
   (function () {
     var btn = document.querySelector('.hero__scroll');
@@ -304,163 +357,158 @@
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     });
   })();
-</script>
+  </script>
 
-<script>
-(function () {
-  var section = document.querySelector('.video-block');
-  if (!section) return;
+  <script>
+  (function () {
+    var section = document.querySelector('.video-block');
+    if (!section) return;
 
-  var iframe = section.querySelector('#featured-vimeo');
-  var ticking = false;
-  var isStopped = false;
-  var inTheater = false;
+    var iframe = section.querySelector('#featured-vimeo');
+    var ticking = false;
+    var isStopped = false;
+    var inTheater = false;
 
-  function postToVimeo(method, value) {
-    if (!iframe || !iframe.contentWindow) return;
-    var payload = { method: method };
-    if (value !== undefined) payload.value = value;
-    iframe.contentWindow.postMessage(JSON.stringify(payload), '*');
-  }
-
-  function getProgress() {
-    var rect = section.getBoundingClientRect();
-    var total = Math.max(1, section.offsetHeight - window.innerHeight);
-    return Math.min(1, Math.max(0, -rect.top / total));
-  }
-
-  function applyScrollState() {
-    var rect = section.getBoundingClientRect();
-    var progress = getProgress();
-    var ease = 1 - Math.pow(1 - progress, 2); // easeOutQuad
-    var isInSection = rect.top < window.innerHeight && rect.bottom > 0;
-    var theaterWindow = isInSection && progress >= 0.2 && progress <= 0.92;
-
-    // Slow down while in section so it feels like it is easing into center.
-    var rate = Math.max(0.15, 1 - ease * 0.85);
-    if (isInSection) {
-      postToVimeo('setPlaybackRate', rate);
-    } else {
-      postToVimeo('setPlaybackRate', 1);
+    function postToVimeo(method, value) {
+      if (!iframe || !iframe.contentWindow) return;
+      var payload = { method: method };
+      if (value !== undefined) payload.value = value;
+      iframe.contentWindow.postMessage(JSON.stringify(payload), '*');
     }
 
-    // Keep native Vimeo controls fully visible by not scaling the iframe itself.
-
-    // Theater mode (black background) only while inside the active center window.
-    if (theaterWindow && !inTheater) {
-      section.classList.add('is-stopped');
-      inTheater = true;
-    } else if (!theaterWindow && inTheater) {
-      section.classList.remove('is-stopped');
-      inTheater = false;
+    function getProgress() {
+      var rect = section.getBoundingClientRect();
+      var total = Math.max(1, section.offsetHeight - window.innerHeight);
+      return Math.min(1, Math.max(0, -rect.top / total));
     }
 
-    // Stop near center; resume automatically when user scrolls out.
-    var shouldStop = theaterWindow && progress >= 0.5 && progress <= 0.86;
-    if (shouldStop && !isStopped) {
-      postToVimeo('setPlaybackRate', 0.15);
-      postToVimeo('pause');
-      isStopped = true;
-    } else if (!shouldStop && isStopped) {
-      postToVimeo('play');
-      isStopped = false;
-    }
-  }
+    function applyScrollState() {
+      var rect = section.getBoundingClientRect();
+      var progress = getProgress();
+      var ease = 1 - Math.pow(1 - progress, 2);
+      var isInSection = rect.top < window.innerHeight && rect.bottom > 0;
+      var theaterWindow = isInSection && progress >= 0.2 && progress <= 0.92;
 
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function () {
-      applyScrollState();
-      ticking = false;
-    });
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  setTimeout(onScroll, 80);
-})();
-</script>
-
-<script>
-(function () {
-  var nav = document.querySelector('.site-nav');
-  if (!nav) return;
-
-  var lastY = window.scrollY || 0;
-  var minDelta = 6;
-  var showAtTop = 60;
-
-  function onScroll() {
-    var currentY = window.scrollY || 0;
-    var delta = currentY - lastY;
-
-    if (currentY <= showAtTop) {
-      nav.classList.remove('site-nav--hidden');
-      lastY = currentY;
-      return;
-    }
-
-    if (Math.abs(delta) < minDelta) return;
-
-    if (delta > 0) {
-      nav.classList.add('site-nav--hidden');
-    } else {
-      nav.classList.remove('site-nav--hidden');
-    }
-
-    lastY = currentY;
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-})();
-</script>
-
-<script>
-(function () {
-  var stories = Array.prototype.slice.call(document.querySelectorAll('.story'));
-  if (!stories.length) return;
-
-  var ticking = false;
-
-  function setActiveStory() {
-    var viewportCenter = window.innerHeight / 2;
-    var bestIndex = 0;
-    var bestDistance = Infinity;
-
-    for (var i = 0; i < stories.length; i++) {
-      var rect = stories[i].getBoundingClientRect();
-      var storyCenter = rect.top + rect.height / 2;
-      var distance = Math.abs(storyCenter - viewportCenter);
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        bestIndex = i;
-      }
-    }
-
-    for (var j = 0; j < stories.length; j++) {
-      if (j === bestIndex) {
-        stories[j].classList.add('story--active');
+      var rate = Math.max(0.15, 1 - ease * 0.85);
+      if (isInSection) {
+        postToVimeo('setPlaybackRate', rate);
       } else {
-        stories[j].classList.remove('story--active');
+        postToVimeo('setPlaybackRate', 1);
+      }
+
+      if (theaterWindow && !inTheater) {
+        section.classList.add('is-stopped');
+        inTheater = true;
+      } else if (!theaterWindow && inTheater) {
+        section.classList.remove('is-stopped');
+        inTheater = false;
+      }
+
+      var shouldStop = theaterWindow && progress >= 0.5 && progress <= 0.86;
+      if (shouldStop && !isStopped) {
+        postToVimeo('setPlaybackRate', 0.15);
+        postToVimeo('pause');
+        isStopped = true;
+      } else if (!shouldStop && isStopped) {
+        postToVimeo('play');
+        isStopped = false;
       }
     }
-  }
 
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function () {
-      setActiveStory();
-      ticking = false;
-    });
-  }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        applyScrollState();
+        ticking = false;
+      });
+    }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  setTimeout(setActiveStory, 80);
-})();
-</script>
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    setTimeout(onScroll, 80);
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var nav = document.querySelector('.site-nav');
+    if (!nav) return;
+
+    var lastY = window.scrollY || 0;
+    var minDelta = 6;
+    var showAtTop = 60;
+
+    function onScroll() {
+      var currentY = window.scrollY || 0;
+      var delta = currentY - lastY;
+
+      if (currentY <= showAtTop) {
+        nav.classList.remove('site-nav--hidden');
+        lastY = currentY;
+        return;
+      }
+
+      if (Math.abs(delta) < minDelta) return;
+
+      if (delta > 0) {
+        nav.classList.add('site-nav--hidden');
+      } else {
+        nav.classList.remove('site-nav--hidden');
+      }
+
+      lastY = currentY;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var stories = Array.prototype.slice.call(document.querySelectorAll('.story'));
+    if (!stories.length) return;
+
+    var ticking = false;
+
+    function setActiveStory() {
+      var viewportCenter = window.innerHeight / 2;
+      var bestIndex = 0;
+      var bestDistance = Infinity;
+
+      for (var i = 0; i < stories.length; i++) {
+        var rect = stories[i].getBoundingClientRect();
+        var storyCenter = rect.top + rect.height / 2;
+        var distance = Math.abs(storyCenter - viewportCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = i;
+        }
+      }
+
+      for (var j = 0; j < stories.length; j++) {
+        if (j === bestIndex) {
+          stories[j].classList.add('story--active');
+        } else {
+          stories[j].classList.remove('story--active');
+        }
+      }
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        setActiveStory();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    setTimeout(setActiveStory, 80);
+  })();
+  </script>
 
 </body>
 </html>

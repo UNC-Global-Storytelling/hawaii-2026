@@ -15,10 +15,26 @@
   <!-- Navigation -->
   <nav class="site-nav" aria-label="Primary">
     <div class="site-nav__inner">
-      <a class="site-nav__logo" href="/" aria-label="Mālama Maui home">
-        <img src="/assets/images/logos/mark-nav.svg" width="49" height="62" alt="">
+      <a class="site-nav__logo" href="/index.html" aria-label="Mālama Maui home">
+        <img src="/assets/images/logos/mark-nav.svg" width="40" height="50" alt="">
       </a>
-      <div class="site-nav__links">
+      <button class="site-nav__menu-toggle" aria-controls="site-nav__links" aria-expanded="false" aria-label="Open navigation">
+        <span class="site-nav__menu-icon menu-icon--default">
+          <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+            <rect y="7" width="32" height="3" rx="1.5" fill="#fff"/>
+            <rect y="15" width="32" height="3" rx="1.5" fill="#fff"/>
+            <rect y="23" width="32" height="3" rx="1.5" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="site-nav__menu-icon menu-icon--close" style="display:none;">
+          <!-- Simple X icon -->
+          <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+            <line x1="7" y1="7" x2="25" y2="25" stroke="#fff" stroke-width="3"/>
+            <line x1="25" y1="7" x2="7" y2="25" stroke="#fff" stroke-width="3"/>
+          </svg>
+        </span>
+      </button>
+      <div class="site-nav__links" id="site-nav__links">
         <a href="/eco"><span class="site-nav__label">ECO</span><span class="site-nav__sub">A Story About Eco</span></a>
         <a href="/ocean"><span class="site-nav__label">OCEAN</span><span class="site-nav__sub">Beneath the Surface</span></a>
         <a href="/resilience"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">A Story About Resilience</span></a>
@@ -325,6 +341,31 @@
       </div>
     </footer>
   </div>
+
+
+  <script>
+    // Enhance the menu toggle to show an "X" when open
+    const menuToggle = document.querySelector('.site-nav__menu-toggle');
+    const navLinks = document.getElementById('site-nav__links');
+    const iconDefault = menuToggle ? menuToggle.querySelector('.menu-icon--default') : null;
+    const iconClose = menuToggle ? menuToggle.querySelector('.menu-icon--close') : null;
+    if(menuToggle && navLinks && iconDefault && iconClose) {
+      menuToggle.addEventListener('click', function() {
+        const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+        this.setAttribute('aria-expanded', !expanded);
+        navLinks.style.display = expanded ? '' : 'flex';
+        navLinks.classList.toggle('open', !expanded);
+        // Toggle icons
+        if(!expanded) {
+          iconDefault.style.display = 'none';
+          iconClose.style.display = 'inline-block';
+        } else {
+          iconDefault.style.display = 'inline-block';
+          iconClose.style.display = 'none';
+        }
+      });
+    }
+  </script>
 
   <script>
   (function () {

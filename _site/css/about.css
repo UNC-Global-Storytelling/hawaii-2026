@@ -12,6 +12,28 @@ body.page-about {
   position: fixed;
 }
 
+.intro__wave {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 160vw;
+  height: auto;
+  min-height: 300px;
+  transform: translateX(-50%) translateY(-35%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.intro__wave img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.intro__text {
+  transform: translateY(-100px);
+}
+
 /* Class portrait: full-bleed width; flush to top of viewport (nav overlays) */
 .page-about .hero {
   margin-top: 0;

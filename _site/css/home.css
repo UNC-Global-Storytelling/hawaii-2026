@@ -28,6 +28,38 @@ body.page-home {
   display: block;
 }
 
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -2px 0;
+  height: clamp(64px, 10vw, 132px);
+  background: url("/assets/images/layouts/mountain-wave.svg") center bottom / 100% 100% no-repeat;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.intro__wave {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 160vw;
+  height: auto;
+  min-height: 300px;
+  transform: translateX(-50%) translateY(-35%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.intro__wave img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.intro__inner {
+  transform: translateY(-100px);
+}
+
 /* —— Video —— */
 .video-block {
   width: 100%;

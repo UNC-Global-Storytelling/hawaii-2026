@@ -1614,3 +1614,25 @@ margin: 0;
 
   
 }
+
+
+@media (max-width: 768px) {
+    /* Hide the desktop video block on mobile */
+    .video-block {
+      display: none !important;
+    }
+    /* Show the mobile featured Vimeo wrapper on mobile */
+    .video-block-mobile {
+      display: block !important;
+    }
+  }
+  @media (min-width: 769px) {
+    /* Show the desktop video block on desktop */
+    .video-block {
+      display: flex !important;
+    }
+    /* Hide the mobile featured Vimeo wrapper on desktop */
+    .video-block-mobile {
+      display: none !important;
+    }
+  }

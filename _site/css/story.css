@@ -1326,6 +1326,11 @@ margin: 0;
   opacity: 0.8;
 }
 
+.intro__wave-mobile {
+  display: none;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .site-nav__inner {
@@ -1370,6 +1375,30 @@ margin: 0;
     font-weight: normal;
   }
 
+  .intro__wave-mobile {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 160vw;
+    height: auto;
+    min-height: 300px;
+    transform: translateX(-50%) translateY(-35%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .intro__wave-mobile img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  
+
+  .intro__wave {
+    display: none;
+  }
+
   .listen-button {
     font-size: 22px;
     padding: 0.58rem 0.95rem;
@@ -1404,10 +1433,55 @@ margin: 0;
 
 
   /* Story Credits */
-  .below-fold{
+  /* .below-fold{
     transform: translateY(-25vh);
+  } */
+
+  .hero {
+    height: auto !important;
+    min-height: 50vh !important; /* Further reduced minimum height */
+    max-height: unset !important;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 1rem !important; /* Reduced bottom padding, overrides all others */
+  }
+  .hero__content {
+    transform: translateY(-30%);
   }
 
+
+
+  /* Place intro__wave-mobile at bottom, span full width, show only top (crop bottom off, no mask) */
+  .intro__wave-mobile {
+    display: block !important;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 160vw;
+    height: 80px;
+
+    max-height: 104px;
+    transform: translateX(-50%) translateY(50%);
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden; /* Crops the image bottom */
+  }
+  .intro__wave-mobile img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top center; /* Show only top of the wave */
+  }
+
+  .hero__content img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    z-index: 10;
+  }
   .story-credits {
     position: relative;
     width: 100%;
@@ -1523,13 +1597,20 @@ margin: 0;
     letter-spacing: -0.28px;
     }
 
-    .story-card__title {
-      color: #000;
-      font-family: Gelasio;
-      font-size: clamp(20px, 1.75vw, 20px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: -0.4px;
-    }
+  .story-card__title {
+    color: #000;
+    font-family: Gelasio;
+    font-size: clamp(22px, 1.75vw, 30px) !important;
+    font-weight: normal;
+  }
+.site-footer {
+  padding-top: 2rem !important;
+}
+@media (max-width: 700px) {
+  .site-footer {
+    padding-top: 1.25rem !important;
+  }
+}
+
+  
 }

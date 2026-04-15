@@ -359,3 +359,138 @@ body {
   color: #fff;
   transform: scale(1.05);
 }
+
+
+@media (max-width: 768px) {
+  .site-footer__about {
+    font-size: 18px;
+  }
+
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    height: 520px;
+  }
+  
+  .site-footer__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    line-height: 0;
+  }
+  
+  .site-footer__bg img {
+    width: 300vw;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: left-start;
+  }
+  
+  .site-footer__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 3rem;
+  }
+  
+  .site-footer__inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2rem;
+  }
+ 
+  .site-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .site-footer__brand img {
+    width: 64px;
+    height: auto;
+    flex-shrink: 0;
+  }
+  
+  .site-footer__brand h3 {
+    font-family: 'Proza Libre', sans-serif;
+    font-weight: 600;
+    color: var(--cream);
+    font-size: clamp(36px, 3.8vw, 54px);
+    letter-spacing: -1.09px;
+    margin: 0;
+    line-height: 1.1;
+  }
+  
+  .site-footer__brand p {
+    font-family: 'Proza Libre', sans-serif;
+    font-weight: 400;
+    color: var(--cream);
+    font-size: clamp(24px, 2.5vw, 36px);
+    letter-spacing: 2.9px;
+    margin: 0.25rem 0 0;
+    line-height: 1.1;
+  }
+  
+  .site-footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .site-footer__icon {
+    order: 2;
+    width: clamp(40px, 5.2vw, 58px);
+    height: clamp(40px, 5.2vw, 58px);
+    border-radius: 999px;
+    border: none;
+    background: var(--cream);
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .site-footer__icon:hover {
+    transform: scale(1.08);
+    background: #fff;
+  }
+  
+  .site-footer__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .site-footer__about {
+    order: 1;
+    flex-basis: 100%;
+    font-family: Gelasio, Georgia, serif;
+    font-size: clamp(25px, 2.2vw, 40px);
+    color: var(--cream);
+    letter-spacing: -0.72px;
+    text-decoration: none;
+    margin-left: 0;
+    transition: color 0.2s, transform 0.2s;
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  .site-footer__about:hover {
+    color: #fff;
+    transform: scale(1.05);
+  }
+}

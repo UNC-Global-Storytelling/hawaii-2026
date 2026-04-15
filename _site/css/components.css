@@ -362,6 +362,27 @@ body {
 
 
 @media (max-width: 768px) {
+
+  .site-footer {
+    height: 320px;
+  }.site-header {
+    overflow-x: hidden;
+    width: 100vw;
+    max-width: 100vw;
+  }
+  .nav,
+  .site-header__nav,
+  .site-header__inner {
+    overflow-x: hidden;
+    width: 100vw;
+    max-width: 100vw;
+  }
+  html, body {
+    overflow-x: hidden !important;
+    width: 100vw;
+    max-width: 100vw;
+  }
+
   .site-footer__about {
     font-size: 18px;
   }
@@ -494,3 +515,6 @@ body {
     transform: scale(1.05);
   }
 }
+
+
+

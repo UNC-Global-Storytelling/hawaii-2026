@@ -61,9 +61,9 @@ body {
 }
 
 .site-nav__logo img {
-  width: 58px;
-  height: 71px;
   display: block;
+  width: 250px;
+  height: auto;
 }
 
 /* Hamburger: hidden on large screens */

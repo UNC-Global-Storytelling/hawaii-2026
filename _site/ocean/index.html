@@ -384,6 +384,121 @@
     }
   </script>
 
+  
+  <!-- Mobile photo story (<=768px) behavior -->
+  <script>
+    (function() {
+      function isMobile() {
+        return window.matchMedia("(max-width: 768px)").matches;
+      }
+
+      function updateMobilePhotoStoryTheater() {
+        if (!isMobile()) return;
+        document.querySelectorAll('.photo-story').forEach(function(story) {
+          var rect = story.getBoundingClientRect();
+          var windowH = window.innerHeight;
+
+          // Activate theater mode only when the top has reached top of screen and bottom not been scrolled past
+          var inTheater = rect.top <= 0 && rect.bottom > windowH;
+          if (inTheater) {
+            story.classList.add('is-stopped');
+          } else {
+            story.classList.remove('is-stopped');
+          }
+
+          // Ensure photo-story__arrow elements are ALWAYS visible on mobile
+          story.querySelectorAll('.photo-story__arrow').forEach(function(arrow) {
+            arrow.classList.remove('is-hidden');
+            // Remove any inline 'display: none', force arrow to be visible
+            arrow.style.display = 'inline-flex';
+            arrow.style.opacity = '1';
+            arrow.style.pointerEvents = 'auto';
+          });
+
+          // Pause effect when photos are centered (section is vertically centered in viewport)
+          var centerZoneTop = windowH * 0.375;
+          var centerZoneBottom = windowH * 0.625;
+          var storyCenter = rect.top + rect.height / 2;
+          var nearCenter = (storyCenter >= centerZoneTop) && (storyCenter <= centerZoneBottom);
+
+          if (nearCenter) {
+            if (!story.dataset.pauseLock) {
+              story.dataset.pauseLock = '1';
+              var scrollY = window.scrollY;
+              var pauseDuration = 350;
+
+              setTimeout(function() {
+                delete story.dataset.pauseLock;
+              }, pauseDuration);
+
+              var targetScroll = scrollY + rect.top - (windowH - rect.height) / 2;
+              var diff = Math.abs(scrollY - targetScroll);
+              if (diff > 4) {
+                window.scrollTo({
+                  top: targetScroll,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          }
+        });
+      }
+
+      function mobileHandler() {
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(updateMobilePhotoStoryTheater);
+        } else {
+          updateMobilePhotoStoryTheater();
+        }
+      }
+
+      window.addEventListener('scroll', mobileHandler, {passive:true});
+      window.addEventListener('resize', mobileHandler);
+      window.addEventListener('orientationchange', mobileHandler);
+
+      mobileHandler();
+    })();
+  </script>
+  <!-- Desktop/tablet photo story (>768px) behavior -->
+  <script>
+    (function() {
+      function isLarge() {
+        return window.matchMedia("(min-width: 769px)").matches;
+      }
+
+      function updateDesktopPhotoStoryTheater() {
+        if (!isLarge()) return;
+        document.querySelectorAll('.photo-story').forEach(function(story) {
+          var rect = story.getBoundingClientRect();
+          var windowH = window.innerHeight;
+
+          // Activate theater only if top of section has reached or passed the top of the screen,
+          // AND the bottom of section is still below the viewport (not scrolled past)
+          var inTheater = rect.top <= 0 && rect.bottom > windowH;
+          if (inTheater) {
+            story.classList.add('is-stopped');
+          } else {
+            story.classList.remove('is-stopped');
+          }
+        });
+      }
+
+      function desktopHandler() {
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(updateDesktopPhotoStoryTheater);
+        } else {
+          updateDesktopPhotoStoryTheater();
+        }
+      }
+
+      window.addEventListener('scroll', desktopHandler, {passive:true});
+      window.addEventListener('resize', desktopHandler);
+      window.addEventListener('orientationchange', desktopHandler);
+
+      desktopHandler();
+    })();
+  </script>
+
   <script>
   (function () {
     var videoSections = Array.prototype.slice.call(document.querySelectorAll('.video-block')).filter(function (el) {

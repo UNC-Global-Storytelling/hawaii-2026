@@ -1326,7 +1326,7 @@ margin: 0;
   opacity: 0.8;
 }
 
-.intro__wave-mobile {
+.vimeo-block {
   display: none;
 }
 
@@ -1561,6 +1561,12 @@ margin: 0;
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
+
+  /* Photo story */
+  .vimeo-block {
+    display: block;
+  }
   .site-nav__inner {
     min-height: 80px;
     padding: 0 1rem;
@@ -2029,63 +2035,53 @@ margin: 0;
   .photo-story__arrow {
     position: absolute;
     top: 50%;
-    /* Make sure arrows are visually hanging outside edges of the stage -- always visible */
-    transform: translateY(-50%);
-    width: clamp(48px, 5vw, 64px);
-    height: clamp(48px, 5vw, 64px);
+    transform: translateY(-50%) translateX(var(--arrow-x, 0));
+    width: clamp(42px, 4vw, 56px);
+    height: clamp(42px, 4vw, 56px);
     border: none;
-    border-radius: 50%;
-    background: rgba(36, 38, 57, 0.92);
+    border-radius: 0;
+    background: transparent;
     color: #fff;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 4px 24px 0 rgba(25, 26, 34, 0.33);
-    transition: transform 160ms cubic-bezier(.4,0,.2,1), background-color 160ms cubic-bezier(.4,0,.2,1), opacity 160ms cubic-bezier(.4,0,.2,1);
-    opacity: 1;
+    z-index: 5;
+    transition: transform 160ms ease, background-color 160ms ease, opacity 160ms ease;
+    /* Default: arrows are on the edge of the .photo-story__stage; moved up in theater mode below */
   }
 
   .photo-story__arrow svg {
-    width: 34px;
-    height: 34px;
-    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.38));
-    display: block;
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
   }
 
   .photo-story__arrow--left {
-    left: -38px;
+    left: 0;
     right: auto;
+    --arrow-x: -180%;
   }
 
   .photo-story__arrow--right {
-    right: -38px;
+    right: 0;
     left: auto;
+    --arrow-x: 180%;
   }
 
-  @media (max-width: 900px) {
-    .photo-story__arrow--left {
-      left: -22px;
-    }
-    .photo-story__arrow--right {
-      right: -22px;
-    }
-    .photo-story__arrow {
-      width: 40px;
-      height: 40px;
-    }
-    .photo-story__arrow svg {
-      width: 24px;
-      height: 24px;
-    }
+  /* Make the arrows display slightly farther from the photo in theater mode */
+  .photo-story.is-stopped .photo-story__arrow--left {
+    left: -36px; /* slightly farther than previous closer value */
+    --arrow-x: 0;
   }
+  .photo-story.is-stopped .photo-story__arrow--right {
+    right: -36px; /* slightly farther than previous closer value */
+    --arrow-x: 0;
+  }
+  /* fine-tune with media queries for small screens if desired */
 
-  .photo-story__arrow:hover,
-  .photo-story__arrow:focus {
-    background: #8258a9;
-    outline: none;
-    transform: translateY(-50%) scale(1.10);
+  .photo-story__arrow:hover {
+    transform: translateY(-50%) translateX(var(--arrow-x, 0)) scale(1.04);
   }
 
   .photo-story__arrow.is-hidden {

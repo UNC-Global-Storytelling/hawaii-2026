@@ -44,6 +44,10 @@ body {
   display: block;
 }
 
+.intro__wave-mobile {
+  display: none;
+}
+
 /* Navigation */
 .site-nav {
   position: fixed;

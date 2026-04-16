@@ -30,10 +30,6 @@ body.page-about {
   display: block;
 }
 
-.intro__text {
-  transform: translateY(-100px);
-}
-
 /* Class portrait: full-bleed width; flush to top of viewport (nav overlays) */
 .page-about .hero {
   margin-top: 0;
@@ -52,6 +48,9 @@ body.page-about {
   height: 110vh;
   min-height: 0;
   background: #252220;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .page-about .hero__media img {
@@ -65,7 +64,7 @@ body.page-about {
   object-position: unset;
   mix-blend-mode: normal;
   display: block;
-  transform: translateY(-140px);
+  transform: none;
 }
 
 .page-about .hero__gradient {

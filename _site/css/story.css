@@ -1331,6 +1331,234 @@ margin: 0;
 }
 
 
+
+@media (max-width: 1650px) {
+  /* Photo story — same scroll height / theater as video; first image matches video stage */
+  .photo-story {
+    --photo-gap: clamp(8px, 1.2vw, 16px);
+    width: 100%;
+    background: var(--cream);
+    height: 240vh;
+    display: flex;
+    align-items: stretch;
+    transition: background-color 800ms cubic-bezier(.4,0,.2,1);
+  }
+
+  .photo-story__inner {
+    position: sticky;
+    top: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .photo-story__stage {
+    position: relative;
+    width: min(80vw, 1400px);
+    aspect-ratio: 16 / 9;
+    max-height: 82vh;
+    overflow: visible;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  }
+
+  /* When in theater mode, the photo story zooms in: */
+  .photo-story.is-stopped .photo-story__stage {
+    width: 75vw !important;
+    max-width: none;
+    transform: scale(1.03);
+  }
+
+  .photo-story__media {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(0) scale(1);
+    opacity: 1;
+    z-index: 1;
+    transition: transform 0.75s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.75s ease;
+    will-change: transform, opacity;
+  }
+
+  .photo-story__layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(var(--preview-x-hidden, var(--preview-x, 0))) scale(1);
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1), transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: transform, opacity;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .photo-story__preview--left {
+    left: 0;
+    right: auto;
+    --preview-x: calc(-100% - var(--photo-gap));
+    --preview-x-hidden: calc(-122% - var(--photo-gap));
+  }
+
+  .photo-story__preview--right {
+    right: 0;
+    left: auto;
+    --preview-x: calc(100% + var(--photo-gap));
+    --preview-x-hidden: calc(122% + var(--photo-gap));
+  }
+
+  .photo-story__preview.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .photo-story__preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+
+  .photo-story__peek-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--0,
+  .photo-story__preview--right .photo-story__peek-layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--1,
+  .photo-story__preview--right .photo-story__peek-layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--0,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--1,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(var(--arrow-x, 0));
+    width: clamp(42px, 4vw, 56px);
+    height: clamp(42px, 4vw, 56px);
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 160ms ease, background-color 160ms ease, opacity 160ms ease;
+  }
+
+  .photo-story__arrow svg {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+  }
+
+  .photo-story__arrow--left {
+    left: 0;
+    right: auto;
+    --arrow-x: -180%;
+  }
+
+  .photo-story__arrow--right {
+    right: 0;
+    left: auto;
+    --arrow-x: 180%;
+  }
+
+  .photo-story__arrow:hover {
+    transform: translateY(-50%) translateX(var(--arrow-x, 0)) scale(1.04);
+  }
+
+  .photo-story__arrow.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .site-nav__inner {
@@ -1603,14 +1831,267 @@ margin: 0;
     font-size: clamp(22px, 1.75vw, 30px) !important;
     font-weight: normal;
   }
-.site-footer {
-  padding-top: 2rem !important;
-}
-@media (max-width: 700px) {
   .site-footer {
-    padding-top: 1.25rem !important;
+    padding-top: 2rem !important;
   }
-}
+  @media (max-width: 700px) {
+    .site-footer {
+      padding-top: 1.25rem !important;
+    }
+  } 
+  
+  
+
+
+  /* Photo story — height at about 130vh, photos centered and highlighted */
+  .photo-story {
+    --photo-gap: clamp(8px, 1.2vw, 16px);
+    width: 100%;
+    background: var(--cream);
+    height: 130vh; /* Extended section height */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center;
+    transition: background-color 800ms cubic-bezier(.4,0,.2,1);
+  }
+
+  .photo-story__inner {
+    position: sticky;
+    top: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    height: 100vh; /* Ensures central photo block is always viewport height */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .photo-story__stage {
+    position: relative;
+    width: min(80vw, 1400px);
+    aspect-ratio: 16 / 9;
+    max-height: 80vh; /* The active photo occupies up to 80% of the viewport height */
+    overflow: visible;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  }
+
+  /* When in theater mode, the photo story zooms in: */
+  .photo-story.is-stopped .photo-story__stage {
+    width: 75vw !important;
+    max-width: none;
+    max-height: 90vh; /* Allow highlighted photo to grow in theater mode */
+    transform: scale(1.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-story__media {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(0) scale(1);
+    opacity: 1;
+    z-index: 1;
+    transition: transform 0.75s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.75s ease;
+    will-change: transform, opacity;
+  }
+
+  .photo-story__layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(var(--preview-x-hidden, var(--preview-x, 0))) scale(1);
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1), transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: transform, opacity;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .photo-story__preview--left {
+    left: 0;
+    right: auto;
+    --preview-x: calc(-100% - var(--photo-gap));
+    --preview-x-hidden: calc(-122% - var(--photo-gap));
+  }
+
+  .photo-story__preview--right {
+    right: 0;
+    left: auto;
+    --preview-x: calc(100% + var(--photo-gap));
+    --preview-x-hidden: calc(122% + var(--photo-gap));
+  }
+
+  .photo-story__preview.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .photo-story__preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+
+  .photo-story__peek-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--0,
+  .photo-story__preview--right .photo-story__peek-layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--1,
+  .photo-story__preview--right .photo-story__peek-layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--0,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--1,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__arrow {
+    position: absolute;
+    top: 50%;
+    /* Make sure arrows are visually hanging outside edges of the stage -- always visible */
+    transform: translateY(-50%);
+    width: clamp(48px, 5vw, 64px);
+    height: clamp(48px, 5vw, 64px);
+    border: none;
+    border-radius: 50%;
+    background: rgba(36, 38, 57, 0.92);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 24px 0 rgba(25, 26, 34, 0.33);
+    transition: transform 160ms cubic-bezier(.4,0,.2,1), background-color 160ms cubic-bezier(.4,0,.2,1), opacity 160ms cubic-bezier(.4,0,.2,1);
+    opacity: 1;
+  }
+
+  .photo-story__arrow svg {
+    width: 34px;
+    height: 34px;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.38));
+    display: block;
+  }
+
+  .photo-story__arrow--left {
+    left: -38px;
+    right: auto;
+  }
+
+  .photo-story__arrow--right {
+    right: -38px;
+    left: auto;
+  }
+
+  @media (max-width: 900px) {
+    .photo-story__arrow--left {
+      left: -22px;
+    }
+    .photo-story__arrow--right {
+      right: -22px;
+    }
+    .photo-story__arrow {
+      width: 40px;
+      height: 40px;
+    }
+    .photo-story__arrow svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .photo-story__arrow:hover,
+  .photo-story__arrow:focus {
+    background: #8258a9;
+    outline: none;
+    transform: translateY(-50%) scale(1.10);
+  }
+
+  .photo-story__arrow.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   
 }

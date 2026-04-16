@@ -384,9 +384,68 @@
       });
     }
   </script>
-
   <script>
-  (function () {
+    (function() {
+      function isMobile() {
+        return window.matchMedia("(max-width: 768px)").matches;
+      }
+
+      function updateMobilePhotoStoryTheater() {
+        document.querySelectorAll('.photo-story').forEach(function(story) {
+          var rect = story.getBoundingClientRect();
+          var windowH = window.innerHeight;
+
+          // Activate theater if top is at or above top of viewport and bottom is at or below bottom
+          var inTheater = isMobile() && rect.top <= 0 && rect.bottom >= windowH;
+          if (inTheater) {
+            story.classList.add('is-stopped');
+          } else {
+            story.classList.remove('is-stopped');
+          }
+
+          // Pause effect when photos are centered ("center" = section is vertically centered in viewport)
+          var centerZoneTop = windowH * 0.375;   // 37.5% from top (to allow a 25% high "pause" zone)
+          var centerZoneBottom = windowH * 0.625; // 62.5% from top
+          var storyCenter = rect.top + rect.height / 2;
+          var nearCenter = isMobile() && (storyCenter >= centerZoneTop) && (storyCenter <= centerZoneBottom);
+
+          if (nearCenter) {
+            // Lock scroll for a brief moment if just entered the pause zone
+            if (!story.dataset.pauseLock) {
+              story.dataset.pauseLock = '1';
+              var scrollY = window.scrollY;
+              var pauseDuration = 350; // ms
+
+              // Don't break keyboard navigation or mobile momentum scrolls, so only do if not already locked
+              setTimeout(function() {
+                delete story.dataset.pauseLock;
+              }, pauseDuration);
+
+              // Animate scroll to gently "pause" user in this zone
+              // Only nudge the scroll if not already well-centered
+              var targetScroll = scrollY + rect.top - (windowH - rect.height)/2;
+              var diff = Math.abs(scrollY - targetScroll);
+              if (diff > 4) {
+                window.scrollTo({
+                  top: targetScroll,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateMobilePhotoStoryTheater, {passive:true});
+      window.addEventListener('resize', updateMobilePhotoStoryTheater);
+      window.addEventListener('orientationchange', updateMobilePhotoStoryTheater);
+
+      // Initial call
+      updateMobilePhotoStoryTheater();
+    })();
+  </script>
+  <script>
+    (function () {
     var videoSections = Array.prototype.slice.call(document.querySelectorAll('.video-block')).filter(function (el) {
       return el.querySelector('iframe');
     });

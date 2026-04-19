@@ -1195,6 +1195,10 @@ filter: brightness(1.06);
 transform: translateY(-1px);
 }
 
+.story-card__cta--green {
+  background: #75a40a;
+  }
+
 .story-card__cta--navy {
 background: #112e51;
 }

@@ -3,6 +3,9 @@ body.page-about {
   background: var(--cream);
   color: #000;
 }
+body.page-about {
+  overflow-x: hidden;
+}
 
 .page-about main {
   display: block;
@@ -149,7 +152,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 }
 
 .everyone__inner {
-  max-width: 1040px;
+  /* max-width: 1200px; */
   margin: 0 auto;
 }
 
@@ -165,7 +168,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
   position: relative;
   margin: 0 auto;
   padding: 3.3rem 1.45rem 3rem;
-  max-width: 900px;
+  max-width: 1300px;
   overflow: visible;
 }
 
@@ -210,7 +213,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 
 .team-block__blob {
   position: relative;
-  max-width: 900px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 1.9rem 1rem 2.1rem;
   overflow: visible;
@@ -237,7 +240,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.55rem 1.15rem;
+  gap: 3rem 6rem;
   overflow: visible;
 }
 
@@ -247,7 +250,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2.65rem 1.6rem;
+  gap: 4rem 6rem;
   overflow: visible;
 }
 
@@ -265,7 +268,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 .profile-card__media {
   position: relative;
   width: 100%;
-  max-width: 220px;
+  max-width: 300px;
   margin: 0 auto 0.75rem;
   padding: 12% 10% 11% 11%;
   overflow: visible;
@@ -296,7 +299,6 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
   width: 100%;
   max-width: 204px;
   margin: 0 auto;
-  border: 2px solid #545f71;
   border-radius: 2px;
   background: var(--cream);
   overflow: hidden;
@@ -359,7 +361,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 }
 
 .profile-card--mini .profile-card__media {
-  max-width: 180px;
+  max-width: 300px;
   padding: 11% 9% 10% 10%;
 }
 
@@ -369,7 +371,7 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 
 .profile-card--mini .profile-card__avatar {
   border-color: rgba(254, 247, 236, 0.7);
-  max-width: 168px;
+  max-width: 300px;
 }
 
 .profile-card--mini h3,
@@ -398,15 +400,15 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
   }
 
   .everyone__grid {
-    gap: 2.9rem 1.75rem;
+    gap: 4rem 6rem;
   }
 
   .profile-card__media {
-    max-width: 240px;
+    max-width: 300px;
   }
 
   .profile-card__avatar {
-    max-width: 220px;
+    max-width: 300px;
   }
 }
 
@@ -415,7 +417,38 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
     width: min(46%, 250px);
     min-width: 150px;
   }
-}/* Color bar — continue reading (matches design system palette) */
+}
+
+
+@media (max-width: 600px) {
+  .team-block__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+    justify-items: center;
+  }
+  .profile-card.profile-card--mini {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .everyone__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+    justify-items: center;
+  }
+}
+
+
+
+
+
+/* Color bar — continue reading (matches design system palette) */
 .color-bar--compact {
   display: flex;
   justify-content: center;

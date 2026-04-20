@@ -320,7 +320,6 @@ body {
   height: clamp(40px, 5.2vw, 58px);
   border-radius: 999px;
   border: none;
-  background: var(--cream);
   cursor: pointer;
   transition: transform 0.2s, background 0.2s;
   padding: 0;
@@ -332,7 +331,6 @@ body {
 
 .site-footer__icon:hover {
   transform: scale(1.08);
-  background: #fff;
 }
 
 .site-footer__icon svg {

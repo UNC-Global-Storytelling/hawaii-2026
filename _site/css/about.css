@@ -495,3 +495,977 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
 .color-bar--compact .color-bar__stripe--6 {
   background: #9576a0;
 }
+
+
+
+.about-stats {
+  margin: 3rem auto 4rem auto;
+  max-width: 900px;
+  padding: 0 1rem;
+}
+.about-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem 2rem;
+  justify-items: center;
+  align-items: center;
+}
+.about-stats__block {
+  background: #9576A0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+  min-width: 220px;
+  min-height: 220px;
+  max-width: 300px;
+  max-height: 300px;
+  box-shadow: 0 1px 8px 0 rgba(80,30,110,0.09);
+  text-align: center;
+}
+.about-stats__number {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+.about-stats__title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  line-height: 1.2;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .about-stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.3rem 1rem;
+  }
+  .about-stats__block {
+    width: 130px;
+    height: 130px;
+    min-width: 95px;
+    min-height: 95px;
+  }
+}
+@media (max-width: 600px) {
+  .about-stats__block {
+    width: 175px;
+    height: 175px;
+    min-width: 80px;
+    min-height: 80px;
+    padding: 0;
+  }
+  .about-stats__number {
+    font-size: 2rem;
+  }
+  .about-stats__title {
+    font-size: 0.97rem;
+  }
+}
+
+.intro-heading-behind-the-scenes {
+  text-align:center; font-size:clamp(2rem,5vw,3rem); font-weight:400; margin:0 auto 1.5rem auto; color:#000; font-family:Gelasio,Georgia,serif; display:block; width:100%; max-width:900px;
+}
+
+
+/* Photo story — same scroll height / theater as video; first image matches video stage */
+.photo-story {
+  --photo-gap: clamp(8px, 1.2vw, 16px);
+  width: 100%;
+  background: var(--cream);
+  height: 240vh;
+  display: flex;
+  align-items: stretch;
+  transition: background-color 800ms cubic-bezier(.4,0,.2,1);
+}
+
+.photo-story__inner {
+  position: sticky;
+  top: 0;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.photo-story__stage {
+  position: relative;
+  width: min(80vw, 1400px);
+  aspect-ratio: 16 / 9;
+  max-height: 82vh;
+  overflow: visible;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+}
+
+.photo-story__media {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-50%) translateX(0) scale(1);
+  opacity: 1;
+  z-index: 1;
+  transition: transform 0.75s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.75s ease;
+  will-change: transform, opacity;
+}
+
+.photo-story__layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.photo-story__layer--0 {
+  z-index: 1;
+  opacity: 1;
+}
+
+.photo-story__layer--1 {
+  z-index: 0;
+  opacity: 0;
+}
+
+.photo-story__media.photo-story__media--show-b .photo-story__layer--0 {
+  z-index: 0;
+  opacity: 0;
+}
+
+.photo-story__media.photo-story__media--show-b .photo-story__layer--1 {
+  z-index: 1;
+  opacity: 1;
+}
+
+.photo-story__preview {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-50%) translateX(var(--preview-x-hidden, var(--preview-x, 0))) scale(1);
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1), transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform, opacity;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.photo-story__preview--left {
+  left: 0;
+  right: auto;
+  --preview-x: calc(-100% - var(--photo-gap));
+  --preview-x-hidden: calc(-122% - var(--photo-gap));
+}
+
+.photo-story__preview--right {
+  right: 0;
+  left: auto;
+  --preview-x: calc(100% + var(--photo-gap));
+  --preview-x-hidden: calc(122% + var(--photo-gap));
+}
+
+.photo-story__preview.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.photo-story__preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 240ms cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+
+.photo-story__peek-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 240ms cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.photo-story__preview--left .photo-story__peek-layer--0,
+.photo-story__preview--right .photo-story__peek-layer--0 {
+  z-index: 1;
+  opacity: 1;
+}
+
+.photo-story__preview--left .photo-story__peek-layer--1,
+.photo-story__preview--right .photo-story__peek-layer--1 {
+  z-index: 0;
+  opacity: 0;
+}
+
+.photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--0,
+.photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--0 {
+  z-index: 0;
+  opacity: 0;
+}
+
+.photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--1,
+.photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--1 {
+  z-index: 1;
+  opacity: 1;
+}
+
+.photo-story__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(var(--arrow-x, 0));
+  width: clamp(42px, 4vw, 56px);
+  height: clamp(42px, 4vw, 56px);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 160ms ease, background-color 160ms ease, opacity 160ms ease;
+}
+
+.photo-story__arrow svg {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+}
+
+.photo-story__arrow--left {
+  left: 0;
+  right: auto;
+  --arrow-x: -180%;
+}
+
+.photo-story__arrow--right {
+  right: 0;
+  left: auto;
+  --arrow-x: 180%;
+}
+
+.photo-story__arrow:hover {
+  transform: translateY(-50%) translateX(var(--arrow-x, 0)) scale(1.04);
+}
+
+.photo-story__arrow.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.photo-story__down-cue {
+  position: absolute;
+  bottom: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--cream);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms cubic-bezier(.4,0,.2,1);
+}
+
+.photo-story__down-cue-icon {
+  width: 44px;
+  height: 44px;
+  animation: video-down-cue-bounce 1.8s ease-in-out infinite;
+}
+
+.photo-story.is-stopped {
+  background: #000;
+}
+
+.photo-story.is-stopped .photo-story__stage {
+  width: min(88vw, 1600px);
+  transform: scale(1.03);
+}
+
+/* Center hit shield: side previews are full-bleed (100%×100%) and transformed, so their
+   boxes still overlap the middle and steal hover — causes cursor/transform flicker. */
+.photo-story.is-stopped .photo-story__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0 24% 0 24%;
+  z-index: 4;
+  pointer-events: auto;
+  cursor: default;
+}
+
+.photo-story.is-stopped .photo-story__down-cue {
+  opacity: 1;
+}
+
+.photo-story.is-stopped .photo-story__media,
+.photo-story.is-stopped .photo-story__layer {
+  pointer-events: none;
+  user-select: none;
+}
+
+.photo-story.is-stopped .photo-story__preview {
+  opacity: 0.3;
+  transform: translateY(-50%) translateX(var(--preview-x, 0)) scale(0.9);
+  pointer-events: auto;
+}
+
+.photo-story.is-stopped .photo-story__preview:hover {
+  opacity: 1;
+  transform: translateY(-50%) translateX(var(--preview-x, 0)) scale(0.94);
+}
+
+.photo-story.is-stopped .photo-story__preview:hover .photo-story__preview-img {
+  transform: scale(1.06);
+}
+
+/* Carousel slide: next = right panel eases into center, current moves to left */
+.photo-story.is-stopped .photo-story__stage.is-anim-next .photo-story__preview--left {
+  opacity: 0;
+  transform: translateY(-50%) translateX(calc(-200% - 2 * var(--photo-gap))) scale(0.9);
+  pointer-events: none;
+}
+
+.photo-story.is-stopped .photo-story__stage.is-anim-next .photo-story__media {
+  opacity: 0.3;
+  transform: translateY(-50%) translateX(calc(-100% - var(--photo-gap))) scale(0.9);
+  z-index: 1;
+}
+
+.photo-story.is-stopped .photo-story__stage.is-anim-next .photo-story__preview--right {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0) scale(1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Carousel slide: prev = left panel eases into center */
+.photo-story.is-stopped .photo-story__stage.is-anim-prev .photo-story__preview--right {
+  opacity: 0;
+  transform: translateY(-50%) translateX(calc(200% + 2 * var(--photo-gap))) scale(0.9);
+  pointer-events: none;
+}
+
+.photo-story.is-stopped .photo-story__stage.is-anim-prev .photo-story__media {
+  opacity: 0.3;
+  transform: translateY(-50%) translateX(calc(100% + var(--photo-gap))) scale(0.9);
+  z-index: 1;
+}
+
+.photo-story.is-stopped .photo-story__stage.is-anim-prev .photo-story__preview--left {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0) scale(1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.photo-story__stage.is-anim-next .photo-story__preview,
+.photo-story__stage.is-anim-next .photo-story__arrow,
+.photo-story__stage.is-anim-prev .photo-story__preview,
+.photo-story__stage.is-anim-prev .photo-story__arrow {
+  pointer-events: none;
+}
+
+.photo-story__stage.is-anim-next .photo-story__preview-img,
+.photo-story__stage.is-anim-prev .photo-story__preview-img,
+.photo-story__stage.is-anim-next .photo-story__peek-layer,
+.photo-story__stage.is-anim-prev .photo-story__peek-layer {
+  transform: scale(1) !important;
+  transition: transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* After a slide, removing is-anim-* would otherwise run another 0.75s transition (preview
+   retreats + media re-enters) — reads as a backward glitch. Snap in one frame instead. */
+.photo-story__stage.is-settling .photo-story__media,
+.photo-story__stage.is-settling .photo-story__preview,
+.photo-story__stage.is-settling .photo-story__preview-img,
+.photo-story__stage.is-settling .photo-story__peek-layer {
+  transition: none !important;
+}
+
+@media (max-width: 768px) {
+
+  .photo-story__arrow--left {
+    --arrow-x: -190%;
+  }
+
+  .photo-story__arrow--right {
+    --arrow-x: 190%;
+  }
+}
+
+
+@media (max-width: 1650px) {
+  /* Photo story — same scroll height / theater as video; first image matches video stage */
+  .photo-story {
+    --photo-gap: clamp(8px, 1.2vw, 16px);
+    width: 100%;
+    background: var(--cream);
+    height: 240vh;
+    display: flex;
+    align-items: stretch;
+    transition: background-color 800ms cubic-bezier(.4,0,.2,1);
+  }
+
+  .photo-story__inner {
+    position: sticky;
+    top: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .photo-story__stage {
+    position: relative;
+    width: min(80vw, 1400px);
+    aspect-ratio: 16 / 9;
+    max-height: 82vh;
+    overflow: visible;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  }
+
+  /* When in theater mode, the photo story zooms in: */
+  .photo-story.is-stopped .photo-story__stage {
+    width: 75vw !important;
+    max-width: none;
+    transform: scale(1.03);
+  }
+
+  .photo-story__media {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(0) scale(1);
+    opacity: 1;
+    z-index: 1;
+    transition: transform 0.75s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.75s ease;
+    will-change: transform, opacity;
+  }
+
+  .photo-story__layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(var(--preview-x-hidden, var(--preview-x, 0))) scale(1);
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1), transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: transform, opacity;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .photo-story__preview--left {
+    left: 0;
+    right: auto;
+    --preview-x: calc(-100% - var(--photo-gap));
+    --preview-x-hidden: calc(-122% - var(--photo-gap));
+  }
+
+  .photo-story__preview--right {
+    right: 0;
+    left: auto;
+    --preview-x: calc(100% + var(--photo-gap));
+    --preview-x-hidden: calc(122% + var(--photo-gap));
+  }
+
+  .photo-story__preview.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .photo-story__preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+
+  .photo-story__peek-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--0,
+  .photo-story__preview--right .photo-story__peek-layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--1,
+  .photo-story__preview--right .photo-story__peek-layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--0,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--1,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(var(--arrow-x, 0));
+    width: clamp(42px, 4vw, 56px);
+    height: clamp(42px, 4vw, 56px);
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 160ms ease, background-color 160ms ease, opacity 160ms ease;
+  }
+
+  .photo-story__arrow svg {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+  }
+
+  .photo-story__arrow--left {
+    left: 0;
+    right: auto;
+    --arrow-x: -180%;
+  }
+
+  .photo-story__arrow--right {
+    right: 0;
+    left: auto;
+    --arrow-x: 180%;
+  }
+
+  .photo-story__arrow:hover {
+    transform: translateY(-50%) translateX(var(--arrow-x, 0)) scale(1.04);
+  }
+
+  .photo-story__arrow.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  /* Photo story — height at about 130vh, photos centered and highlighted */
+  .photo-story {
+    --photo-gap: clamp(8px, 1.2vw, 16px);
+    width: 100%;
+    background: var(--cream);
+    height: 130vh; /* Extended section height */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center;
+    transition: background-color 800ms cubic-bezier(.4,0,.2,1);
+  }
+
+  .photo-story__inner {
+    position: sticky;
+    top: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    height: 100vh; /* Ensures central photo block is always viewport height */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .photo-story__stage {
+    position: relative;
+    width: min(80vw, 1400px);
+    aspect-ratio: 16 / 9;
+    max-height: 80vh; /* The active photo occupies up to 80% of the viewport height */
+    overflow: visible;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  }
+
+  /* When in theater mode, the photo story zooms in: */
+  .photo-story.is-stopped .photo-story__stage {
+    width: 75vw !important;
+    max-width: none;
+    max-height: 90vh; /* Allow highlighted photo to grow in theater mode */
+    transform: scale(1.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-story__media {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(0) scale(1);
+    opacity: 1;
+    z-index: 1;
+    transition: transform 0.75s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.75s ease;
+    will-change: transform, opacity;
+  }
+
+  .photo-story__layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__media.photo-story__media--show-b .photo-story__layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%) translateX(var(--preview-x-hidden, var(--preview-x, 0))) scale(1);
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1), transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: transform, opacity;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .photo-story__preview--left {
+    left: 0;
+    right: auto;
+    --preview-x: calc(-100% - var(--photo-gap));
+    --preview-x-hidden: calc(-122% - var(--photo-gap));
+  }
+
+  .photo-story__preview--right {
+    right: 0;
+    left: auto;
+    --preview-x: calc(100% + var(--photo-gap));
+    --preview-x-hidden: calc(122% + var(--photo-gap));
+  }
+
+  .photo-story__preview.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .photo-story__preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+
+  .photo-story__peek-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 240ms cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--0,
+  .photo-story__preview--right .photo-story__peek-layer--0 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__preview--left .photo-story__peek-layer--1,
+  .photo-story__preview--right .photo-story__peek-layer--1 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--0,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--0 {
+    z-index: 0;
+    opacity: 0;
+  }
+
+  .photo-story__preview--left.photo-story__peek--show-b .photo-story__peek-layer--1,
+  .photo-story__preview--right.photo-story__peek--show-b .photo-story__peek-layer--1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .photo-story__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(var(--arrow-x, 0));
+    width: clamp(42px, 4vw, 56px);
+    height: clamp(42px, 4vw, 56px);
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 160ms ease, background-color 160ms ease, opacity 160ms ease;
+    /* Default: arrows are on the edge of the .photo-story__stage; moved up in theater mode below */
+  }
+
+  .photo-story__arrow svg {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.55));
+  }
+
+  .photo-story__arrow--left {
+    left: 0;
+    right: auto;
+    --arrow-x: -180%;
+  }
+
+  .photo-story__arrow--right {
+    right: 0;
+    left: auto;
+    --arrow-x: 180%;
+  }
+
+  /* Make the arrows display slightly farther from the photo in theater mode */
+  .photo-story.is-stopped .photo-story__arrow--left {
+    left: -36px; /* slightly farther than previous closer value */
+    --arrow-x: 0;
+  }
+  .photo-story.is-stopped .photo-story__arrow--right {
+    right: -36px; /* slightly farther than previous closer value */
+    --arrow-x: 0;
+  }
+  /* fine-tune with media queries for small screens if desired */
+
+  .photo-story__arrow:hover {
+    transform: translateY(-50%) translateX(var(--arrow-x, 0)) scale(1.04);
+  }
+
+  .photo-story__arrow.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+
+/* ── Photo story caption ─────────────────────────────────────── */
+
+.photo-story__inner {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.photo-story__caption {
+  position: relative;
+  z-index: 6;
+  max-width: min(80vw, 1400px);
+  width: 100%;
+  text-align: center;
+  min-height: 2.75em;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.photo-story__caption-text {
+  margin: 0;
+  padding: 0 0.5rem;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 400;
+  color: var(--cream);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  max-width: 680px;
+}
+
+/* Visible only while in theater mode */
+.photo-story.is-stopped .photo-story__caption-text {
+  opacity: 1;
+}
+
+.photo-story:not(.is-stopped) .photo-story__caption-text {
+  opacity: 0;
+  transition: none;
+}
+
+@media (max-width: 768px) {
+  .photo-story__caption {
+    max-width: 80vw;
+    min-height: 3em;
+  }
+
+  .photo-story__caption-text {
+    font-size: clamp(11px, 3vw, 14px);
+  }
+}
+
+.photo-story__arrow.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+.photo-story__preview.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

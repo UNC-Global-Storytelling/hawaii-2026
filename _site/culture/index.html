@@ -357,30 +357,34 @@
             <img class="photo-story__peek-layer photo-story__peek-layer--0 photo-story__preview-img" src="" alt="">
             <img class="photo-story__peek-layer photo-story__peek-layer--1 photo-story__preview-img" src="" alt="" aria-hidden="true">
           </div>
-
+    
           <div class="photo-story__media">
             <img class="photo-story__layer photo-story__layer--0" src="/assets/images/landscape/hero-placeholder.svg" alt="Photo story image" decoding="async">
             <img class="photo-story__layer photo-story__layer--1" src="/assets/images/landscape/hero-placeholder.svg" alt="" aria-hidden="true" decoding="async">
           </div>
-
+    
           <div class="photo-story__preview photo-story__preview--right" aria-hidden="true">
             <img class="photo-story__peek-layer photo-story__peek-layer--0 photo-story__preview-img" src="" alt="">
             <img class="photo-story__peek-layer photo-story__peek-layer--1 photo-story__preview-img" src="" alt="" aria-hidden="true">
           </div>
-
+    
           <button class="photo-story__arrow photo-story__arrow--left" type="button" aria-label="Previous image">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-
+    
           <button class="photo-story__arrow photo-story__arrow--right" type="button" aria-label="Next image">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-
         </div>
+    
+        <div class="photo-story__caption" role="status" aria-live="polite">
+          <p class="photo-story__caption-text"></p>
+        </div>
+    
         <div class="photo-story__down-cue" aria-hidden="true">
           <svg class="photo-story__down-cue-icon" viewBox="0 0 42.2609 42.2609" fill="none">
             <path d="M10.5652 15.8478L21.1304 26.413L31.6957 15.8478" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.52174"/>
@@ -473,7 +477,7 @@
     <!-- Footer -->
     <footer class="site-footer" id="about">
       <div class="site-footer__bg" aria-hidden="true">
-        <img src="/assets/images/layouts/footer-mountain-culture.svg" alt="">
+        <img src="/assets/images/layouts/footer-mountain.svg" alt="">
       </div>
       <div class="site-footer__content">
         <div class="site-footer__inner">
@@ -487,28 +491,20 @@
             </a>
           </div>
           <div class="site-footer__social">
-            <button type="button" class="site-footer__icon" aria-label="Social link 1">
-              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" aria-hidden="true">
-                <path d="M58 29C58 45.0163 45.0163 58 29 58C12.9837 58 0 45.0163 0 29C0 12.9837 12.9837 0 29 0C45.0163 0 58 12.9837 58 29Z" fill="#9576A0"/>
-              </svg>
-            </button>
-            <button type="button" class="site-footer__icon" aria-label="Social link 2">
-              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" aria-hidden="true">
-                <circle cx="29" cy="29" r="29" fill="#9576A0"/>
-              </svg>
-            </button>
-            <button type="button" class="site-footer__icon" aria-label="Social link 3">
-              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" aria-hidden="true">
-                <circle cx="29" cy="29" r="29" fill="#9576A0"/>
-              </svg>
-            </button>
-            <a class="site-footer__about" href="#about">About</a>
+            <a href="https://www.instagram.com/uncglobalstory/" target="_blank" rel="noopener noreferrer" class="site-footer__icon" aria-label="Follow us on Instagram">
+              <img src="/assets/images/logos/instagram.svg" width="58" height="58" alt="Follow us on Instagram">
+            </a>
+            <a href="https://globalstorytelling.unc.edu/" target="_blank" rel="noopener noreferrer" class="site-footer__icon" aria-label="See more Global Storytelling Projects">
+                <img src="/assets/images/logos/weblogo.svg" width="58" height="58" alt="See more Global Storytelling Projects">
+              </a>
+            <a class="site-footer__about" href="/about">About</a>
           </div>
         </div>
       </div>
     </footer>
   </div>
 
+  
   <script>
     // Enhance the menu toggle to show an "X" when open
     const menuToggle = document.querySelector('.site-nav__menu-toggle');
@@ -556,13 +552,29 @@
           }
 
           // Ensure photo-story__arrow elements are ALWAYS visible on mobile
-          story.querySelectorAll('.photo-story__arrow').forEach(function(arrow) {
-            arrow.classList.remove('is-hidden');
-            // Remove any inline 'display: none', force arrow to be visible
-            arrow.style.display = 'inline-flex';
-            arrow.style.opacity = '1';
-            arrow.style.pointerEvents = 'auto';
-          });
+          function updateArrowsOnly() {
+            var hasPrev = currentIndex > 0;
+            var hasNext = currentIndex < images.length - 1;
+
+            if (prevButton) {
+              prevButton.classList.toggle('is-hidden', !hasPrev);
+              prevButton.setAttribute('aria-disabled', hasPrev ? 'false' : 'true');
+            }
+            if (nextButton) {
+              nextButton.classList.toggle('is-hidden', !hasNext);
+              nextButton.setAttribute('aria-disabled', hasNext ? 'false' : 'true');
+            }
+
+            // Hide preview panels when there's nothing in that direction
+            if (leftPreviewWrap) {
+              var showLeft = hasPrev && !!images[currentIndex - 1];
+              leftPreviewWrap.classList.toggle('is-hidden', !showLeft);
+            }
+            if (rightPreviewWrap) {
+              var showRight = hasNext && !!images[currentIndex + 1];
+              rightPreviewWrap.classList.toggle('is-hidden', !showRight);
+            }
+          }
 
           // Pause effect when photos are centered (section is vertically centered in viewport)
           var centerZoneTop = windowH * 0.375;
@@ -737,8 +749,12 @@
       var nextButton = section.querySelector('.photo-story__arrow--right');
       var leftPreviewWrap = section.querySelector('.photo-story__preview--left');
       var rightPreviewWrap = section.querySelector('.photo-story__preview--right');
+      var captionEl = section.querySelector('.photo-story__caption-text');
       var SLIDE_MS = 750;
 
+      // ── Image sources ──────────────────────────────────────────────
+      // Replace these placeholder paths with your real image paths.
+      // The captions array must be the same length as the images array.
       var baseImages = [
         '/assets/images/landscape/hero-placeholder.svg',
         '/assets/images/layouts/story-ocean.svg',
@@ -750,9 +766,51 @@
       for (var i = 0; i < 15; i++) {
         images.push(baseImages[i % baseImages.length]);
       }
+
+      // ── Captions ───────────────────────────────────────────────────
+      // One entry per image. Empty string shows no caption.
+      var captions = [
+        "Mia Palacio stands on a hill overlooking what remains of Lahaina, three years after the fires. Photo: Uredo Agada",
+        "The ruins of Front Street, once lined with wooden storefronts, art galleries, and the pulse of Lahaina's culture. Photo: Uredo Agada",
+        "Joey's Kitchen in Napili became an overnight shelter for dozens of displaced residents the morning after the fires. Photo: Uredo Agada",
+        "Enriqueta Palacio sits at the entrance of the family's newly completed home on March 18, 2026. Photo: Uredo Agada",
+        "The Lahaina shoreline, where residents fled into the ocean to escape the advancing fire. Photo: Uredo Agada",
+        "A 'Keep Lahaina Land in Lahaina Hands' sign posted near the burn zone — a rallying cry against disaster profiteers. Photo: Uredo Agada",
+        "Autumn Ness, director of the Lahaina Community Land Trust, which was founded five days after the fire. Photo: Uredo Agada",
+        "Lahainaluna High School, where Mia is completing her senior year and her culinary capstone project. Photo: Uredo Agada",
+        "Mia's new bedroom, filled with strawberry décor she chose herself — a small, hard-won joy. Photo: Uredo Agada",
+        "Leah Palacio, Mia's younger sister, in the new home the family moved into in March 2026. Photo: Uredo Agada",
+        "Remnants of residential structures in the burn zone, where 85% of destroyed buildings were homes. Photo: Uredo Agada",
+        "A family rebuilding in West Maui, where the median home price has reached nearly $1.2 million. Photo: Uredo Agada",
+        "The coastline near Lahaina at dusk — the landscape that shaped a community and survived the fire. Photo: Uredo Agada",
+        "Community members gather at a Lahaina recovery meeting, still navigating housing instability years later. Photo: Uredo Agada",
+        "Mia Palacio, age 18, at her overlook above Lahaina. She plans to open a restaurant here one day. Photo: Uredo Agada"
+      ];
+
+      // Pad or trim captions to match images array length
+      while (captions.length < images.length) captions.push('');
+      captions = captions.slice(0, images.length);
+
       var currentIndex = 0;
       var animTimer = null;
 
+      // ── Caption update ─────────────────────────────────────────────
+      function updateCaption(instant) {
+        if (!captionEl) return;
+        var text = captions[currentIndex] || '';
+        if (instant) {
+          captionEl.textContent = text;
+          return;
+        }
+        captionEl.style.opacity = '0';
+        setTimeout(function () {
+          captionEl.textContent = text;
+          // Let the CSS transition handle fade-in by clearing the inline opacity
+          captionEl.style.opacity = '';
+        }, 200);
+      }
+
+      // ── Helpers ────────────────────────────────────────────────────
       function clearPhotoAnim() {
         if (animTimer) {
           window.clearTimeout(animTimer);
@@ -771,9 +829,7 @@
 
       function decodeWhenReady(img) {
         if (!img) return Promise.resolve();
-        if (img.decode) {
-          return img.decode().catch(function () {});
-        }
+        if (img.decode) return img.decode().catch(function () {});
         if (img.complete && img.naturalWidth > 0) return Promise.resolve();
         return new Promise(function (resolve) {
           img.addEventListener('load', resolve, { once: true });
@@ -803,19 +859,9 @@
           var nextRight = 1 - activeRightPeek;
 
           var tasks = [];
-
-          if (mainIncoming) {
-            mainIncoming.src = mainUrl;
-            tasks.push(decodeWhenReady(mainIncoming));
-          }
-          if (prevSrc && leftPeekEls[nextLeft]) {
-            leftPeekEls[nextLeft].src = prevSrc;
-            tasks.push(decodeWhenReady(leftPeekEls[nextLeft]));
-          }
-          if (nextSrc && rightPeekEls[nextRight]) {
-            rightPeekEls[nextRight].src = nextSrc;
-            tasks.push(decodeWhenReady(rightPeekEls[nextRight]));
-          }
+          if (mainIncoming) { mainIncoming.src = mainUrl; tasks.push(decodeWhenReady(mainIncoming)); }
+          if (prevSrc && leftPeekEls[nextLeft]) { leftPeekEls[nextLeft].src = prevSrc; tasks.push(decodeWhenReady(leftPeekEls[nextLeft])); }
+          if (nextSrc && rightPeekEls[nextRight]) { rightPeekEls[nextRight].src = nextSrc; tasks.push(decodeWhenReady(rightPeekEls[nextRight])); }
 
           Promise.all(tasks).then(function () {
             window.requestAnimationFrame(function () {
@@ -825,18 +871,14 @@
               mediaEl.classList.toggle('photo-story__media--show-b', nextMain === 1);
               if (prevSrc) {
                 activeLeftPeek = nextLeft;
-                if (leftPreviewWrap) {
-                  leftPreviewWrap.classList.toggle('photo-story__peek--show-b', activeLeftPeek === 1);
-                }
+                if (leftPreviewWrap) leftPreviewWrap.classList.toggle('photo-story__peek--show-b', activeLeftPeek === 1);
               } else {
                 activeLeftPeek = 0;
                 if (leftPreviewWrap) leftPreviewWrap.classList.remove('photo-story__peek--show-b');
               }
               if (nextSrc) {
                 activeRightPeek = nextRight;
-                if (rightPreviewWrap) {
-                  rightPreviewWrap.classList.toggle('photo-story__peek--show-b', activeRightPeek === 1);
-                }
+                if (rightPreviewWrap) rightPreviewWrap.classList.toggle('photo-story__peek--show-b', activeRightPeek === 1);
               } else {
                 activeRightPeek = 0;
                 if (rightPreviewWrap) rightPreviewWrap.classList.remove('photo-story__peek--show-b');
@@ -844,6 +886,7 @@
               if (leftPreviewWrap) leftPreviewWrap.classList.toggle('is-hidden', !prevSrc);
               if (rightPreviewWrap) rightPreviewWrap.classList.toggle('is-hidden', !nextSrc);
               updateArrowsOnly();
+              updateCaption();
               stage.classList.remove('is-settling');
               isAnimating = false;
               animTimer = null;
@@ -869,6 +912,7 @@
           var main = layerEls[activeLayerIndex];
           if (main) main.src = currentSrc;
           updateArrowsOnly();
+          updateCaption(opt.instant);
           return;
         }
 
@@ -879,6 +923,7 @@
         if (leftPreviewWrap) leftPreviewWrap.classList.toggle('is-hidden', !prevSrc);
         if (rightPreviewWrap) rightPreviewWrap.classList.toggle('is-hidden', !nextSrc);
         updateArrowsOnly();
+        updateCaption(opt.instant);
       }
 
       function goPrev() {
@@ -914,12 +959,8 @@
       }
 
       function bindSliderControls() {
-        if (prevButton) {
-          prevButton.addEventListener('click', goPrev);
-        }
-        if (nextButton) {
-          nextButton.addEventListener('click', goNext);
-        }
+        if (prevButton) prevButton.addEventListener('click', goPrev);
+        if (nextButton) nextButton.addEventListener('click', goNext);
         if (leftPreviewWrap) {
           leftPreviewWrap.addEventListener('click', function () {
             if (leftPreviewWrap.classList.contains('is-hidden')) return;
@@ -932,11 +973,19 @@
             goNext();
           });
         }
+
+        // ── Keyboard navigation ────────────────────────────────────────
+        document.addEventListener('keydown', function (e) {
+          // Only active when this section is in theater mode
+          if (!section.classList.contains('is-stopped')) return;
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); goPrev(); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
+        });
       }
 
       preloadImages();
       bindSliderControls();
-      updateSliderUI();
+      updateSliderUI({ instant: true });
 
       function applyScrollState() {
         var rect = section.getBoundingClientRect();

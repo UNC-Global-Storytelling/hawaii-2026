@@ -479,7 +479,9 @@ body.page-home {
 }
 
 
-
+.story__btn {
+  text-decoration: none;
+}
 
 
 .mobile-story {
@@ -649,6 +651,7 @@ body.page-home {
     margin-right: auto;
     font-size: 1.5em;
     padding: 1.1em 2.2em;
+    text-decoration: none;
   }
 
   .mobile-story__frame {
@@ -677,6 +680,7 @@ body.page-home {
     padding: 0.8rem 1.35rem;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
   }
   
   .mobile-story__copy--end .mobile-story__btn {

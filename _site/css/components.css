@@ -464,7 +464,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
   }
   
   .site-footer__icon {
@@ -473,7 +473,6 @@ body {
     height: clamp(40px, 5.2vw, 58px);
     border-radius: 999px;
     border: none;
-    background: var(--cream);
     cursor: pointer;
     transition: transform 0.2s, background 0.2s;
     padding: 0;

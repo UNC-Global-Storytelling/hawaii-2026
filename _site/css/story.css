@@ -1114,35 +1114,27 @@ color: inherit;
 margin-bottom: 0.85rem;
 }
 
-.story-card__thumb-placeholder {
-display: block;
-position: relative;
-width: 100%;
-aspect-ratio: 1 / 1;
-background: #fff;
-border: 2px solid var(--frame);
-box-sizing: border-box;
+/* Base styles: No border, no background, supports custom image with modifier class for each story */
+.story-card--continue .story-card__thumb-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1/1;
+  height: auto;
+  object-fit: cover;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin: 0;
 }
 
-.story-card__thumb-placeholder::before,
-.story-card__thumb-placeholder::after {
-content: "";
-position: absolute;
-left: 50%;
-top: 50%;
-width: 72%;
-height: 2px;
-background: var(--frame);
-transform-origin: center;
+.story-card__thumb {
+  display: block;
+  padding: 0;
+  background: none;
+  min-height: 0;
+  margin-bottom: 0;
 }
 
-.story-card__thumb-placeholder::before {
-transform: translate(-50%, -50%) rotate(31.38deg);
-}
 
-.story-card__thumb-placeholder::after {
-transform: translate(-50%, -50%) rotate(-31.38deg);
-}
 
 .story-card--continue .story-card__body {
 display: flex;

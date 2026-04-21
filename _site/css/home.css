@@ -402,6 +402,10 @@ body.page-home {
     text-align: right;
     margin-left: auto;
   }
+
+  .story__btn {
+    text-decoration: none;
+  }
 }
 
 .story__visual {
@@ -478,6 +482,9 @@ body.page-home {
   margin-left: auto;
 }
 
+.story__btn {
+  text-decoration: none;
+}
 
 .story__btn {
   text-decoration: none;

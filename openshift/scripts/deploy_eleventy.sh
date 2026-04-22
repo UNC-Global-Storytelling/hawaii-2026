@@ -56,11 +56,19 @@ if oc get buildconfig eleventy &>/dev/null; then
     cp -R "$SITE_DIR"/. "$BUILD_CONTEXT"/
     cp -R "$S2I_CFG_DIR"/nginx-cfg "$BUILD_CONTEXT"/nginx-cfg
 
+    echo "🧾 Verifying nginx config sent to build:"
+    shasum -a 256 "$BUILD_CONTEXT/nginx-cfg/default.conf" | awk '{print "  SHA256:", $1}'
+    sed -n '1,40p' "$BUILD_CONTEXT/nginx-cfg/default.conf"
+    echo ""
+
     # Start binary build with static site + nginx-cfg
     oc start-build eleventy --from-dir="$BUILD_CONTEXT" --follow
     
     echo ""
     echo "✅ Build completed!"
+
+    echo "🔄 Restarting deployment to pick up latest image..."
+    oc rollout restart deployment/eleventy
 else
     echo "⚠️  BuildConfig not found. Make sure the manifest was applied correctly."
 fi

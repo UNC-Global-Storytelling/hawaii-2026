@@ -571,10 +571,20 @@ body {
   .hero__badge { font-size: 20px; font-weight: normal; }
   .intro__wave-mobile {
     display: block !important; position: absolute; left: 50%; bottom: 0;
-    width: 160vw; height: 80px; max-height: 120px; transform: translateX(-50%) translateY(60%);
+    width: 160vw; height: 80px; max-height: 120px; transform: translateX(-50%) translateY(200%);
+    z-index: 1; pointer-events: none; overflow: hidden;
+  }
+
+  .intro__wave-mobile-ocean {
+    display: block !important; position: absolute; left: 50%; bottom: 0;
+    width: 160vw; height: 80px; max-height: 120px; transform: translateX(-50%) translateY(150%);
     z-index: 1; pointer-events: none; overflow: hidden;
   }
   .intro__wave-mobile img {
+    width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center;
+  }
+
+  .intro__wave-mobile-ocean img {
     width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center;
   }
   .intro__wave { display: none; }

@@ -106,6 +106,7 @@ Creates:
 Key features:
 - **Binary build source**: Uploads local `_site/` output to OpenShift via `oc start-build`
 - **OpenShift nginx S2I strategy**: Uses `openshift/nginx:latest` builder image
+- **Internal image reference**: Deployment uses `image-registry.openshift-image-registry.svc:5000/<namespace>/eleventy:latest`
 - **Custom nginx config**: Uses `openshift/nginx-s2i/nginx-cfg/default.conf` for root-path serving
 - **Low resource requirements**: Static site serving requires minimal resources (64Mi request / 128Mi limit)
 - **Edge TLS termination**: HTTPS encryption is handled by OpenShift router

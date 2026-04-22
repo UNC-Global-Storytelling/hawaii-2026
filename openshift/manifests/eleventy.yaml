@@ -4,7 +4,7 @@ metadata:
   name: eleventy
 spec:
   lookupPolicy:
-    local: false
+    local: true
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: eleventy
-          image: eleventy:latest
+          image: "${IMAGE_REGISTRY}/${OPENSHIFT_NAMESPACE}/eleventy:latest"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

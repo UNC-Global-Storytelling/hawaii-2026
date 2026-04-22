@@ -11,6 +11,8 @@ cd "$ROOT_DIR"
 MANIFEST_PATH="openshift/manifests/eleventy.yaml"
 SITE_DIR="_site"
 S2I_CFG_DIR="openshift/nginx-s2i"
+IMAGE_REGISTRY="${IMAGE_REGISTRY:-image-registry.openshift-image-registry.svc:5000}"
+OPENSHIFT_NAMESPACE="$(oc project -q)"
 
 echo "🚀 Deploying Eleventy site to OpenShift..."
 
@@ -27,7 +29,17 @@ fi
 
 # Apply the YAML
 echo "📋 Applying Eleventy configuration..."
-oc apply -f "$MANIFEST_PATH"
+
+# Force-recreate BuildConfig to avoid stale Git/Docker strategy in-cluster.
+if oc get buildconfig eleventy &>/dev/null; then
+    echo "♻️  Recreating BuildConfig/Builds to ensure nginx S2I binary strategy..."
+    oc delete buildconfig eleventy --ignore-not-found
+    oc delete build -l buildconfig=eleventy --ignore-not-found
+fi
+
+export IMAGE_REGISTRY
+export OPENSHIFT_NAMESPACE
+envsubst < "$MANIFEST_PATH" | oc apply -f -
 
 echo ""
 echo "✅ Eleventy configuration applied!"

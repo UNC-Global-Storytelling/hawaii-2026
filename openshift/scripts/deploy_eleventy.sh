@@ -55,10 +55,17 @@ if oc get buildconfig eleventy &>/dev/null; then
     trap 'rm -rf "$BUILD_CONTEXT"' EXIT
     cp -R "$SITE_DIR"/. "$BUILD_CONTEXT"/
     cp -R "$S2I_CFG_DIR"/nginx-cfg "$BUILD_CONTEXT"/nginx-cfg
+    if [ -d "$S2I_CFG_DIR/nginx-default-cfg" ]; then
+        cp -R "$S2I_CFG_DIR"/nginx-default-cfg "$BUILD_CONTEXT"/nginx-default-cfg
+    fi
 
     echo "🧾 Verifying nginx config sent to build:"
     shasum -a 256 "$BUILD_CONTEXT/nginx-cfg/default.conf" | awk '{print "  SHA256:", $1}'
     sed -n '1,40p' "$BUILD_CONTEXT/nginx-cfg/default.conf"
+    if [ -f "$BUILD_CONTEXT/nginx-default-cfg/default.conf" ]; then
+        shasum -a 256 "$BUILD_CONTEXT/nginx-default-cfg/default.conf" | awk '{print "  SHA256 (default server):", $1}'
+        sed -n '1,40p' "$BUILD_CONTEXT/nginx-default-cfg/default.conf"
+    fi
     echo ""
 
     # Start binary build with static site + nginx-cfg

@@ -48,7 +48,7 @@
     
 <section class="hero" aria-label="Hero">
   <div class="hero__media">
-    <video class="hero__video" src="/assets/images/C5061.mp4" autoplay muted noloop playsinline></video>
+    <video class="hero__video" src="/assets/images/final-sizzle.mp4" autoplay muted noloop playsinline></video>
     <div class="hero__gradient" aria-hidden="true"></div>
   </div>
   <div class="hero__titles">
@@ -564,13 +564,13 @@
 
     function startTimer() {
       // In case the video is already 14+ seconds, show immediately
-      if (video.currentTime >= 14) {
+      if (video.currentTime >= 11.5) {
         showHeroTitles();
         return;
       }
       // Otherwise, set up timeupdate event to show after 14s
       var handler = function() {
-        if (video.currentTime >= 14) {
+        if (video.currentTime >= 11.5) {
           showHeroTitles();
           video.removeEventListener('timeupdate', handler);
         }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Eleventy Deployment Script for OpenShift
-# This script helps deploy the Eleventy static site with environment variable substitution
+# This script deploys static _site output using OpenShift nginx S2I
 
 set -e
 
@@ -9,46 +9,25 @@ ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT_DIR"
 
 MANIFEST_PATH="openshift/manifests/eleventy.yaml"
+SITE_DIR="_site"
+S2I_CFG_DIR="openshift/nginx-s2i"
 
 echo "🚀 Deploying Eleventy site to OpenShift..."
 
-# Check if .env file exists
-if [ ! -f ".env" ]; then
-    echo "❌ Error: .env file not found!"
-    echo "Please copy .env.example to .env and fill in your values:"
-    echo "  cp .env.example .env"
-    echo "  vim .env"
+if [ ! -d "$SITE_DIR" ]; then
+    echo "❌ Error: $SITE_DIR directory not found."
+    echo "Build the site first so OpenShift can serve static assets."
     exit 1
 fi
 
-# Check if required variables are set
-required_vars=(
-    "DIRECTUS_API_URL"
-)
+if [ ! -d "$S2I_CFG_DIR/nginx-cfg" ]; then
+    echo "❌ Error: Missing nginx S2I config at $S2I_CFG_DIR/nginx-cfg"
+    exit 1
+fi
 
-echo "✓ Checking required environment variables..."
-for var in "${required_vars[@]}"; do
-    if ! grep -q "^$var=" .env; then
-        echo "❌ Missing variable: $var in .env"
-        echo "   This is required for Eleventy to fetch data from Directus during build."
-        exit 1
-    fi
-done
-
-echo "✓ All required variables found"
-
-# Load all environment variables from .env file
-set -o allexport
-. .env
-set +o allexport
-
-# Export specific variables for envsubst
-export DIRECTUS_API_URL
-export DIRECTUS_API_TOKEN="${DIRECTUS_API_TOKEN:-}"
-
-# Apply the YAML with variable substitution
+# Apply the YAML
 echo "📋 Applying Eleventy configuration..."
-envsubst < "$MANIFEST_PATH" | oc apply -f -
+oc apply -f "$MANIFEST_PATH"
 
 echo ""
 echo "✅ Eleventy configuration applied!"
@@ -56,12 +35,17 @@ echo ""
 
 # Check if BuildConfig exists and start a build
 if oc get buildconfig eleventy &>/dev/null; then
-    echo "🔨 Starting build from local source..."
-    echo "   This will package the current directory and build the Docker image."
+    echo "🔨 Starting nginx S2I build from local static _site directory..."
+    echo "   This uploads only static output and nginx config."
     echo ""
-    
-    # Start binary build - this will stream the current directory to OpenShift
-    oc start-build eleventy --from-dir=. --follow
+
+    BUILD_CONTEXT="$(mktemp -d)"
+    trap 'rm -rf "$BUILD_CONTEXT"' EXIT
+    cp -R "$SITE_DIR"/. "$BUILD_CONTEXT"/
+    cp -R "$S2I_CFG_DIR"/nginx-cfg "$BUILD_CONTEXT"/nginx-cfg
+
+    # Start binary build with static site + nginx-cfg
+    oc start-build eleventy --from-dir="$BUILD_CONTEXT" --follow
     
     echo ""
     echo "✅ Build completed!"
@@ -93,7 +77,7 @@ echo "  # View logs:"
 echo "  oc logs -l app=eleventy -f"
 echo ""
 echo "  # Rebuild after code changes:"
-echo "  oc start-build eleventy --from-dir=. --follow"
+echo "  bash openshift/scripts/deploy_eleventy.sh"
 echo ""
 echo "  # Check build status:"
 echo "  oc get builds"

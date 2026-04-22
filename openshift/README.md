@@ -5,12 +5,14 @@ This folder contains everything required to run the Directus + PostgreSQL stack 
 ## What's Here
 
 - `docker/`
-	- `eleventy/` → Dockerfile (with embedded NGINX config) for the 11ty build image
+	- `eleventy/` → Legacy Dockerfile flow for 11ty image builds
 	- `directus/` → Dockerfile + package.json for custom Directus image work
+- `nginx-s2i/`
+	- `nginx-cfg/default.conf` → OpenShift nginx S2I server config for static site root serving
 - `manifests/`
 	- `postgres.yaml` → PostgreSQL StatefulSet, Service, and Secret
 	- `directus.yaml` → Directus Deployment, Service, Route, ConfigMap, Secret
-	- `eleventy.yaml` → Eleventy BuildConfig, Deployment, Service, Route, ConfigMap, Secret
+	- `eleventy.yaml` → Eleventy BuildConfig, Deployment, Service, Route, ImageStream
 - `scripts/`
 	- `setup_directus.sh` → Pre-flight checks and .env scaffolding
 	- `deploy_postgres.sh` → Applies Postgres manifest with envsubst
@@ -95,22 +97,20 @@ Both manifests use `envsubst` to inject variables from your `.env` file.
 ### manifests/eleventy.yaml
 
 Creates:
-- BuildConfig (Docker build from local source using `openshift/docker/eleventy/Dockerfile`)
+- BuildConfig (OpenShift nginx S2I binary build from local `_site/`)
 - ImageStream (stores the built container image)
 - Deployment (nginx container serving the static site)
 - Service (internal networking on port 8080)
 - Route (public HTTPS access with edge termination)
-- ConfigMap (non-sensitive configuration like `DIRECTUS_API_URL`)
-- Secret (optional `DIRECTUS_API_TOKEN` for authenticated API access)
 
 Key features:
-- **Binary build source**: Builds from local directory, triggered by `oc start-build`
-- **Multi-stage Docker build**: Builds Eleventy site with Node.js, serves with nginx
-- **Build-time environment variables**: `DIRECTUS_API_URL` and `DIRECTUS_API_TOKEN` are available during the Eleventy build process
+- **Binary build source**: Uploads local `_site/` output to OpenShift via `oc start-build`
+- **OpenShift nginx S2I strategy**: Uses `openshift/nginx:latest` builder image
+- **Custom nginx config**: Uses `openshift/nginx-s2i/nginx-cfg/default.conf` for root-path serving
 - **Low resource requirements**: Static site serving requires minimal resources (64Mi request / 128Mi limit)
 - **Edge TLS termination**: HTTPS encryption is handled by OpenShift router
 
-The manifest uses `envsubst` to inject variables from your `.env` file.
+The manifest does not require `envsubst` for Eleventy static serving.
 
 ## Common Commands
 
@@ -130,7 +130,7 @@ bash openshift/scripts/deploy_directus.sh
 bash openshift/scripts/deploy_eleventy.sh
 
 # Rebuild Eleventy after code changes
-oc start-build eleventy --from-dir=. --follow
+bash openshift/scripts/deploy_eleventy.sh
 
 # Delete everything
 oc delete all -l app=directus

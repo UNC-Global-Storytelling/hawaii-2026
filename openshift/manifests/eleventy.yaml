@@ -1,21 +1,3 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: eleventy-config
-data:
-  DIRECTUS_API_URL: "${DIRECTUS_API_URL}"
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: eleventy-secret
-type: Opaque
-stringData:
-  # Optional: Only needed if Directus requires authentication
-  # Substitute from .env before applying
-  # Example: envsubst < eleventy.yaml | oc apply -f -
-  DIRECTUS_API_TOKEN: "${DIRECTUS_API_TOKEN}"
----
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
@@ -30,38 +12,19 @@ metadata:
   name: eleventy
 spec:
   source:
-    type: Git
-    git:
-      # Set these via envsubst before apply
-      uri: "${GIT_REPO_URL}"
-      ref: "${GIT_REF}"
-    contextDir: "."
+    type: Binary
   strategy:
-    type: Docker
-    dockerStrategy:
-      dockerfilePath: openshift/docker/eleventy/Dockerfile
-      env:
-        # Build-time environment variables for Eleventy
-        - name: DIRECTUS_API_URL
-          valueFrom:
-            configMapKeyRef:
-              name: eleventy-config
-              key: DIRECTUS_API_URL
-        - name: DIRECTUS_API_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: eleventy-secret
-              key: DIRECTUS_API_TOKEN
-              optional: true
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nginx:latest
+        namespace: openshift
   output:
     to:
       kind: ImageStreamTag
       name: eleventy:latest
   triggers:
-    - type: GitHub
-      github:
-        # Set this via envsubst before apply
-        secret: "${GITHUB_WEBHOOK_SECRET}"
     - type: ConfigChange
     - type: ImageChange
 ---

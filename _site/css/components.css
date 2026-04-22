@@ -135,7 +135,7 @@ body {
   color: var(--cream);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1160px) {
   /* Show hamburger on small screens */
   .site-nav__menu-toggle {
     display: block;

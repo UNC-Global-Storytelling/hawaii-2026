@@ -48,7 +48,7 @@
     
 <section class="hero" aria-label="Hero">
   <div class="hero__media">
-    <img src="/assets/images/landscape/DJI_0209.jpg" alt="Maui landscape">
+    <video class="hero__video" src="/assets/images/C5061.mp4" autoplay muted noloop playsinline></video>
     <div class="hero__gradient" aria-hidden="true"></div>
   </div>
   <div class="hero__titles">
@@ -206,7 +206,7 @@
         <div class="story__copy story__copy--end">
           <p class="story__cat">RESILIENCE</p>
           <h2>Rebuilding Lahaina</h2>
-          <p class="story__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum</p>
+          <p class="story__desc">Two and a half years after the Maui wildfires, the people of Lahaina reclaim what was lost.</p>
           <a class="story__btn" style="background-color:#1691b3" href="/resilience">
             <span>Explore Story</span>
           </a>
@@ -228,7 +228,7 @@
           </div>
         </div>
         <div class="mobile-story__copy mobile-story__copy--end">
-          <p class="mobile-story__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum</p>
+          <p class="mobile-story__desc">Two and a half years after the Maui wildfires, the people of Lahaina reclaim what was lost.</p>
           <a class="mobile-story__btn" style="background-color:#1691b3" href="/resilience">
             <span>Explore Story</span>
           </a>
@@ -288,7 +288,7 @@
         <div class="story__copy story__copy--end">
           <p class="story__cat">CULTURE</p>
           <h2>Guided by the Stars</h2>
-          <p class="story__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum</p>
+          <p class="story__desc">He va’a He Moku, He Moku He va’a. <br> The canoe is the island, the island is the canoe.</p>
           <a class="story__btn" style="background-color:#d85f5f" href="/culture">
             <span>Explore Story</span>
           </a>
@@ -310,7 +310,7 @@
           </div>
         </div>
         <div class="mobile-story__copy mobile-story__copy--end">
-          <p class="mobile-story__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mauris ante, tristique sit amet lorem non, tempor cursus ante. Praesent in porttitor nisi. Donec tincidunt dignissim malesuada. Donec porttitor commodo nisl sagittis efficitur. Pellentesque fermentum ipsum</p>
+          <p class="mobile-story__desc">He va’a He Moku, He Moku He va’a. <br> The canoe is the island, the island is the canoe.</p>
           <a class="mobile-story__btn" style="background-color:#d85f5f" href="/culture">
             <span>Explore Story</span>
           </a>
@@ -547,6 +547,46 @@
     setTimeout(setActiveStory, 80);
   })();
   </script>
+
+<script>
+  (function() {
+    var video = document.querySelector('.hero__video');
+    var heroTitles = document.querySelector('.hero__titles');
+    if (!video || !heroTitles) return;
+
+    // Initially hide the hero titles
+    heroTitles.style.opacity = '0';
+    heroTitles.style.transition = 'opacity 0.5s';
+
+    function showHeroTitles() {
+      heroTitles.style.opacity = '1';
+    }
+
+    function startTimer() {
+      // In case the video is already 14+ seconds, show immediately
+      if (video.currentTime >= 14) {
+        showHeroTitles();
+        return;
+      }
+      // Otherwise, set up timeupdate event to show after 14s
+      var handler = function() {
+        if (video.currentTime >= 14) {
+          showHeroTitles();
+          video.removeEventListener('timeupdate', handler);
+        }
+      };
+      video.addEventListener('timeupdate', handler);
+    }
+
+    // Wait for the video to play
+    video.addEventListener('play', startTimer, { once: true });
+
+    // If video is already playing (autoplay), check immediately
+    if (!video.paused) {
+      startTimer();
+    }
+  })();
+</script>
 
 </body>
 </html>

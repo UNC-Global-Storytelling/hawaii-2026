@@ -24,12 +24,21 @@ body.page-home {
   display: flex;
 }
 
+.hero__video {
+  height: 80vh;
+  width: 100vw;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
 .hero::after {
   content: "";
   position: absolute;
   inset: auto 0 -2px 0;
   height: clamp(64px, 10vw, 132px);
-  background: url("/assets/images/layouts/mountain-wave.svg") center bottom / 100% 100% no-repeat;
+  background: url("/assets/images/SizzleReel.mp4") center bottom / 100% 100% no-repeat;
   z-index: 1;
   pointer-events: none;
 }
@@ -495,6 +504,39 @@ body.page-home {
   display: none;
 }
 
+
+@media (max-width: 1500px) {
+  .below-fold {
+    margin-top: -250px;
+  }
+
+  .intro__wave {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 160vw;
+    height: auto;
+    min-height: 300px;
+    transform: translateX(-50%) translateY(-30%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .intro__wave img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .intro__inner {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    z-index: 3;
+    transform: translateY(0);
+  }
+}
 
 @media (max-width: 768px) {
   .below-fold {

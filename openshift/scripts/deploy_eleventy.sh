@@ -75,8 +75,10 @@ if timeout 120 oc wait --for=condition=available --timeout=120s deployment/eleve
     echo ""
     echo "🌐 Accessing Eleventy site:"
     echo ""
-    ROUTE=$(oc get route eleventy -o jsonpath='{.spec.host}' 2>/dev/null || echo "pending...")
-    echo "  URL: https://$ROUTE"
+    PRIMARY_ROUTE=$(oc get route eleventy -o jsonpath='{.spec.host}' 2>/dev/null || echo "pending...")
+    ALT_ROUTE=$(oc get route hawaii2026 -o jsonpath='{.spec.host}' 2>/dev/null || echo "pending...")
+    echo "  Primary URL: https://$PRIMARY_ROUTE"
+    echo "  Alt URL:     https://$ALT_ROUTE"
     echo ""
 else
     echo "⏳ Deployment is starting. Check status with:"

@@ -101,7 +101,7 @@ Creates:
 - ImageStream (stores the built container image)
 - Deployment (nginx container serving the static site)
 - Service (internal networking on port 8080)
-- Route (public HTTPS access with edge termination)
+- Routes (public access for `eleventy` (HTTPS) and `hawaii2026` (HTTP))
 
 Key features:
 - **Binary build source**: Uploads local `_site/` output to OpenShift via `oc start-build`

@@ -99,3 +99,15 @@ spec:
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: hawaii2026
+spec:
+  to:
+    kind: Service
+    name: eleventy
+    weight: 100
+  port:
+    targetPort: http

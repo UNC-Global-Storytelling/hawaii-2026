@@ -683,3 +683,140 @@ body {
 .photo-story__preview.is-hidden {
   opacity: 0 !important; pointer-events: none !important; cursor: default !important;
 }
+
+
+
+
+
+
+
+/* ── Glossary term trigger ───────────────────────────────────── */
+.gloss {
+  color: var(--eco-green);           /* inherits your theme color  */
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+  border-bottom: 2px dotted currentColor;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.gloss:hover  { opacity: 0.75; }
+.gloss.active { opacity: 0.75; }
+ 
+/* ── Bubble shell ────────────────────────────────────────────── */
+.gloss-bubble {
+  position: fixed;
+  z-index: 9999;
+  width: min(340px, 88vw);
+  background: #fef7ec;             /* matches your --cream exactly */
+  border: 2.5px solid #3aa8b8;
+  border-radius: 10px;
+  padding: 1rem 2rem 1rem 1.1rem;
+  box-shadow:
+    0 6px 24px rgba(58, 168, 184, 0.16),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px) scale(0.97);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  will-change: transform, opacity;
+  display: none;                   /* JS overrides this            */
+}
+.gloss-bubble.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+ 
+/* Tail — points DOWN-LEFT (bubble is above word, default) */
+.gloss-bubble::before,
+.gloss-bubble::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  border-style: solid;
+}
+.gloss-bubble::before {             /* outer teal border triangle  */
+  bottom: -17px;
+  border-width: 14px 14px 0 0;
+  border-color: #3aa8b8 transparent transparent transparent;
+}
+.gloss-bubble::after {              /* inner cream fill triangle   */
+  bottom: -13px;
+  border-width: 12px 12px 0 0;
+  border-color: #fef7ec transparent transparent transparent;
+}
+ 
+/* Tail flipped UP (bubble is below word) */
+.gloss-bubble.tail-up::before {
+  bottom: auto;
+  top: -17px;
+  border-width: 0 14px 14px 0;
+  border-color: transparent transparent #3aa8b8 transparent;
+}
+.gloss-bubble.tail-up::after {
+  bottom: auto;
+  top: -13px;
+  border-width: 0 12px 12px 0;
+  border-color: transparent transparent #fef7ec transparent;
+}
+ 
+/* Tail anchored to right edge (bubble shifted left) */
+.gloss-bubble.tail-right::before,
+.gloss-bubble.tail-right::after {
+  left: auto;
+  right: 20px;
+}
+ 
+/* ── Bubble content ──────────────────────────────────────────── */
+.gloss-bubble__term {
+  font-family: Gelasio, Georgia, serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #3aa8b8;
+  display: inline;
+}
+.gloss-bubble__def {
+  font-family: Gelasio, Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  display: inline;
+  line-height: 1.5;
+}
+ 
+/* ── Close button ────────────────────────────────────────────── */
+.gloss-bubble__close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 0.95rem;
+  line-height: 1;
+  border-radius: 50%;
+  padding: 0;
+  transition: color 0.12s, background 0.12s;
+  font-family: 'Proza Libre', sans-serif;
+}
+.gloss-bubble__close:hover {
+  color: #3aa8b8;
+  background: rgba(58, 168, 184, 0.1);
+}
+ 
+/* ── Tap-outside scrim (mobile) ──────────────────────────────── */
+.gloss-scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+}
+.gloss-scrim.active { display: block; }

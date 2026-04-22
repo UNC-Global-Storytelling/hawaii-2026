@@ -11,6 +11,145 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;700&family=Proza+Libre:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 </head>
+
+<!-- Scrim (catches outside taps on mobile) -->
+<div class="gloss-scrim" id="glossScrim"></div>
+ 
+<!-- Bubble -->
+<div
+  class="gloss-bubble"
+  id="glossBubble"
+  role="tooltip"
+  aria-live="polite"
+  aria-atomic="true"
+>
+  <button class="gloss-bubble__close" id="glossClose" aria-label="Close definition">✕</button>
+  <span class="gloss-bubble__term" id="glossTerm"></span>
+  <span class="gloss-bubble__def"  id="glossDef"></span>
+</div>
+ 
+<script>
+  (function () {
+    var bubble   = document.getElementById('glossBubble');
+    var termEl   = document.getElementById('glossTerm');
+    var defEl    = document.getElementById('glossDef');
+    var closeBtn = document.getElementById('glossClose');
+    var scrim    = document.getElementById('glossScrim');
+   
+    var active = null;          // currently open .gloss element
+    var MARGIN = 10;            // min px from viewport edge
+    var TAIL   = 14;            // tail height px
+    var GAP    = 8;             // gap between word and bubble
+   
+    /* ── Position ─────────────────────────────────────────────── */
+    function positionBubble(trigger) {
+      // reset modifier classes
+      bubble.classList.remove('tail-up', 'tail-right');
+   
+      // measure trigger rect
+      var tr  = trigger.getBoundingClientRect();
+      var bW  = bubble.offsetWidth;
+      var bH  = bubble.offsetHeight;
+      var vw  = window.innerWidth;
+      var vh  = window.innerHeight;
+   
+      // horizontal: anchor to word's left, shift if it clips right edge
+      var left = tr.left;
+      if (left + bW > vw - MARGIN) {
+        left = vw - MARGIN - bW;
+        bubble.classList.add('tail-right');
+      }
+      left = Math.max(MARGIN, left);
+   
+      // vertical: prefer above, fall below if not enough room
+      var top;
+      if (tr.top >= bH + TAIL + GAP) {
+        top = tr.top - bH - TAIL - GAP;        // above
+      } else {
+        top = tr.bottom + TAIL + GAP;           // below
+        bubble.classList.add('tail-up');
+      }
+   
+      bubble.style.left = left + 'px';
+      bubble.style.top  = top  + 'px';
+    }
+   
+    /* ── Open ──────────────────────────────────────────────────── */
+    function openBubble(trigger) {
+      termEl.textContent = trigger.dataset.term + ': ';
+      defEl.textContent  = trigger.dataset.def;
+   
+      // show offscreen first to get real dimensions
+      bubble.style.display    = 'block';
+      bubble.style.visibility = 'hidden';
+      bubble.classList.remove('visible');
+   
+      positionBubble(trigger);
+   
+      bubble.style.visibility = '';
+      // next frame → animate in
+      requestAnimationFrame(function () {
+        bubble.classList.add('visible');
+      });
+   
+      scrim.classList.add('active');
+   
+      if (active) active.classList.remove('active');
+      active = trigger;
+      active.classList.add('active');
+    }
+   
+    /* ── Close ─────────────────────────────────────────────────── */
+    function closeBubble() {
+      bubble.classList.remove('visible');
+      scrim.classList.remove('active');
+      if (active) { active.classList.remove('active'); active = null; }
+      // hide after transition
+      setTimeout(function () {
+        if (!bubble.classList.contains('visible')) {
+          bubble.style.display = 'none';
+        }
+      }, 200);
+    }
+   
+    /* ── Event delegation ──────────────────────────────────────── */
+    document.addEventListener('click', function (e) {
+      var gloss = e.target.closest('.gloss');
+   
+      if (gloss) {
+        e.stopPropagation();
+        if (gloss === active) { closeBubble(); }
+        else                  { openBubble(gloss); }
+        return;
+      }
+   
+      if (bubble.contains(e.target)) return; // click inside bubble — keep open
+   
+      closeBubble();
+    });
+   
+    closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeBubble();
+    });
+   
+    scrim.addEventListener('click', closeBubble);
+   
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeBubble();
+    });
+   
+    // Reposition if user scrolls/resizes while bubble is open
+    function handleReflow() {
+      if (active && bubble.classList.contains('visible')) {
+        positionBubble(active);
+      }
+    }
+    window.addEventListener('resize', handleReflow);
+    window.addEventListener('scroll', handleReflow, { passive: true });
+  })();
+  </script>
+
 <body class="story-theme--food">
   <!-- Navigation -->
   <nav class="site-nav" aria-label="Primary">

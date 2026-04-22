@@ -180,14 +180,159 @@
       </div>
     </section>
 
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
+    <!-- 1976 Hōkūleʻa voyage stats + map -->
+    <section class="voyage-stats" aria-labelledby="voyage-stats-heading">
+      <h2 id="voyage-stats-heading" class="voyage-stats__title">1976 Hōkūleʻa Voyage to Tahiti</h2>
+      <div class="voyage-stats__layout">
+        <figure class="voyage-stats__map">
+          <img
+            src="/assets/graphics/culture_graphic_map.png"
+            alt="Chart of the 1976 route between Hawaiʻi and Tahiti, with outbound and return voyage legs labeled."
+            width="975"
+            height="627"
+            loading="lazy"
+            decoding="async"
+          >
+        </figure>
+        <div class="voyage-stats__cards">
+          <div
+            class="voyage-card"
+            data-voyage-card
+            tabindex="0"
+            role="button"
+            aria-pressed="false"
+            aria-expanded="false"
+            aria-label="People on Board. Toggle to show or hide statistics."
+          >
+            <div class="voyage-card__flip">
+              <div class="voyage-card__side voyage-card__side--front">
+                <span class="voyage-card__heading">People on Board</span>
+                <span class="voyage-card__cta"><span class="voyage-card__cta-inner">Click to See</span></span>
+              </div>
+              <div class="voyage-card__side voyage-card__side--back">
+                <div class="voyage-card__graphic voyage-card__graphic--people" aria-hidden="true">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                  <img class="voyage-icon-profile" src="/assets/graphics/map_profile.png" width="22" height="22" alt="" decoding="async">
+                </div>
+                <div class="voyage-card__data">
+                  <span class="voyage-card__num">15</span>
+                  <span class="voyage-card__unit">People on Board</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="voyage-card"
+            data-voyage-card
+            tabindex="0"
+            role="button"
+            aria-pressed="false"
+            aria-expanded="false"
+            aria-label="Distance traveled. Toggle to show or hide statistics."
+          >
+            <div class="voyage-card__flip">
+              <div class="voyage-card__side voyage-card__side--front">
+                <span class="voyage-card__heading">Distance Traveled</span>
+                <span class="voyage-card__cta"><span class="voyage-card__cta-inner">Click to See</span></span>
+              </div>
+              <div class="voyage-card__side voyage-card__side--back">
+                <div class="voyage-card__graphic voyage-card__graphic--distance" aria-hidden="true">
+                  <div class="voyage-distance-map">
+                    <img class="voyage-distance-map__arrow" src="/assets/graphics/map_arrow.png" alt="" decoding="async">
+                    <img class="voyage-distance-map__pin voyage-distance-map__pin--tl" src="/assets/graphics/map_pin.png" alt="" decoding="async">
+                    <img class="voyage-distance-map__pin voyage-distance-map__pin--br" src="/assets/graphics/map_pin.png" alt="" decoding="async">
+                  </div>
+                </div>
+                <div class="voyage-card__data">
+                  <span class="voyage-card__num">2700</span>
+                  <span class="voyage-card__unit">Miles to Tahiti</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="voyage-card"
+            data-voyage-card
+            tabindex="0"
+            role="button"
+            aria-pressed="false"
+            aria-expanded="false"
+            aria-label="Days at sea. Toggle to show or hide statistics."
+          >
+            <div class="voyage-card__flip">
+              <div class="voyage-card__side voyage-card__side--front">
+                <span class="voyage-card__heading">Days at Sea</span>
+                <span class="voyage-card__cta"><span class="voyage-card__cta-inner">Click to See</span></span>
+              </div>
+              <div class="voyage-card__side voyage-card__side--back">
+                <div class="voyage-card__graphic voyage-card__graphic--suns" aria-hidden="true">
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg class="voyage-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="voyage-card__data">
+                  <span class="voyage-card__num">35</span>
+                  <span class="voyage-card__unit">Days at Sea</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <p class="voyage-stats__source">Sources: Polynesian Voyaging Society</p>
+    </section>
 
     <!-- Content Section 1 -->
     <section class="content-section_story">
@@ -232,13 +377,31 @@
       </div>
     </section>
 
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
+    <!-- Image Frame (gallery) -->
+    <div
+      class="image-frame-gallery"
+      data-image-frame-gallery="scene-stack"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Culture photo gallery"
+      tabindex="0"
+    >
+      <div class="image-frame image-frame--large">
+        <img class="image-frame__image" src="/assets/graphics/Scene_1.png" alt="Culture scene 1 of 5">
+        <div class="image-frame-gallery__caption" aria-live="polite">
+          <p class="image-frame-gallery__caption-text"></p>
+        </div>
       </div>
+      <button type="button" class="image-frame-gallery__arrow image-frame-gallery__arrow--prev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="image-frame-gallery__arrow image-frame-gallery__arrow--next" aria-label="Next image">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
 
     <!-- Content Section 1 -->
@@ -342,11 +505,7 @@
 
     <!-- Image Frame -->
     <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
-      </div>
+      <img class="image-frame__image" src="/assets/graphics/culture_graphic_3.png" alt="Culture graphic 3">
     </div>
 
     <!-- Content Section 1 -->
@@ -1061,6 +1220,121 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var cards = document.querySelectorAll('[data-voyage-card]');
+    if (!cards.length) return;
+
+    function toggle(card) {
+      var flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+      card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+    }
+
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].addEventListener('click', function () {
+        toggle(this);
+      });
+      cards[i].addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle(this);
+        }
+      });
+    }
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var gallery = document.querySelector('[data-image-frame-gallery="scene-stack"]');
+    if (!gallery) return;
+
+    var img = gallery.querySelector('.image-frame__image');
+    var captionEl = gallery.querySelector('.image-frame-gallery__caption-text');
+    var prevBtn = gallery.querySelector('.image-frame-gallery__arrow--prev');
+    var nextBtn = gallery.querySelector('.image-frame-gallery__arrow--next');
+    if (!img || !prevBtn || !nextBtn || !captionEl) return;
+
+    /* Edit caption copy here — one entry per slide, order matches images */
+    var slides = [
+      {
+        src: '/assets/graphics/Scene_1.png',
+        alt: 'Culture scene 1 of 5',
+        caption:
+          'The crew is settled into the canoe and begins to paddle away from the shore as their long journey over the horizon starts.'
+      },
+      {
+        src: '/assets/graphics/Scene_2.png',
+        alt: 'Culture scene 2 of 5',
+        caption:
+          'During the day, the navigator stays on course by feeling the wind and swells, knowing that islands block, reflect, and refract the waves.'
+      },
+      {
+        src: '/assets/graphics/Scene_3.png',
+        alt: 'Culture scene 3 of 5',
+        caption: 'When darkness falls, the crew relies on the star compass, using the rising and setting points of stars to steer the canoe accurately through the night.'
+      },
+      {
+        src: '/assets/graphics/Scene_4.png',
+        alt: 'Culture scene 4 of 5',
+        caption: 'As the sun sets, the navigator watches the flight paths of seabirds returning to their nests, using their direction to track the distance and heading toward land.'
+      },
+      {
+        src: '/assets/graphics/Scene_5.png',
+        alt: 'Culture scene 5 of 5',
+        caption: 'The voyage comes to a successful end as the canoe reaches the destination, where people waiting on the shore help pull them in toward the beach.'
+      }
+    ];
+
+    var index = 0;
+
+    function syncSrcFromDom() {
+      var current = img.getAttribute('src') || '';
+      for (var i = 0; i < slides.length; i++) {
+        if (slides[i].src === current) {
+          index = i;
+          return;
+        }
+      }
+    }
+
+    function show(at) {
+      index = ((at % slides.length) + slides.length) % slides.length;
+      var slide = slides[index];
+      img.src = slide.src;
+      img.alt = slide.alt;
+      captionEl.textContent = slide.caption || '';
+    }
+
+    prevBtn.addEventListener('click', function () {
+      show(index - 1);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      show(index + 1);
+    });
+
+    gallery.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        show(index - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        show(index + 1);
+      }
+    });
+
+    syncSrcFromDom();
+    show(index);
+
+    for (var p = 0; p < slides.length; p++) {
+      var pre = new Image();
+      pre.src = slides[p].src;
+    }
   })();
   </script>
 </body>

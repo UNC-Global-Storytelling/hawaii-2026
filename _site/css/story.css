@@ -95,7 +95,7 @@ body {
 }
 .intro__wave {
   position: absolute; top: 0; left: 50%;
-  width: 160vw; min-height: 300px; transform: translateX(-50%) translateY(-35%);
+  width: 160vw; min-height: 300px; transform: translateX(-50%) translateY(-40%);
   z-index: 2; pointer-events: none;
 }
 .intro__wave img { width: 100%; height: auto; display: block; }

@@ -33,7 +33,7 @@ body.page-home {
   display: block;
 }
 
-.hero::after {
+/* .hero::after {
   content: "";
   position: absolute;
   inset: auto 0 -2px 0;
@@ -41,7 +41,7 @@ body.page-home {
   background: url("/assets/images/SizzleReel.mp4") center bottom / 100% 100% no-repeat;
   z-index: 1;
   pointer-events: none;
-}
+} */
 
 .hero__media {
   position: absolute;

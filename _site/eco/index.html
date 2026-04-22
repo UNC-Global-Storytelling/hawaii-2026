@@ -706,38 +706,34 @@
       var SLIDE_MS = 750;
 
       // ── Image sources ──────────────────────────────────────────────
-      // Replace these placeholder paths with your real image paths.
+      // Use actual eco photos from /assets/images/eco for the photo story
       // The captions array must be the same length as the images array.
-      var baseImages = [
-        '/assets/images/landscape/hero-placeholder.svg',
-        '/assets/images/layouts/story-ocean.svg',
-        '/assets/images/layouts/mountain-ribbon-home.svg',
-        '/assets/images/layouts/wave-intro.svg',
-        '/assets/images/layouts/mountain-wave.svg'
+      var images = [
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-1.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-2.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-3.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-4.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-5.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-6.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-7.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-8.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-9.jpg',
+        '/assets/images/eco/Eggleston_Photo_Story_Maui-10.jpg'
       ];
-      var images = [];
-      for (var i = 0; i < 15; i++) {
-        images.push(baseImages[i % baseImages.length]);
-      }
 
       // ── Captions ───────────────────────────────────────────────────
       // One entry per image. Empty string shows no caption.
       var captions = [
-        "Mia Palacio stands on a hill overlooking what remains of Lahaina, three years after the fires. Photo: Uredo Agada",
-        "The ruins of Front Street, once lined with wooden storefronts, art galleries, and the pulse of Lahaina's culture. Photo: Uredo Agada",
-        "Joey's Kitchen in Napili became an overnight shelter for dozens of displaced residents the morning after the fires. Photo: Uredo Agada",
-        "Enriqueta Palacio sits at the entrance of the family's newly completed home on March 18, 2026. Photo: Uredo Agada",
-        "The Lahaina shoreline, where residents fled into the ocean to escape the advancing fire. Photo: Uredo Agada",
-        "A 'Keep Lahaina Land in Lahaina Hands' sign posted near the burn zone — a rallying cry against disaster profiteers. Photo: Uredo Agada",
-        "Autumn Ness, director of the Lahaina Community Land Trust, which was founded five days after the fire. Photo: Uredo Agada",
-        "Lahainaluna High School, where Mia is completing her senior year and her culinary capstone project. Photo: Uredo Agada",
-        "Mia's new bedroom, filled with strawberry décor she chose herself — a small, hard-won joy. Photo: Uredo Agada",
-        "Leah Palacio, Mia's younger sister, in the new home the family moved into in March 2026. Photo: Uredo Agada",
-        "Remnants of residential structures in the burn zone, where 85% of destroyed buildings were homes. Photo: Uredo Agada",
-        "A family rebuilding in West Maui, where the median home price has reached nearly $1.2 million. Photo: Uredo Agada",
-        "The coastline near Lahaina at dusk — the landscape that shaped a community and survived the fire. Photo: Uredo Agada",
-        "Community members gather at a Lahaina recovery meeting, still navigating housing instability years later. Photo: Uredo Agada",
-        "Mia Palacio, age 18, at her overlook above Lahaina. She plans to open a restaurant here one day. Photo: Uredo Agada"
+        "Hawaiian rancher Daniel Jacintho has faced many challenges due to the large population of invasive axis deer on Maui.",
+        "Fireweed, a non-native plant named for how quickly it spreads, replaces viable grass for cattle and is broadly dispersed by axis deer as they graze for food.",
+        "Jacintho offers guided hunting of the axis deer to reduce the numbers on his farm and help offset the costs of damages the deer cause.",
+        "Axis deer can regularly be found grazing during the day, as the deer face no natural predators in Maui.",
+        "On an average hunting day, Jacintho estimates he kills an average of 2 to 3 deer.",
+        "The axis deer were first introduced in 1959 as hunting game, but have since grown and pose a large risk to the local environment.",
+        "As a participant of the Hawaii Division of Forests and Wildlife's Axis Deer Landowner Incentive Program, Jacintho can earn up to $50 per deer tail he turns in.",
+        "The drawback of hunting the deer is that Jacintho loses much of his day in the process of transporting, cleaning and harvesting the remains.",
+        "Ranchers in Maui have been hit hard by the axis deer problem and have had to deal with increased feeding costs, fencing installation, trespassing and poaching.",
+        "Jacintho is carried by a hope that soon there will be a better solution to the axis deer problem, and in the meantime will continue his balance of farming and hunting."
       ];
 
       // Pad or trim captions to match images array length

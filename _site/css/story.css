@@ -98,6 +98,9 @@ body {
   width: 160vw; min-height: 300px; transform: translateX(-50%) translateY(-40%);
   z-index: 2; pointer-events: none;
 }
+.intro__wave-mobile-ocean {
+  display: none;
+}
 .intro__wave img { width: 100%; height: auto; display: block; }
 @media (max-width: 1200px) { .intro__inner { flex-direction: column; } }
 .intro__text { max-width: 731px; width: 100%; margin: 0 auto; }

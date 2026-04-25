@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Story About Eco - Preserving Our Island's Natural Heritage</title>
+  <title>OCEAN - From the Mountains to the Sea</title>
   <link rel="stylesheet" href="../../css/story.css">
   <link rel="stylesheet" href="../../ocean/ocean.css">
   <link rel="stylesheet" href="/css/components.css">
@@ -206,14 +206,9 @@
       </div>
     </section>
 
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
-      </div>
-    </div>
+        <div class="image-frame image-frame--large" style="background:transparent;border:none;box-shadow:none;padding:0;">
+          <img class="image-frame__placeholder" src="/assets/graphics/ocean_net.svg" alt="A graphic detailing how ghost nets end up in the ocean" style="display:block;width:100%;height:100%;object-fit:contain;background:transparent;">
+        </div>
 
     <!-- Content Section 1 -->
     <section class="content-section_story">
@@ -249,15 +244,6 @@
       </div>
     </section>
 
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
-      </div>
-    </div>
-
     <!-- Content Section 1 -->
     <section class="content-section_story">
       <div class="content-section__text">
@@ -272,6 +258,10 @@
         </p>
       </div>
     </section>
+
+    <div class="image-frame image-frame--large">
+      <img class="image-frame__placeholder" src="/assets/images/ocean/ocean_inline_tree.jpg" alt="A tree being planted in the ground.">
+    </div>
 
     <!-- Quote Section -->
     <section class="quote-section" aria-label="Pull quote">
@@ -293,15 +283,6 @@
         <span class="quote-section__rule-line" aria-hidden="true"></span>
       </div>
     </section>
-
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
-      </div>
-    </div>
 
     <!-- Content Section 1 -->
     <section class="content-section_story">
@@ -385,13 +366,8 @@
       </div>
     </section>
 
-    <!-- Image Frame -->
     <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
-      </div>
+      <img class="image-frame__placeholder" src="/assets/images/ocean/ocean_inline_bike.jpg" alt="A young kid riding a bike on the beach with a fishing rod.">
     </div>
 
     <!-- Content Section 1 -->
@@ -831,35 +807,32 @@
       // Replace these placeholder paths with your real image paths.
       // The captions array must be the same length as the images array.
       var baseImages = [
-        '/assets/images/landscape/hero-placeholder.svg',
-        '/assets/images/layouts/story-ocean.svg',
-        '/assets/images/layouts/mountain-ribbon-home.svg',
-        '/assets/images/layouts/wave-intro.svg',
-        '/assets/images/layouts/mountain-wave.svg'
+        '/assets/images/ocean/BODE_PHOTO_STORY-1.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-2.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-3.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-4.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-5.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-6.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-7.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-8.jpg',
+        '/assets/images/ocean/BODE_PHOTO_STORY-9.jpg'
       ];
       var images = [];
-      for (var i = 0; i < 15; i++) {
+      for (var i = 0; i < 9; i++) {
         images.push(baseImages[i % baseImages.length]);
       }
 
       // ── Captions ───────────────────────────────────────────────────
       // One entry per image. Empty string shows no caption.
       var captions = [
-        "Mia Palacio stands on a hill overlooking what remains of Lahaina, three years after the fires. Photo: Uredo Agada",
-        "The ruins of Front Street, once lined with wooden storefronts, art galleries, and the pulse of Lahaina's culture. Photo: Uredo Agada",
-        "Joey's Kitchen in Napili became an overnight shelter for dozens of displaced residents the morning after the fires. Photo: Uredo Agada",
-        "Enriqueta Palacio sits at the entrance of the family's newly completed home on March 18, 2026. Photo: Uredo Agada",
-        "The Lahaina shoreline, where residents fled into the ocean to escape the advancing fire. Photo: Uredo Agada",
-        "A 'Keep Lahaina Land in Lahaina Hands' sign posted near the burn zone — a rallying cry against disaster profiteers. Photo: Uredo Agada",
-        "Autumn Ness, director of the Lahaina Community Land Trust, which was founded five days after the fire. Photo: Uredo Agada",
-        "Lahainaluna High School, where Mia is completing her senior year and her culinary capstone project. Photo: Uredo Agada",
-        "Mia's new bedroom, filled with strawberry décor she chose herself — a small, hard-won joy. Photo: Uredo Agada",
-        "Leah Palacio, Mia's younger sister, in the new home the family moved into in March 2026. Photo: Uredo Agada",
-        "Remnants of residential structures in the burn zone, where 85% of destroyed buildings were homes. Photo: Uredo Agada",
-        "A family rebuilding in West Maui, where the median home price has reached nearly $1.2 million. Photo: Uredo Agada",
-        "The coastline near Lahaina at dusk — the landscape that shaped a community and survived the fire. Photo: Uredo Agada",
-        "Community members gather at a Lahaina recovery meeting, still navigating housing instability years later. Photo: Uredo Agada",
-        "Mia Palacio, age 18, at her overlook above Lahaina. She plans to open a restaurant here one day. Photo: Uredo Agada"
+        "Michiko Smith and Brianna Simon sort through a container’s worth of ghost nets and other oceanic garbage harvested from the oceans. The ghost nets come from Japan and mainland USA and drift to Maui where they get stuck on reefs or beaches, damaging the ecosystem and polluting the waters.",
+        "Smith, a native Maui artist, takes the ghost nets back home and vigorously washes them in and out, rinsing them of the sand and sentiment they collect. The ghost nets can travel over 700 miles across the ocean before they reach Maui.",
+        "Smith works outside her Maui home in her outdoor studio. She uses power tools to carve through wood as her outline of the 'Birds of Paradise', a plant native to South Africa that has captivated Maui landscape. ",
+        "Smith takes time away from her project to admire the plants that dot her outdoor studio. Some she and her wife purchased, some were gifts from friends, others were saved from house fires by friends and have just been left in Smith’s studio. ",
+        "Smith carves the plywood in her 'Birds of Paradise' project. Her projects are often commissioned by individual people but almost always revolve around an animal or vegetation found on the island of Maui. ",
+        "Smith hangs up the washed ghost net fragments to dry before she applies them to her piece. Even though she relies on conservation effort and personal cleanups to source her material for her pieces, she always tries to implement color to highlight the beauty of Maui in her artwork.",
+        "After drying Smith must weave the netting out of clumps before it can be applied to the woodboards. \"My goal is to inspire others to see the value in what others might discard and to remind us that every small action can help protect the ocean for future generations.\"",
+        "Smith carefully cuts a piece of ghost netting on one of her projects. Smith’s hope is to transform garbage into pieces that reflect the beauty and fragility of our seas \"I hope to raise awareness and spark a broader conversation about ocean conservation.\""
       ];
 
       // Pad or trim captions to match images array length

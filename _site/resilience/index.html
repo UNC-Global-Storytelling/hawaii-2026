@@ -134,6 +134,57 @@
             <p>
               The day before, a power line snapped and sparked a fire in Lahaina, a coastal town on Maui. The fire was the deadliest the nation had seen in a century. Winds nearing 80 miles per hour swept the flames through residential homes, schools and businesses, demolishing Front Street: Lahaina’s historic shoreline street once filled with wooden storefronts, art galleries and culture.    
             </p>
+
+            <div class="resilience-map" aria-label="Lahaina map slideshow" style="max-width:900px;width:92%;margin:1.5rem auto;">
+              <img
+                id="resilience-map-image"
+                src="/assets/graphics/mapfinal.PNG"
+                alt="Map slide: Base map"
+                style="width:100%;height:auto;display:block;"
+              />
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:0.75rem;">
+                <button id="resilience-map-prev" type="button" aria-label="Previous map slide" style="border:1px solid #117a96;background:#117a96;color:#fff;padding:0.5rem 0.9rem;border-radius:999px;font-weight:600;letter-spacing:0.01em;cursor:pointer;">&#8592; Prev</button>
+                <span id="resilience-map-caption" aria-live="polite" style="font-size:0.95rem;">Base map (1/8)</span>
+                <button id="resilience-map-next" type="button" aria-label="Next map slide" style="border:1px solid #117a96;background:#117a96;color:#fff;padding:0.5rem 0.9rem;border-radius:999px;font-weight:600;letter-spacing:0.01em;cursor:pointer;">Next &#8594;</button>
+              </div>
+            </div>
+            <script>
+              (function () {
+                var slides = [
+                  { src: "/assets/graphics/mapfinal.PNG", label: "Base map" },
+                  { src: "/assets/graphics/hwy_hover.PNG", label: "Honoapiilani Highway" },
+                  { src: "/assets/graphics/frontstreet_hover.PNG", label: "Front Street" },
+                  { src: "/assets/graphics/elem_hover.PNG", label: "King Kamehameha III Elementary School" },
+                  { src: "/assets/graphics/memorial_hover.png", label: "Lahaina Memorial" },
+                  { src: "/assets/graphics/bypass_hover.PNG", label: "Lahaina Bypass" },
+                  { src: "/assets/graphics/joeys_hover.PNG", label: "Joey's Kitchen" },
+                  { src: "/assets/graphics/lahainaluna_hover.PNG", label: "Lahainaluna High School" }
+                ];
+                var img = document.getElementById("resilience-map-image");
+                var prev = document.getElementById("resilience-map-prev");
+                var next = document.getElementById("resilience-map-next");
+                var caption = document.getElementById("resilience-map-caption");
+                if (!img || !prev || !next || !caption) return;
+                var index = 0;
+                function render() {
+                  var slide = slides[index];
+                  img.src = slide.src;
+                  img.alt = "Map slide: " + slide.label;
+                  caption.textContent = slide.label + " (" + (index + 1) + "/" + slides.length + ")";
+                }
+                prev.addEventListener("click", function () {
+                  index = (index - 1 + slides.length) % slides.length;
+                  render();
+                });
+                next.addEventListener("click", function () {
+                  index = (index + 1) % slides.length;
+                  render();
+                });
+                render();
+              })();
+            </script>
+
+
             <p>
               Mia never forgot the sound of that wind — the wind that spread the fire and burned her home down. She never saw the remains of her old home.  
             </p>
@@ -163,14 +214,13 @@
       </div>
     </section>
 
-    <!-- Video Block 1 -->
     <section class="video-block" aria-label="Featured video">
       <div class="video-block__inner">
         <div class="video-block__stage">
           <div id="featured-vimeo-wrapper">
             <iframe
               id="featured-vimeo"
-              src="https://player.vimeo.com/video/76979871?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
+              src="https://player.vimeo.com/video/1185196113?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
             ></iframe>
@@ -187,7 +237,7 @@
     <section class="vimeo-block" aria-label="Vimeo video">
       <div class="vimeo-block__inner">
         <iframe
-          src="https://player.vimeo.com/video/76979871?autoplay=0&loop=0&muted=0&byline=0&portrait=0&title=0"
+          src="https://vimeo.com/1185196113?share=copy&fl=sv&fe=ci"
           width="100%"
           height="450"
           frameborder="0"
@@ -196,19 +246,16 @@
         ></iframe>
       </div>
     </section>
-
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <div class="image-frame__placeholder"></div>
-      <div class="image-frame__x">
-        <div class="image-frame__x-line"></div>
-        <div class="image-frame__x-line"></div>
-      </div>
-    </div>
+    
 
     <!-- Content Section 1 -->
     <section class="content-section_story">
       <div class="content-section__text">
+
+        <div class="image-frame image-frame--large">
+          <img class="image-frame__placeholder" src="/assets/images/resilience/20260315_Climate_UA_2.jpg" alt="Part of the West Maui Mountains with the Lahaina Fires Memorial and the Lahaina Bypass in the foreground.        ">
+        </div>
+
         <h1>The Fires</h1>
         <p>
           Residents sheltered in their homes from what they had mistaken to be a windstorm powered by the Kauaʻula Valley winds.  
@@ -234,6 +281,9 @@
         <p>
           The fires took 102 lives.   
         </p>
+
+        <div style="margin:24px 0; overflow-x:auto; overflow-y:hidden; overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch;"><img src="../assets/graphics/Fire_victims_list.png" alt="List of fire victims" style="display:block; max-width:none; width:1400px; height:auto; border:0;"></div>
+       
         <p>
           The missing list grew shorter day after day, as more people were found and confirmed alive.  
         </p>
@@ -252,6 +302,11 @@
         <p>
           “The fire happened and I felt like the one thing that made me feel like I belonged was gone — I couldn't get any more of it — but that perspective quickly changed. I could still be a part of the Lahaina community by helping it recover and that's enough. It's not the same but being a part of the recovery is enough,” Mia said.  
         </p>
+
+        <div class="image-frame image-frame--large">
+          <img class="image-frame__placeholder" src="/assets/images/resilience/20260315_Climate_UA_54.jpg" alt="A young woman, Mia Palacio, stands in a park in Lahaina with Mt. Ball in the background.">
+        </div>
+
       </div>
     </section>
 
@@ -277,6 +332,11 @@
         <p>
           “It doesn't matter how responsible you are, how many t's you crossed, the numbers don't work and that's the problem,” she said. “People feel shame about it.”  
         </p>
+
+        <div class="image-frame image-frame--large">
+          <img class="image-frame__placeholder" src="/assets/images/resilience/20260318_Climate_UA_100.jpg" alt="A woman in a blue dress and cowboy boots, Autumn Ness, stands in front of the wooden frame of a house under construction.">
+        </div>
+
         <p>
           The question remains: Where will Lahaina residents go once FEMA leaves or their insurance money runs out? Where will they live if they can’t afford Maui?  
         </p>
@@ -361,6 +421,11 @@
         <p>
           “I always tell people that my accountability is to the future generations of Lahaina. If I've done a good job, kids that graduate from Lahainaluna High School in 10 years will have a place to live and can open a business if they want to,” Ness said. 
         </p>
+
+        <div style="max-width:460px; margin:24px auto; line-height:0; background:#fff; border:3px solid #545f71;">
+          <img src="/assets/images/resilience/20260318_Climate_UA_87.jpg" alt="A woman in a blue dress and cowboy boots, Autumn Ness, stands in front of a house with a porch. Her mud-splattered truck in the background." style="display:block; width:100%; height:auto; border:0;">
+        </div>
+        
       </div>
     </section>
 
@@ -419,6 +484,11 @@
         <p>
           She is finally home. 
         </p>
+
+        <div class="image-frame image-frame--large">
+          <img class="image-frame__placeholder" src="/assets/images/resilience/20260315_Climate_UA_28.jpg" alt="A young woman, Mia Palacio, stands in a park in Lahaina with Mt. Ball in the background.">
+        </div>
+
       </div>
     </section>
 
@@ -805,35 +875,33 @@
       // Replace these placeholder paths with your real image paths.
       // The captions array must be the same length as the images array.
       var baseImages = [
-        '/assets/images/landscape/hero-placeholder.svg',
-        '/assets/images/layouts/story-ocean.svg',
-        '/assets/images/layouts/mountain-ribbon-home.svg',
-        '/assets/images/layouts/wave-intro.svg',
-        '/assets/images/layouts/mountain-wave.svg'
+        '/assets/images/resilience/Resilience_1.jpg',
+        '/assets/images/resilience/Resilience_2.jpg',
+        '/assets/images/resilience/Resilience_3.jpg',
+        '/assets/images/resilience/Resilience_4.jpg',
+        '/assets/images/resilience/Resilience_5.jpg',
+        '/assets/images/resilience/Resilience_6.jpg',
+        '/assets/images/resilience/Resilience_7.jpg',
+        '/assets/images/resilience/Resilience_8.jpg',
+        '/assets/images/resilience/Resilience_9.jpg'
       ];
       var images = [];
-      for (var i = 0; i < 15; i++) {
+      for (var i = 0; i < 9; i++) {
         images.push(baseImages[i % baseImages.length]);
       }
 
       // ── Captions ───────────────────────────────────────────────────
       // One entry per image. Empty string shows no caption.
       var captions = [
-        "Mia Palacio stands on a hill overlooking what remains of Lahaina, three years after the fires. Photo: Uredo Agada",
-        "The ruins of Front Street, once lined with wooden storefronts, art galleries, and the pulse of Lahaina's culture. Photo: Uredo Agada",
-        "Joey's Kitchen in Napili became an overnight shelter for dozens of displaced residents the morning after the fires. Photo: Uredo Agada",
-        "Enriqueta Palacio sits at the entrance of the family's newly completed home on March 18, 2026. Photo: Uredo Agada",
-        "The Lahaina shoreline, where residents fled into the ocean to escape the advancing fire. Photo: Uredo Agada",
-        "A 'Keep Lahaina Land in Lahaina Hands' sign posted near the burn zone — a rallying cry against disaster profiteers. Photo: Uredo Agada",
-        "Autumn Ness, director of the Lahaina Community Land Trust, which was founded five days after the fire. Photo: Uredo Agada",
-        "Lahainaluna High School, where Mia is completing her senior year and her culinary capstone project. Photo: Uredo Agada",
-        "Mia's new bedroom, filled with strawberry décor she chose herself — a small, hard-won joy. Photo: Uredo Agada",
-        "Leah Palacio, Mia's younger sister, in the new home the family moved into in March 2026. Photo: Uredo Agada",
-        "Remnants of residential structures in the burn zone, where 85% of destroyed buildings were homes. Photo: Uredo Agada",
-        "A family rebuilding in West Maui, where the median home price has reached nearly $1.2 million. Photo: Uredo Agada",
-        "The coastline near Lahaina at dusk — the landscape that shaped a community and survived the fire. Photo: Uredo Agada",
-        "Community members gather at a Lahaina recovery meeting, still navigating housing instability years later. Photo: Uredo Agada",
-        "Mia Palacio, age 18, at her overlook above Lahaina. She plans to open a restaurant here one day. Photo: Uredo Agada"
+        "The Pu‘u Kukui watershed is one of the wettest places on the Earth. It is also responsible for the majority of Maui’s fresh water. The nonprofit Aloha Pu‘u Kukui is committed to preserving and protecting the watershed. They lead bi-mothly volunteer days as part of their conservation efforts.",
+        "Mauka to Makai: Aloha Pu‘u Kukui mananges 8,304 acres in the Pu'u Kukui conservation easement and 891 acres in the Honolua conservation easement. They maintain thousands of feet of fenceline, keeping ungulates like pigs and deer out of native forests. Parts of the fence are only accessible by helicopter.",
+        "Kainoa Macello, the Makai Field Supervisor, and Gage Penney, a Makai Field Technician, haul logs from a river that is fed by the watershed. A recent kona storm pushed debris into the river. They hope to restore a newly rediscovered lo’i field that is watered by the river.",
+        "“It's important to get people out here and see what's going on and to get boots on the ground to get an understanding of where you are.” Kainoa says. About volunteer days he continues, “We like hanging out with other people, bringing them along for the ride.”",
+        "On the hike up to the planting site, Kainoa makes a simple lei from kauna'oa he picks from the side of the trail. He stresses the importance of “doing Hawaiian things” like making lei. Volunteers also partake, making lei for each other.",
+        "Aloha Pu‘u Kukui has vowed to plant 10,000 native trees this year. The Maunalei Arboretum located in the Pu‘u Kukui watershed is one of their planting sites. Lichen such as the kind that covers the tree pictured grows easily in the fertile climate.",
+        "Mauriirani Niles-Canteri, another Makai Fie in ld Technician, engages in a kilo session. Mauriirani describes kilo as, “being quiet and just looking at what's around you, listening, using all your senses, … how it makes you feel, what you smell, what you hear, what you taste.”",
+        "“There's this plant called alahe’e, and it’s kind of like one of our champion restoration plants ... it grows in the dry, grows in the wet, it can kind of do it all,” notes Kainoa. Alahe’e seeds are covered to prevent bugs getting to them and used in planting efforts.",
+        "“Native species don't have their animals to disperse them, right? So we have to find creative ways of dispersing stuff.” says Kainoa. By planting native species on former plantation land, these volunteers help disperse native plants, preserve the watershed, and take care of Maui."
       ];
 
       // Pad or trim captions to match images array length

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }}{% elif global.title %}{{ global.title }}{% else %}Mālama Maui{% endif %}</title>
+  {% if styles %}
+  {% for href in styles %}
+  <link rel="stylesheet" href="{{ href }}">
+  {% endfor %}
+  {% endif %}
+</head>
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+  <main>
+    {{ content | safe }}
+  </main>
+  {% if foot %}
+  {{ foot | safe }}
+  {% endif %}
+</body>
+</html>

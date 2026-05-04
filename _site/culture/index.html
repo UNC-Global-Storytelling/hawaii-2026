@@ -36,7 +36,7 @@
       <div class="site-nav__links" id="site-nav__links">
         <a href="/eco"><span class="site-nav__label">ECO</span><span class="site-nav__sub">The Deer Dilemma</span></a>
         <a href="/ocean"><span class="site-nav__label">OCEAN</span><span class="site-nav__sub">From the Mountains to the Sea</span></a>
-        <a href="/resilience"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">Rebuilding Lahaina</span></a>
+        <a href="/resilience"><span class="site-nav__label">RESILIENCE</span><span class="site-nav__sub">From the Ground Up</span></a>
         <a href="/food"><span class="site-nav__label">FOOD</span><span class="site-nav__sub">Mauka to Makai</span></a>
         <a href="/culture"><span class="site-nav__label">CULTURE</span><span class="site-nav__sub">Guided by the Stars</span></a>
         <span class="site-nav__sep" aria-hidden="true">|</span>
@@ -503,9 +503,17 @@
       </div>
     </section>
 
-    <!-- Image Frame -->
-    <div class="image-frame image-frame--large">
-      <img class="image-frame__image" src="/assets/graphics/culture_graphic_3.png" alt="Culture graphic 3">
+    <!-- Cycle diagram: borderless; inline width so layout survives cache / CSS path issues -->
+    <div
+      class="culture-cycle-graphic"
+      style="box-sizing:border-box;width:min(420px,calc(100vw - 1.25rem));max-width:100%;margin:0.75rem auto 1.25rem;overflow:hidden;"
+    >
+      <img
+        src="/assets/graphics/culture_graphic_edit.png"
+        alt="Graphic showing a cycle of canoe use and star guiding"
+        decoding="async"
+        style="display:block;width:100%;max-width:100%;height:auto;"
+      >
     </div>
 
     <!-- Content Section 1 -->
@@ -620,7 +628,7 @@
             </a>
             <div class="story-card__body">
               <span class="story-card__badge">RESILIENCE</span>
-              <h3 class="story-card__title">Rebuilding Lahaina</h3>
+              <h3 class="story-card__title">From the Ground Up</h3>
               <a href="/resilience" class="story-card__cta story-card__cta--teal">Explore Story</a>
             </div>
           </article>
@@ -843,7 +851,6 @@
     }
 
     // Hard-coded image list for: /assets/images/culture/photo-story/
-    // (Corresponds to C:\Users\namei\Documents\MEJO584\hawaii-2026\_site\assets\images\culture\photo-story on Windows)
     var culturePhotoStoryImages = [
       "/assets/images/culture/photo-story/20260421_Katz_PhotoStory-1.jpg",
       "/assets/images/culture/photo-story/20260421_Katz_PhotoStory-2.jpg",
@@ -859,7 +866,6 @@
       "/assets/images/culture/photo-story/20260421_Katz_PhotoStory-12.jpg",
       "/assets/images/culture/photo-story/20260421_Katz_PhotoStory-13.jpg",
       "/assets/images/culture/photo-story/20260421_Katz_PhotoStory-14.jpg"
-      // "/assets/images/culture/photo-story/20260421_Katz_PhotoStory-15.jpg"
     ];
 
     // Hard-coded matching captions (must be in the same order as the images)
@@ -879,6 +885,9 @@
       "Nohea’s love for bringing people together with food was passed down by her grandmother. Her dream is to reconnect the Hawaiian islands with the canoe, returning to a time when voyaging between islands by canoe was more common than by land. This program is only the beginning of the journey.",
       "Together, Kala, Anela, Walter, and Nohea carry forward a living tradition, passed down through callused hands and open water. Their stories of navigating by stars, planting the seeds of journeys not yet taken, and feeding those who set out to sea are inseparable from the island itself."
     ];
+
+    // 0-based slide indexes that use portrait framing + full-bleed (no landscape crop). Photos 5, 9, 12, 13.
+    var CULTURE_PORTRAIT_SLIDE_INDEXES = [4, 8, 11, 12];
 
     function setupVideoSection(section) {
       var iframe = section.querySelector('iframe');
@@ -966,6 +975,11 @@
 
       var currentIndex = 0;
       var animTimer = null;
+
+      function syncCulturePortraitSlideClass() {
+        var on = CULTURE_PORTRAIT_SLIDE_INDEXES.indexOf(currentIndex) !== -1;
+        section.classList.toggle('photo-story--portrait-slide', on);
+      }
 
       // --- Caption update
       function updateCaption(instant) {
@@ -1059,6 +1073,7 @@
               if (rightPreviewWrap) rightPreviewWrap.classList.toggle('is-hidden', !nextSrc);
               updateArrowsOnly();
               updateCaption();
+              syncCulturePortraitSlideClass();
               stage.classList.remove('is-settling');
               isAnimating = false;
               animTimer = null;
@@ -1085,6 +1100,7 @@
           if (main) main.src = currentSrc;
           updateArrowsOnly();
           updateCaption(opt.instant);
+          syncCulturePortraitSlideClass();
           return;
         }
 
@@ -1096,6 +1112,7 @@
         if (rightPreviewWrap) rightPreviewWrap.classList.toggle('is-hidden', !nextSrc);
         updateArrowsOnly();
         updateCaption(opt.instant);
+        syncCulturePortraitSlideClass();
       }
 
       function goPrev() {

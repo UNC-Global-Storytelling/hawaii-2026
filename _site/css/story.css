@@ -406,6 +406,45 @@ body {
 .photo-story.is-stopped .photo-story__caption-text { opacity: 1; }
 .photo-story:not(.is-stopped) .photo-story__caption-text { opacity: 0; transition: none; }
 
+/* Culture: portrait frame + full photo (object-fit contain) only on slides toggled by JS (.photo-story--portrait-slide). */
+body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__media { background: #000; }
+
+body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__stage {
+  aspect-ratio: 3 / 4;
+  width: min(72vw, calc(82vh * 3 / 4), 720px);
+  max-height: 82vh;
+}
+
+body.story-theme--culture .photo-story.photo-story--portrait-slide.is-stopped .photo-story__stage {
+  width: min(82vw, calc(82vh * 3 / 4), 900px);
+  max-width: none;
+}
+
+body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__layer,
+body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__preview-img,
+body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__peek-layer {
+  object-fit: contain;
+}
+
+body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__caption {
+  max-width: min(72vw, calc(82vh * 3 / 4), 720px);
+}
+
+/* Culture: cycle PNG is very large — constrain box + img so it cannot blow out the layout */
+body.story-theme--culture .culture-cycle-graphic {
+  box-sizing: border-box !important;
+  width: min(420px, calc(100vw - 1.25rem)) !important;
+  max-width: 100% !important;
+  margin: 0.75rem auto 1.25rem !important;
+  overflow: hidden !important;
+}
+body.story-theme--culture .culture-cycle-graphic img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
 /* Image Frame */
 .image-frame {
   position: relative; background: white; border: 3px solid var(--frame); overflow: hidden;
@@ -560,6 +599,9 @@ body {
   .photo-story.is-stopped .photo-story__stage {
     width: 75vw !important; max-width: none; transform: scale(1.03);
   }
+  body.story-theme--culture .photo-story.photo-story--portrait-slide.is-stopped .photo-story__stage {
+    width: min(82vw, calc(82vh * 3 / 4), 900px) !important;
+  }
 }
 @media (max-width: 768px) {
   .vimeo-block { display: block; }
@@ -670,6 +712,18 @@ body {
   .photo-story.is-stopped .photo-story__stage {
     width: 75vw !important; max-width: none; max-height: 90vh; transform: scale(1.03);
     display: flex; align-items: center; justify-content: center;
+  }
+  body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__stage {
+    aspect-ratio: 3 / 4;
+    width: min(88vw, calc(80vh * 3 / 4), 720px) !important;
+    max-height: 80vh;
+  }
+  body.story-theme--culture .photo-story.photo-story--portrait-slide.is-stopped .photo-story__stage {
+    width: min(90vw, calc(90vh * 3 / 4), 820px) !important;
+    max-height: 90vh;
+  }
+  body.story-theme--culture .photo-story.photo-story--portrait-slide .photo-story__caption {
+    max-width: min(88vw, calc(80vh * 3 / 4), 720px);
   }
 }
 @media (max-width: 768px) {

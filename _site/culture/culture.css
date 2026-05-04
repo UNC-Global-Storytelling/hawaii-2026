@@ -20,6 +20,25 @@
     background: #c04e4e;
   }
 
+/* Cycle diagram — same rules as /css/story.css (kept here for culture-only edits); body prefix + !important beats stray flex/img rules */
+body.story-theme--culture .culture-cycle-graphic {
+  box-sizing: border-box !important;
+  width: min(420px, calc(100vw - 1.25rem)) !important;
+  max-width: 100% !important;
+  margin: 0.75rem auto 1.25rem !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.story-theme--culture .culture-cycle-graphic img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
 /* Inline image-frame carousel (culture story) */
 .image-frame-gallery {
   position: relative;

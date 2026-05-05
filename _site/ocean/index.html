@@ -186,7 +186,7 @@
     <section class="vimeo-block" aria-label="Vimeo video">
       <div class="vimeo-block__inner">
         <iframe
-          src="https://vimeo.com/1185606841"
+          src="https://player.vimeo.com/video/1185606841?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
           width="100%"
           height="450"
           frameborder="0"
@@ -740,6 +740,31 @@
         iframe.contentWindow.postMessage(JSON.stringify(payload), '*');
       }
 
+      // Prevent autoplay by pausing when loaded
+      function pauseVideoOnceLoaded() {
+        setTimeout(function () {
+          postToVimeo('pause');
+        }, 400);
+      }
+      // On DOM ready, forcibly pause video, and after an iframe reload
+      pauseVideoOnceLoaded();
+      iframe.addEventListener('load', pauseVideoOnceLoaded);
+
+      let userStarted = false; // tracks if the user has manually started playing
+
+      // Optionally, expose a "play" button if you want manual play (not coded here, but could be with UI)
+      // Instead, listen for any messages from Vimeo indicating play, which usually result from user interaction
+      window.addEventListener('message', function (event) {
+        // Only process vimeo iframe messages
+        if (!iframe || event.source !== iframe.contentWindow) return;
+        try {
+          var data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+          if (data && data.event === 'play') {
+            userStarted = true;
+          }
+        } catch (e) {}
+      });
+
       function applyScrollState() {
         var rect = section.getBoundingClientRect();
         var progress = getProgress(section);
@@ -762,14 +787,22 @@
           inTheater = false;
         }
 
+        // Only play/pause if user has already started playback; otherwise keep paused
         var shouldStop = theaterWindow && progress >= 0.5 && progress <= 0.86;
-        if (shouldStop && !isStopped) {
-          postToVimeo('setPlaybackRate', 0.15);
+        if (!userStarted) {
+          // Before user starts: Always pause on scroll
           postToVimeo('pause');
           isStopped = true;
-        } else if (!shouldStop && isStopped) {
-          postToVimeo('play');
-          isStopped = false;
+        } else {
+          if (shouldStop && !isStopped) {
+            postToVimeo('setPlaybackRate', 0.15);
+            postToVimeo('pause');
+            isStopped = true;
+          } else if (!shouldStop && isStopped) {
+            // Only play if user started video previously
+            postToVimeo('play');
+            isStopped = false;
+          }
         }
       }
 
@@ -804,8 +837,6 @@
       var SLIDE_MS = 750;
 
       // ── Image sources ──────────────────────────────────────────────
-      // Replace these placeholder paths with your real image paths.
-      // The captions array must be the same length as the images array.
       var baseImages = [
         '/assets/images/ocean/BODE_PHOTO_STORY-1.JPG',
         '/assets/images/ocean/BODE_PHOTO_STORY-2.JPG',
@@ -823,7 +854,6 @@
       }
 
       // ── Captions ───────────────────────────────────────────────────
-      // One entry per image. Empty string shows no caption.
       var captions = [
         "Michiko Smith and Brianna Simon sort through a container’s worth of ghost nets and other oceanic garbage harvested from the oceans. The ghost nets come from Japan and mainland USA and drift to Maui where they get stuck on reefs or beaches, damaging the ecosystem and polluting the waters.",
         "Smith, a native Maui artist, takes the ghost nets back home and vigorously washes them in and out, rinsing them of the sand and sentiment they collect. The ghost nets can travel over 700 miles across the ocean before they reach Maui.",

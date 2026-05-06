@@ -288,7 +288,7 @@
         </div>
         <div style="width:3px;background:#7b523e;margin:0;align-self:stretch" aria-hidden="true"></div>
         <div style="display:flex;align-items:center;padding:0 0 0 min(1rem,2.5vw);min-height:0">
-          <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:clamp(0.8rem,1.85vw,1.05rem);line-height:1.45;color:#000">Taro plants begin from within—not a seed. When a previous plant’s corm (the fruit) is harvested, the huli is cut off and replanted. The huli is composed of about the top inch of the corm and a few inches of the stalk above.</p>
+          <p class="food-taro-description" style="margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:clamp(0.8rem,1.85vw,1.05rem);line-height:1.45;color:#000">Taro plants begin from within—not a seed. When a previous plant’s corm (the fruit) is harvested, the huli is cut off and replanted. The huli is composed of about the top inch of the corm and a few inches of the stalk above.</p>
         </div>
       </div>
       <script>
@@ -299,6 +299,15 @@
           var prev = root.querySelector('.food-taro-prev');
           var next = root.querySelector('.food-taro-next');
           var label = root.querySelector('.food-taro-counter');
+          var description = root.querySelector('.food-taro-description');
+          var descriptions = [
+            "Taro plants begin from within—not a seed. When a previous plant's corm (the fruit) is harvested, the huli is cut off and replanted. The huli is composed of about the top inch of the corm and a few inches of the stalk above.",
+            "Taro grows both upward and downward at the same time. The fruit grows down into the mud, and the leaves grow up towards the sun.",
+            "Taro reaches full maturity 9 to 15 months after planting. Leaves grow until they reach maximum height. Then the plant stops getting taller and fills out underground.",
+            "When taro is ready for harvest, the portion above ground (lau and ha) starts to shrink. The plant's energy is transferred toward growing the corm, and the new oha grows to create an ohana, or family of taro.",
+            "When the plant is roughly half of its maximum height, it is ready for harvest.",
+            "The cycle is then repeated. The corm is harvested, and the huli is cut off, and then replanted to grow another fruit and continue the life cycle of taro."
+          ];
           var idx = 0;
           var total = slides.length;
           function show(i) {
@@ -308,7 +317,9 @@
               slides[j].setAttribute('aria-hidden', j === idx ? 'false' : 'true');
             }
             if (label) label.textContent = idx + 1 + ' / ' + total;
+            if (description) description.textContent = descriptions[idx] || '';
           }
+          show(0);
           if (prev) prev.addEventListener('click', function () { show(idx - 1); });
           if (next) next.addEventListener('click', function () { show(idx + 1); });
         })();
@@ -421,7 +432,7 @@
     <section class="vimeo-block" aria-label="Vimeo video">
       <div class="vimeo-block__inner">
         <iframe
-          src="https://player.vimeo.com/video/1185644961?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
+          src="https://vimeo.com/1185644961?background=0&autoplay=1&loop=1&muted=1&byline=0&portrait=0&title=0&api=1&player_id=featured-vimeo"
           width="100%"
           height="450"
           frameborder="0"
@@ -649,7 +660,7 @@
           It no longer was the land of who was on the throne — but it was the people’s. 
         </p>
         <p>
-          “We should be the ones allocating the water to the corporation,” Kekiwi said. The county, the residents—that's what a lot of people don't understand.”
+          “We should be the ones allocating the water to the corporation,” Kekiwi said. “The county, the residents—that's what a lot of people don't understand.”
         </p>
         <p>
           Hawaii water laws originate from kānāwai — which were codified in early laws of the Hawaiian Kingdom. 

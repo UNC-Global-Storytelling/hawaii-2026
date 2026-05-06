@@ -348,12 +348,27 @@ body.page-about {
 }
 
 .profile-card__portfolio {
-  display: inline-block;
+  display: inline-flex;
   margin-top: 0.45rem;
-  font-family: 'Proza Libre', sans-serif;
-  font-size: clamp(10px, 1vw, 14px);
-  color: #000;
+  width: clamp(24px, 2.8vw, 36px);
+  height: clamp(24px, 2.8vw, 36px);
+  border: 1.2px solid #222;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  background-color: #9576a0;
+  background-image: url("/assets/graphics/Web%20Logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65% 65%;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
   text-decoration: none;
+  text-indent: -9999px;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 auto;
 }
 
 .profile-card--mini h3,

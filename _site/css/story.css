@@ -621,10 +621,35 @@ body.story-theme--culture .culture-cycle-graphic img {
   .related-stories__grid--four { grid-template-columns: 1fr; }
   .hero {
     height: auto !important; min-height: 60vh !important; max-height: unset !important;
-    overflow: hidden; position: relative; padding-bottom: 1rem !important;
+    overflow: hidden; position: relative; padding-bottom: 2.75rem !important;
   }
   .hero__content img { height: 100%; width: 100%; object-fit: cover; object-position: center center; display: block; z-index: 10; }
   .hero__content { transform: translateY(-15%); }
+  /* Colorful seam on the photo, kept short so it does not cover the title */
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 118%;
+    height: 68px;
+    border-radius: 50% 50% 0 0;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .hero::after {
+    transform: translate(-50%, 18%);
+    background: var(--eco-green, #9a7faf);
+    opacity: 0.5;
+  }
+  .hero::before {
+    transform: translate(-50%, 32%);
+    background: var(--cream);
+    box-shadow: 0 -3px 0 var(--eco-green, #9a7faf);
+  }
+  .intro::before,
+  .intro::after { display: none; }
   .story-credits {
     position: relative; width: 100%; padding-top: 0; margin-top: 1rem;
     display: flex; flex-direction: row; justify-content: center; gap: .75rem; flex-wrap: wrap; padding-bottom: 1rem;
@@ -665,10 +690,7 @@ body.story-theme--culture .culture-cycle-graphic img {
     color: #000; font-family: Gelasio;
     font-size: clamp(22px, 1.75vw, 30px) !important; font-weight: normal;
   }
-  .site-footer { padding-top: 2rem !important; }
-  @media (max-width: 700px) {
-    .site-footer { padding-top: 1.25rem !important; }
-  }
+  .site-footer { padding-top: 0 !important; }
   .photo-story {
     --photo-gap: clamp(8px, 1.2vw, 16px);
     width: 100%; background: var(--cream); height: 130vh;

@@ -12,6 +12,10 @@ body.page-about {
   position: fixed;
 }
 
+.page-about .intro {
+  padding: 2.75rem 0 4rem;
+}
+
 /* Class portrait: full-bleed width; flush to top of viewport (nav overlays) */
 .page-about .hero {
   margin-top: 0;

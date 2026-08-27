@@ -14,7 +14,7 @@
 <body class="page-home">
   <main>
     
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav site-nav--hidden site-nav--hero-wait" aria-label="Primary">
       <div class="site-nav__inner">
         <a class="site-nav__logo" href="/index.html" aria-label="Mālama Maui home">
           <img src="/assets/images/logos/black-logo.svg" width="250px" height="auto" alt="Malama Maui Logo">
@@ -478,10 +478,28 @@
     var lastY = window.scrollY || 0;
     var minDelta = 6;
     var showAtTop = 60;
+    var heroWait = true;
+    var heroWaitMs = 3000;
+
+    nav.classList.add('site-nav--hidden');
+    nav.classList.add('site-nav--hero-wait');
+
+    setTimeout(function () {
+      heroWait = false;
+      nav.classList.remove('site-nav--hero-wait');
+      if ((window.scrollY || 0) <= showAtTop) {
+        nav.classList.remove('site-nav--hidden');
+      }
+    }, heroWaitMs);
 
     function onScroll() {
       var currentY = window.scrollY || 0;
       var delta = currentY - lastY;
+
+      if (heroWait) {
+        lastY = currentY;
+        return;
+      }
 
       if (currentY <= showAtTop) {
         nav.classList.remove('site-nav--hidden');

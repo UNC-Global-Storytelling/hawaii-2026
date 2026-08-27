@@ -27,7 +27,9 @@ body {
 .w-full { width: 100%; }
 .h-full { height: 100%; }
 .block  { display: block; }
-.intro__wave-mobile { display: none; }
+.intro__wave,
+.intro__wave-mobile,
+.intro__wave-mobile-ocean { display: none !important; }
 
 /* Navigation */
 .site-nav {
@@ -48,21 +50,18 @@ body {
 .site-nav__logo img { width: 58px; height: 71px; display: block; }
 .site-nav__links {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
-  gap: clamp(0.75rem, 2vw, 3rem);
+  gap: clamp(2rem, 3.25vw, 3.75rem);
 }
 .site-nav__links a {
   font-family: 'Proza Libre', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.4px;
-  color: var(--cream); text-decoration: none; transition: transform 0.2s, color 0.2s;
-  display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1; max-width: 120px;
+  color: var(--cream); text-decoration: none; transition: color 0.2s;
+  display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1;
 }
-.site-nav__label { display: block; white-space: normal; overflow-wrap: anywhere; line-height: 1.1; }
-.site-nav__sub {
-  display: block; font-family: 'Proza Libre', sans-serif; font-weight: 400;
-  font-size: 15px; line-height: 1.2; margin-top: 0.15rem;
-}
-.site-nav__links a:hover { transform: translateY(-2px); }
+.site-nav__label { display: block; white-space: nowrap; line-height: 1.1; }
+.site-nav__links a:hover { color: #fff; }
 
 /* Hero */
+.hero { position: relative; }
 .hero__inner {
   max-width: 1440px; margin: 0 auto; text-align: center; position: relative; z-index: 2;
 }
@@ -85,23 +84,14 @@ body {
 }
 
 /* Below Fold */
-.below-fold { position: relative; background: var(--cream); }
+.below-fold { position: relative; z-index: 10; background: var(--cream); }
 
 /* Intro Section */
-.intro { transform: translateY(5%); }
+.intro { position: relative; transform: none; padding-top: 2.5rem; }
 .intro__inner {
   position: relative; max-width: 1440px; margin: 0 auto; padding: 0 2rem; z-index: 3;
   display: grid; grid-template-columns: 1fr; justify-items: center; align-items: start;
 }
-.intro__wave {
-  position: absolute; top: 0; left: 50%;
-  width: 160vw; min-height: 300px; transform: translateX(-50%) translateY(-40%);
-  z-index: 2; pointer-events: none;
-}
-.intro__wave-mobile-ocean {
-  display: none;
-}
-.intro__wave img { width: 100%; height: auto; display: block; }
 @media (max-width: 1200px) { .intro__inner { flex-direction: column; } }
 .intro__text { max-width: 731px; width: 100%; margin: 0 auto; }
 .intro__text h2 {
@@ -611,31 +601,11 @@ body.story-theme--culture .culture-cycle-graphic img {
   .site-nav__links a { font-size: 16px; }
   .site-nav__sub { font-size: 12px; }
   .hero { height: min(86vh, 640px); min-height: 520px; padding: 80px 1rem 4.5rem; }
-  .hero::after { height: clamp(52px, 16vw, 92px); }
   .hero__title { font-size: clamp(36px, 9vw, 56px); font-weight: semibold; }
   .hero__badge { font-size: 20px; font-weight: normal; }
-  .intro__wave-mobile {
-    display: block !important; position: absolute; left: 50%; bottom: 0;
-    width: 160vw; height: 80px; max-height: 120px; transform: translateX(-50%) translateY(250%);
-    z-index: 1; pointer-events: none; overflow: hidden;
-  }
-
-  .intro__wave-mobile-ocean {
-    display: block !important; position: absolute; left: 50%; bottom: 0;
-    width: 160vw; height: 80px; max-height: 120px; transform: translateX(-50%) translateY(200%);
-    z-index: 1; pointer-events: none; overflow: hidden;
-  }
-  .intro__wave-mobile img {
-    width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center;
-  }
-
-  .intro__wave-mobile-ocean img {
-    width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center;
-  }
-  .intro__wave { display: none; }
   .listen-button { font-size: 15px; padding: 0.58rem 0.95rem; font-weight: normal; }
   .listen-button__icon { width: 15px; height: 15px; }
-  .intro__inner { padding: 0 1rem; transform: translateY(-5%); }
+  .intro__inner { padding: 0 1rem; transform: none; }
   .content-section { padding: 3rem 1rem; }
   .video-block, .photo-story { margin: 2rem auto; padding: 0 1rem; }
   .related-stories__grid,
@@ -659,7 +629,6 @@ body.story-theme--culture .culture-cycle-graphic img {
     text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;
   }
   .story-credits__name { font-family: Gelasio, Georgia, serif; margin-bottom: 0.25rem; }
-  .intro__wave { transform: translateX(-50%) translateY(-25%); }
   .intro__text { font-size: clamp(14px, 1.75vw, 18px); }
   .content-section_story { padding: 0 1rem; }
   .content-section__text { font-size: clamp(14px, 1.75vw, 18px); }

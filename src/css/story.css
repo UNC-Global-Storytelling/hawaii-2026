@@ -46,6 +46,7 @@ body {
 
 .below-fold {
   position: relative;
+  z-index: 10;
   background: var(--cream);
   overflow-x: hidden;
 }
@@ -72,16 +73,6 @@ body {
   background-size: cover;
   padding: 120px 2rem 7.5rem;
   overflow: hidden;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -2px 0;
-  height: clamp(64px, 10vw, 132px);
-  background: url("/assets/images/layouts/mountain-wave.svg") center bottom / 100% 100% no-repeat;
-  z-index: 1;
-  pointer-events: none;
 }
 
 .hero__inner {
@@ -125,28 +116,12 @@ body {
 /* Intro */
 .intro {
   position: relative;
-  padding: 0 0 4rem;
+  padding: 2.5rem 0 4rem;
   background: var(--cream);
 }
 
 .intro__wave {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40vh;
-  min-height: 300px;
-  pointer-events: none;
-  z-index: 2;
-  transform: translateY(-90%);
-}
-
-.intro__wave img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
+  display: none !important;
 }
 
 .intro__inner {
@@ -633,7 +608,6 @@ body {
   .site-nav__links a { font-size: 16px; }
   .site-nav__sub { font-size: 12px; }
   .hero { height: min(86vh, 640px); min-height: 520px; padding: 80px 1rem 4.5rem; }
-  .hero::after { height: clamp(52px, 16vw, 92px); }
   .hero__title { font-size: clamp(42px, 9vw, 64px); }
   .hero__badge { font-size: 20px; }
   .listen-button { font-size: 22px; padding: 0.58rem 0.95rem; }

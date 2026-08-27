@@ -15,6 +15,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--eco-green, #9a7faf);
 }
 
 body {
@@ -316,6 +317,7 @@ body {
   position: relative;
   overflow: hidden;
   height: 520px;
+  color: var(--eco-green, #9a7faf);
 }
 
 .site-footer__bg {
@@ -323,6 +325,13 @@ body {
   inset: 0;
   width: 100%;
   line-height: 0;
+  background-color: var(--eco-green, #9a7faf);
+  -webkit-mask-image: url("/assets/images/layouts/footer-mountain.svg");
+  mask-image: url("/assets/images/layouts/footer-mountain.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .site-footer__bg img {
@@ -330,6 +339,7 @@ body {
   height: 100%;
   display: block;
   object-fit: fill;
+  opacity: 0;
 }
 
 .site-footer__content {
@@ -482,6 +492,13 @@ body {
     inset: 0;
     width: 100%;
     line-height: 0;
+    background-color: var(--eco-green, #9a7faf);
+    -webkit-mask-image: url("/assets/images/layouts/footer-mountain.svg");
+    mask-image: url("/assets/images/layouts/footer-mountain.svg");
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
   }
   
   .site-footer__bg img {
@@ -490,6 +507,7 @@ body {
     display: block;
     object-fit: cover;
     object-position: left-start;
+    opacity: 0;
   }
   
   .site-footer__content {

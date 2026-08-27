@@ -6,14 +6,19 @@
 }
 
 /* Theme colors */
+html.story-theme--eco,
 body.story-theme--eco        { --eco-green: #75a40a; }
+html.story-theme--ocean,
 body.story-theme--ocean      { --eco-green: #0f3057; }
+html.story-theme--resilience,
 body.story-theme--resilience { --eco-green: #1691b3; }
+html.story-theme--food,
 body.story-theme--food       { --eco-green: #7a4e3a; }
+html.story-theme--culture,
 body.story-theme--culture    { --eco-green: #d85f5f; }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background-color: var(--eco-green, #9a7faf); }
 body {
   margin: 0;
   font-family: Gelasio, Georgia, serif;
@@ -257,7 +262,11 @@ body {
   max-height: 82vh; overflow: visible; border-radius: 0;
   display: flex; align-items: center; justify-content: center;
   transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
 }
+.photo-story__stage.is-dragging { cursor: grabbing; }
 .photo-story__media {
   position: absolute; top: 50%; left: 0; width: 100%; height: 100%;
   transform: translateY(-50%) translateX(0) scale(1); opacity: 1; z-index: 1;

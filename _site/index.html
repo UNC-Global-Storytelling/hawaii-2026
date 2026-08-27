@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mālama Maui — The Land We Hold</title>
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/home.css?v=20260827-4">
     <link rel="icon" href="/assets/images/logos/favicon.ico" sizes="any">
     <link rel="icon" href="/assets/images/logos/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/assets/images/logos/apple-touch-icon.png">
     <link rel="manifest" href="/assets/images/logos/site.webmanifest">
-    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/components.css?v=20260827-4">
   </head>
 <body class="page-home">
   <main>
@@ -478,19 +478,39 @@
     var lastY = window.scrollY || 0;
     var minDelta = 6;
     var showAtTop = 60;
-    var heroWait = true;
     var heroWaitMs = 3000;
 
-    nav.classList.add('site-nav--hidden');
-    nav.classList.add('site-nav--hero-wait');
-
-    setTimeout(function () {
-      heroWait = false;
-      nav.classList.remove('site-nav--hero-wait');
-      if ((window.scrollY || 0) <= showAtTop) {
-        nav.classList.remove('site-nav--hidden');
+    function isReturnFromSitePage() {
+      var ref = document.referrer;
+      if (!ref) return false;
+      try {
+        var url = new URL(ref);
+        if (url.origin !== window.location.origin) return false;
+        var from = url.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+        var here = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+        return from !== here;
+      } catch (e) {
+        return false;
       }
-    }, heroWaitMs);
+    }
+
+    var skipHeroWait = isReturnFromSitePage();
+    var heroWait = !skipHeroWait;
+
+    if (skipHeroWait) {
+      nav.classList.remove('site-nav--hidden');
+      nav.classList.remove('site-nav--hero-wait');
+    } else {
+      nav.classList.add('site-nav--hidden');
+      nav.classList.add('site-nav--hero-wait');
+      setTimeout(function () {
+        heroWait = false;
+        nav.classList.remove('site-nav--hero-wait');
+        if ((window.scrollY || 0) <= showAtTop) {
+          nav.classList.remove('site-nav--hidden');
+        }
+      }, heroWaitMs);
+    }
 
     function onScroll() {
       var currentY = window.scrollY || 0;

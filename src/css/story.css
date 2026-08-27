@@ -341,6 +341,13 @@ body {
   align-items: center;
   justify-content: center;
   transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.photo-story__stage.is-dragging {
+  cursor: grabbing;
 }
 
 .photo-story__media {

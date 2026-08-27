@@ -20,20 +20,20 @@ body.page-about {
 }
 
 .page-about .intro {
-  padding: 2.75rem 0 4rem;
+  padding: 0.5rem 0 4rem;
 }
 
 .page-about .below-fold {
   margin-top: 0;
 }
 
-/* Class portrait: full-bleed width; flush to top of viewport (nav overlays) */
+/* Match Home: photo fills the first screen, same curve peek at the bottom */
 .page-about .hero {
   margin-top: 0;
   display: block;
   width: 100%;
-  height: auto;
-  min-height: 0;
+  height: calc(100dvh - 4rem);
+  min-height: calc(100dvh - 4rem);
   max-height: none;
   overflow: hidden;
   position: relative;
@@ -42,7 +42,7 @@ body.page-about {
 .page-about .hero__media {
   position: relative;
   width: 100%;
-  height: 110vh;
+  height: 100%;
   min-height: 0;
   background: #252220;
   display: flex;
@@ -51,14 +51,13 @@ body.page-about {
 }
 
 .page-about .hero__media img {
-  position: static;
-  inset: auto;
+  position: absolute;
+  inset: 0;
   width: 100%;
   max-width: 100%;
-  height: auto;
-  vertical-align: middle;
-  object-fit: unset;
-  object-position: unset;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
   mix-blend-mode: normal;
   display: block;
   transform: none;
@@ -624,6 +623,13 @@ body.page-about.page-about--nav-docked .theme-divider[data-profile-filters] {
   align-items: center;
   justify-content: center;
   transition: width 700ms cubic-bezier(.4,0,.2,1), transform 700ms cubic-bezier(.4,0,.2,1);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.photo-story__stage.is-dragging {
+  cursor: grabbing;
 }
 
 .photo-story__media {

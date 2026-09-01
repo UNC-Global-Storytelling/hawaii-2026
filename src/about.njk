@@ -93,7 +93,7 @@ foot: |
 
 <section class="everyone" aria-labelledby="everyone-title">
   {% set people = [
-    { role: "PHOTO", group: "CLIMATE", team: "CLIMATE", category: "photo-video", name: "Uredo Agada", blob: "blue", portfolio: false },
+    { role: "PHOTO", group: "RESILIENCE", team: "RESILIENCE", category: "photo-video", name: "Uredo Agada", blob: "blue", portfolio: false },
     { role: "PHOTO", group: "FOOD", team: "FOOD", category: "photo-video", name: "Snigdha Agasthyaraju", blob: "brown", portfolio: true },
     { role: "DESIGN", group: "FOOD", team: "FOOD", category: "interactive", name: "Teo Almaguer", blob: "brown", portfolio: false },
     { role: "DESIGN", group: "CULTURE", team: "CULTURE", category: "interactive", name: "Kristine Bautista", blob: "red", portfolio: false },
@@ -105,18 +105,18 @@ foot: |
     { role: "PHOTO/DEV", group: "ECO", team: "ECO", category: "interactive photo-video", name: "Benjamin Eggleston", blob: "green", portfolio: true },
     { role: "VIDEO", group: "ECO", team: "ECO", category: "photo-video", name: "Amelie Fawson", blob: "green", portfolio: false },
     { role: "LOCAL PRODUCER", group: "", team: "LOCAL PRODUCERS", category: "local-producers", name: "Paul Hanada", blob: "purple", portfolio: false },
-    { role: "VIDEO", group: "CLIMATE", team: "CLIMATE", category: "photo-video", name: "Aayas Joshi", blob: "blue", portfolio: false },
+    { role: "VIDEO", group: "RESILIENCE", team: "RESILIENCE", category: "photo-video", name: "Aayas Joshi", blob: "blue", portfolio: false },
     { role: "VIDEO", group: "CULTURE", team: "CULTURE", category: "photo-video", name: "Kyla Joyner", blob: "red", portfolio: false },
     { role: "PHOTO", group: "CULTURE", team: "CULTURE", category: "photo-video", name: "Sophia Katz", blob: "red", portfolio: false },
     { role: "LOCAL PRODUCER", group: "", team: "LOCAL PRODUCERS", category: "local-producers", name: "Selket Kaufman", blob: "purple", portfolio: false },
     { role: "VIDEO", group: "ECO", team: "ECO", category: "photo-video", name: "Diego Lerma", blob: "green", portfolio: false },
     { role: "VIDEO", group: "FOOD", team: "FOOD", category: "photo-video", name: "Dallia Lindell", blob: "brown", portfolio: false },
-    { role: "REPORTER", group: "CLIMATE", team: "CLIMATE", category: "reporters", name: "Keya Mahajan", blob: "blue", portfolio: false },
+    { role: "REPORTER", group: "RESILIENCE", team: "RESILIENCE", category: "reporters", name: "Keya Mahajan", blob: "blue", portfolio: false },
     { role: "VIDEO", group: "CULTURE", team: "CULTURE", category: "photo-video", name: "Nikhil Mehta", blob: "red", portfolio: false },
     { role: "SOCIAL MEDIA", group: "OCEAN", team: "OCEAN", category: "interactive", name: "Camila Menendez", blob: "navy", portfolio: false },
     { role: "REPORTER", group: "CULTURE", team: "CULTURE", category: "reporters", name: "Bella Pires", blob: "red", portfolio: false },
     { role: "LOCAL PRODUCER", group: "", team: "LOCAL PRODUCERS", category: "local-producers", name: "Marina Riker", blob: "purple", portfolio: false },
-    { role: "DESIGN", group: "CLIMATE", team: "CLIMATE", category: "interactive", name: "Phoebe Sabet", blob: "blue", portfolio: false },
+    { role: "DESIGN", group: "RESILIENCE", team: "RESILIENCE", category: "interactive", name: "Phoebe Sabet", blob: "blue", portfolio: false },
     { role: "FACULTY/COACH", group: "", team: "FACULTY/COACHES", category: "faculty-coaches", name: "Carlos Salas", blob: "purple", portfolio: false },
     { role: "DEV", group: "ECO", team: "ECO", category: "interactive", name: "Grant Sizemore", blob: "green", portfolio: false },
     { role: "VIDEO", group: "FOOD", team: "FOOD", category: "photo-video", name: "Jordann Smith-Burgess", blob: "brown", portfolio: false },
@@ -125,7 +125,7 @@ foot: |
     { role: "REPORTER", group: "ECO", team: "ECO", category: "reporters", name: "Catherine Wiles", blob: "green", portfolio: false },
     { role: "VIDEO", group: "OCEAN", team: "OCEAN", category: "photo-video", name: "Hayden Wittenborn", blob: "navy", portfolio: false },
     { role: "FACULTY", group: "", team: "FACULTY/COACHES", category: "faculty-coaches", name: "Hui Yang", blob: "purple", portfolio: false },
-    { role: "DESIGN", group: "CLIMATE", team: "CLIMATE", category: "interactive", name: "Zara Zia", blob: "blue", portfolio: false }
+    { role: "DESIGN", group: "RESILIENCE", team: "RESILIENCE", category: "interactive", name: "Zara Zia", blob: "blue", portfolio: false }
   ] %}
   <div class="everyone__inner">
     <h2 id="everyone-title" data-people-heading>Everyone</h2>
@@ -154,11 +154,11 @@ foot: |
       </div>
     </div>
     <div class="teams-scroll" data-teams-scroll hidden>
-      {% set team_order = ["ECO", "OCEAN", "CLIMATE", "FOOD", "CULTURE", "FACULTY/COACHES", "LOCAL PRODUCERS"] %}
+      {% set team_order = ["ECO", "OCEAN", "RESILIENCE", "FOOD", "CULTURE", "FACULTY/COACHES", "LOCAL PRODUCERS"] %}
       {% set team_labels = {
         "ECO": "Eco",
         "OCEAN": "Ocean",
-        "CLIMATE": "Climate",
+        "RESILIENCE": "Resilience",
         "FOOD": "Food",
         "CULTURE": "Culture",
         "FACULTY/COACHES": "Faculty/Coaches",
@@ -167,7 +167,7 @@ foot: |
       {% for team_name in team_order %}
       <section class="team-block" data-team="{{ team_name }}">
         <h3>{{ team_labels[team_name] }}</h3>
-        <div class="team-block__blob" data-blob-bg="{% if team_name == 'ECO' %}green{% elif team_name == 'OCEAN' %}navy{% elif team_name == 'CLIMATE' %}blue{% elif team_name == 'FOOD' %}brown{% elif team_name == 'CULTURE' %}red{% else %}purple{% endif %}">
+        <div class="team-block__blob" data-blob-bg="{% if team_name == 'ECO' %}green{% elif team_name == 'OCEAN' %}navy{% elif team_name == 'RESILIENCE' %}blue{% elif team_name == 'FOOD' %}brown{% elif team_name == 'CULTURE' %}red{% else %}purple{% endif %}">
           <div class="team-block__grid">
             {% for person in people %}
             {% if person.team == team_name %}

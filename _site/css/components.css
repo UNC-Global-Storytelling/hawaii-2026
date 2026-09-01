@@ -476,33 +476,38 @@ body {
   .site-footer {
     position: relative;
     overflow: hidden;
-    height: auto;
-    min-height: 280px;
-    background-color: var(--eco-green, #9a7faf);
-    padding: 3.25rem 0 2.5rem;
+    height: 520px;
+    min-height: 520px;
+    padding: 0;
+    background-color: transparent;
     z-index: 12;
   }
 
   .site-footer::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 140%;
-    height: 80px;
-    border-radius: 50% 50% 0 0;
-    background: var(--eco-green, #9a7faf);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 1;
+    content: none;
   }
 
-  .site-footer__bg,
+  .site-footer__bg {
+    display: block !important;
+    position: absolute;
+    inset: auto;
+    left: 0;
+    bottom: 0;
+    width: 300vw;
+    height: calc(300vw * 668 / 1439.5);
+    background-color: var(--eco-green, #9a7faf) !important;
+    -webkit-mask-image: url("/assets/images/layouts/footer-mountain.svg?v=20260827-6") !important;
+    mask-image: url("/assets/images/layouts/footer-mountain.svg?v=20260827-6") !important;
+    -webkit-mask-size: 100% 100% !important;
+    mask-size: 100% 100% !important;
+    -webkit-mask-position: left bottom !important;
+    mask-position: left bottom !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+  }
+
   .site-footer__bg img {
     display: none !important;
-    -webkit-mask-image: none !important;
-    mask-image: none !important;
-    background: none !important;
   }
 
   .site-footer__about {
@@ -510,12 +515,12 @@ body {
   }
 
   .site-footer__content {
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding-bottom: 0;
+    padding-bottom: 2.5rem;
     z-index: 2;
   }
   

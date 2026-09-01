@@ -614,31 +614,16 @@ body {
   .site-nav__links { gap: 1rem; }
   .site-nav__links a { font-size: 16px; }
   .site-nav__sub { font-size: 12px; }
-  .hero { height: min(86vh, 640px); min-height: 520px; padding: 80px 1rem 2.75rem; overflow: hidden; position: relative; }
-  .hero::before,
-  .hero::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    width: 118%;
-    height: 68px;
-    border-radius: 50% 50% 0 0;
-    pointer-events: none;
-    z-index: 4;
-  }
-  .hero::after {
-    transform: translate(-50%, 18%);
-    background: var(--eco-green, #9a7faf);
-    opacity: 0.5;
-  }
-  .hero::before {
-    transform: translate(-50%, 32%);
-    background: var(--cream);
-    box-shadow: 0 -3px 0 var(--eco-green, #9a7faf);
+  .hero {
+    height: auto !important; min-height: 60vh !important; max-height: unset !important;
+    overflow: hidden; position: relative; padding-bottom: 1.25rem !important;
   }
   .intro::before,
-  .intro::after { display: none; }
+  .intro::after {
+    display: block;
+    width: 130%;
+    height: 70px;
+  }
   .hero__title { font-size: clamp(42px, 9vw, 64px); }
   .hero__badge { font-size: 20px; }
   .listen-button { font-size: 22px; padding: 0.58rem 0.95rem; }
